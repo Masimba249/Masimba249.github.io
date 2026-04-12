@@ -349,6 +349,45 @@
     .project-link-icon { color: var(--text-muted); font-size: 0.8rem; transition: color 0.2s; }
     .project-card:hover .project-link-icon { color: var(--accent); }
 
+    /* ===== CONTRIBUTIONS ===== */
+    #contributions { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .contrib-repo {
+      background: var(--bg-card2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem; max-width: 800px; margin: 0 auto;
+    }
+    .contrib-repo-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem;
+      padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+    }
+    .contrib-repo-name {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 1rem; font-weight: 700; color: var(--text);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .contrib-repo-name:hover { color: var(--accent); }
+    .contrib-repo-name i { color: var(--text-muted); }
+    .contrib-repo-desc { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem; }
+    .contrib-badge {
+      background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25);
+      border-radius: 50px; padding: 0.25rem 0.75rem;
+      font-size: 0.75rem; color: var(--accent3); font-weight: 600; white-space: nowrap;
+    }
+    .contrib-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .contrib-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.75rem; border-radius: 10px; text-decoration: none; color: inherit;
+      border: 1px solid transparent; transition: all 0.2s;
+    }
+    .contrib-item:hover { background: rgba(0,212,255,0.04); border-color: var(--border); }
+    .contrib-pr-icon { color: var(--accent3); font-size: 0.9rem; margin-top: 2px; flex-shrink: 0; }
+    .contrib-pr-title { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+    .contrib-pr-desc { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .contrib-pr-num {
+      margin-left: auto; font-size: 0.72rem; color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace; flex-shrink: 0;
+    }
+
     /* ===== EDUCATION ===== */
     #education { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
@@ -480,6 +519,7 @@
     <li><a href="#projects" class="nav-highlight">Projects</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#contributions">Contributions</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#certifications">Certs</a></li>
     <li><a href="#publication">Research</a></li>
@@ -918,10 +958,81 @@
       </a>
 
     </div>
+
+    <!-- Auto-loaded repos -->
+    <div style="margin-top:2.5rem;">
+      <h3 style="font-size:1rem;font-weight:700;color:var(--text-muted);margin-bottom:1.25rem;text-align:center;">
+        <i class="fas fa-sync-alt" style="color:var(--accent);margin-right:0.4rem;"></i> More from GitHub <span style="font-size:0.75rem;opacity:0.6;">(auto-updated)</span>
+      </h3>
+      <div id="auto-projects" class="projects-grid"></div>
+      <p id="auto-projects-empty" style="text-align:center;color:var(--text-muted);font-size:0.85rem;display:none;">
+        All repositories are featured above.
+      </p>
+    </div>
   </div>
 </section>
 
-<!-- EDUCATION -->
+<!-- OPEN SOURCE CONTRIBUTIONS -->
+<section id="contributions">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Open Source</span>
+      <h2 class="section-title">External <span class="highlight">Contributions</span></h2>
+      <p class="section-desc">Pull requests and contributions to repositories I don't own.</p>
+    </div>
+
+    <!-- rassulz/multirobot_painting_control_system -->
+    <div class="contrib-repo">
+      <div class="contrib-repo-header">
+        <div>
+          <a href="https://github.com/rassulz/multirobot_painting_control_system" target="_blank" class="contrib-repo-name">
+            <i class="fab fa-github"></i> rassulz / multirobot_painting_control_system
+          </a>
+          <div class="contrib-repo-desc">Multi-robot painting control system — BSc thesis project (KBTU)</div>
+        </div>
+        <span class="contrib-badge">5 Pull Requests</span>
+      </div>
+      <div class="contrib-list">
+        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/5" target="_blank" class="contrib-item">
+          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
+          <div>
+            <div class="contrib-pr-title">Add MATLAB KUKA control files and waypoints</div>
+            <div class="contrib-pr-desc">Full implementation of D-H Algorithm for the KUKA Robot Controller</div>
+          </div>
+          <span class="contrib-pr-num">#5</span>
+        </a>
+        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/4" target="_blank" class="contrib-item">
+          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
+          <div>
+            <div class="contrib-pr-title">KUKA Integration ReadMe &amp; MATLAB networking config</div>
+            <div class="contrib-pr-desc">Added step-by-step guide for KUKA integration with MATLAB and networking configuration files</div>
+          </div>
+          <span class="contrib-pr-num">#4</span>
+        </a>
+        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/3" target="_blank" class="contrib-item">
+          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
+          <div>
+            <div class="contrib-pr-title">Add PLC Implementation &amp; Hardware description</div>
+            <div class="contrib-pr-desc">PLC implementation folder and hardware description for Almat PLC and Ayans hardware</div>
+          </div>
+          <span class="contrib-pr-num">#3</span>
+        </a>
+        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/2" target="_blank" class="contrib-item">
+          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
+          <div>
+            <div class="contrib-pr-title">Add README and initial project structure</div>
+            <div class="contrib-pr-desc">Established project documentation and folder structure</div>
+          </div>
+          <span class="contrib-pr-num">#2</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Auto-loaded contributions -->
+    <div id="auto-contribs" style="margin-top:1.5rem;"></div>
+  </div>
+</section>
+
 <section id="education">
   <div class="container">
     <div class="section-header">
@@ -1192,6 +1303,79 @@
     © 2026 Collins Masimba. Built with ❤️ — Open to Embedded AI, Edge AI &amp; Embedded Systems opportunities.
   </div>
 </footer>
+
+<!-- AUTO-LOAD GITHUB REPOS -->
+<script>
+(function() {
+  const GITHUB_USER = 'Masimba249';
+  const FEATURED = new Set([
+    'AI-Powered-Predictive-Sensor-Node',
+    'SLAM-Navigation-in-ROS2-navigation',
+    'Hybrid-EKF-DQN-Model-for-Real-time-Stabilization',
+    'Fuzzy-PID-in-Temperature-Control-in-MatLAB-and-TIA-Portal',
+    'Multirobot-Adaptive-Control-with-Reinforcement-Learning',
+    'Implementation-of-AI-in-Fault-Detection',
+    'AI-Enabled-NICU-Monitor-Design',
+    'Motion-Planning-of-a-Trotbot-in-ROS-and-Python',
+    'Complementary-Pulse-Generator-Timer-System',
+    'Automatic-Vessel-Protection-System-in-AVP',
+    'Heart_Disease_Prediction_using_Machine_Learning',
+    'Quantus-Prime-Solutions',
+    GITHUB_USER + '.github.io'
+  ]);
+
+  const langIcons = {
+    'Python':'🐍','C':'⚙️','C++':'⚙️','MATLAB':'📊','Jupyter Notebook':'📓',
+    'HTML':'🌐','Verilog':'🔌','JavaScript':'🟨','Shell':'🖥️','Promela':'🛡️'
+  };
+
+  function escapeHtml(str) {
+    var d = document.createElement('div');
+    d.textContent = str || '';
+    return d.innerHTML;
+  }
+
+  fetch('https://api.github.com/users/' + GITHUB_USER + '/repos?per_page=100&sort=updated')
+    .then(function(r) { return r.json(); })
+    .then(function(repos) {
+      var container = document.getElementById('auto-projects');
+      var emptyMsg = document.getElementById('auto-projects-empty');
+      var newRepos = repos.filter(function(r) {
+        return !r.fork && !FEATURED.has(r.name);
+      });
+
+      if (newRepos.length === 0) {
+        emptyMsg.style.display = 'block';
+        return;
+      }
+
+      var countEl = document.querySelector('.projects-count');
+      if (countEl) {
+        var total = FEATURED.size - 1 + newRepos.length;
+        countEl.innerHTML = '<i class="fas fa-folder-open"></i> ' + total + ' Projects \u00b7 Open Source';
+      }
+
+      newRepos.forEach(function(repo) {
+        var icon = langIcons[repo.language] || '📁';
+        var lang = escapeHtml(repo.language || 'N/A');
+        var name = escapeHtml(repo.name.replace(/-/g, ' ').replace(/_/g, ' '));
+        var desc = escapeHtml(repo.description || 'No description provided.');
+
+        var card = document.createElement('a');
+        card.href = repo.html_url;
+        card.target = '_blank';
+        card.className = 'project-card';
+        card.innerHTML =
+          '<div class="project-header"><span class="project-icon">' + icon + '</span><span class="project-lang">' + lang + '</span></div>' +
+          '<div class="project-name">' + name + '</div>' +
+          '<div class="project-desc">' + desc + '</div>' +
+          '<i class="fas fa-arrow-up-right-from-square project-link-icon"></i>';
+        container.appendChild(card);
+      });
+    })
+    .catch(function() {});
+})();
+</script>
 
 </body>
 </html>
