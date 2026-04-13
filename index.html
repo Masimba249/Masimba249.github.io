@@ -87,6 +87,23 @@
     }
     .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(16,185,129,0.4); }
 
+    /* Portfolio PDF button */
+    .btn-portfolio {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: #fff;
+      padding: 0.6rem 1.25rem; border-radius: 10px; border: none;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+      transition: all 0.25s; font-family: 'Inter', sans-serif;
+      text-decoration: none;
+    }
+    .btn-portfolio:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.4); }
+    .btn-portfolio.generating { opacity: 0.7; cursor: wait; }
+    .projects-header-actions {
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+      margin-top: 1rem; flex-wrap: wrap;
+    }
+
     /* Language switcher */
     .lang-switch {
       display: inline-flex; align-items: center; gap: 0.2rem;
@@ -1075,11 +1092,16 @@
       <span class="section-label">Portfolio · GitHub</span>
       <h2 class="section-title">Featured <span class="highlight">Project Portfolio</span></h2>
       <p class="section-desc">A curated set of projects spanning embedded AI, robotics, automation, and power systems.</p>
-      <div class="projects-count"><i class="fas fa-folder-open"></i> 12 Projects · Open Source</div>
+      <div class="projects-header-actions">
+        <div class="projects-count"><i class="fas fa-folder-open"></i> 12 Projects · Open Source</div>
+        <button class="btn-portfolio" id="download-portfolio" onclick="generatePortfolioPDF()">
+          <i class="fas fa-file-pdf"></i> Download Portfolio PDF
+        </button>
+      </div>
     </div>
     <div class="projects-grid">
 
-      <a href="https://github.com/Masimba249/AI-Powered-Predictive-Sensor-Node" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/AI-Powered-Predictive-Sensor-Node" target="_blank" class="project-card" data-detail="Designed and implemented an edge AI sensor node on STM32 microcontroller for predictive maintenance in industrial environments. The system uses TinyML (TensorFlow Lite Micro) running on FreeRTOS to perform real-time anomaly detection on sensor data streams (temperature, vibration, pressure). Implemented MQTT-based telemetry for cloud reporting and alert generation. Achieves sub-10ms inference latency enabling immediate fault response. The firmware architecture follows a modular FreeRTOS task design with separate threads for sensor acquisition, ML inference, and MQTT communication." data-detail-de="Entwurf und Implementierung eines Edge-AI-Sensorknotens auf STM32-Mikrocontroller für vorausschauende Wartung in industriellen Umgebungen. Das System nutzt TinyML (TensorFlow Lite Micro) auf FreeRTOS zur Echtzeit-Anomalieerkennung in Sensordatenströmen (Temperatur, Vibration, Druck). MQTT-basierte Telemetrie für Cloud-Berichterstellung und Alarmgenerierung implementiert. Erreicht eine Inferenzlatenz unter 10ms für sofortige Fehlerreaktion. Die Firmware-Architektur folgt einem modularen FreeRTOS-Task-Design mit separaten Threads für Sensorerfassung, ML-Inferenz und MQTT-Kommunikation.">
         <div class="project-header"><span class="project-icon">🔋</span><span class="project-lang">C</span></div>
         <div class="project-name">AI-Powered Predictive Sensor Node</div>
         <div class="project-desc">Edge AI anomaly detection on STM32 using TinyML + FreeRTOS + MQTT. Detects sensor drift and predicts failures before they occur.</div>
@@ -1093,7 +1115,7 @@
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/SLAM-Navigation-in-ROS2-navigation" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/SLAM-Navigation-in-ROS2-navigation" target="_blank" class="project-card" data-detail="Built a complete autonomous navigation stack for a mobile robot using ROS2 Humble. Integrated SLAM Toolbox for real-time map generation, Nav2 with MPPI (Model Predictive Path Integral) controller for trajectory planning, and Gazebo for physics-based simulation. The robot autonomously maps unknown environments, localises itself using AMCL, and navigates to goal positions while avoiding static and dynamic obstacles. Achieved a 5.56% improvement in navigation efficiency (from 0.90 to 0.95 success rate) by tuning costmap parameters and MPPI controller weights. Includes launch files, custom URDF, and sensor integration (LiDAR + IMU)." data-detail-de="Aufbau eines vollständigen autonomen Navigations-Stacks für einen mobilen Roboter mit ROS2 Humble. Integration von SLAM Toolbox zur Echtzeit-Kartenerstellung, Nav2 mit MPPI-Controller (Model Predictive Path Integral) zur Trajektorienplanung und Gazebo für physikbasierte Simulation. Der Roboter kartiert selbstständig unbekannte Umgebungen, lokalisiert sich mittels AMCL und navigiert zu Zielpositionen unter Vermeidung statischer und dynamischer Hindernisse. 5,56% Verbesserung der Navigationseffizienz (von 0,90 auf 0,95 Erfolgsrate) durch Optimierung der Costmap-Parameter und MPPI-Controller-Gewichte. Enthält Launch-Dateien, benutzerdefiniertes URDF und Sensorintegration (LiDAR + IMU).">
         <div class="project-header"><span class="project-icon">🗺️</span><span class="project-lang">Python</span></div>
         <div class="project-name">SLAM Navigation in ROS2</div>
         <div class="project-desc">Autonomous mobile robot with SLAM Toolbox, Nav2 MPPI Controller &amp; Gazebo simulation. Full autonomous navigation pipeline.</div>
@@ -1107,7 +1129,7 @@
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="project-card" data-detail="IEEE-published research project proposing a hybrid approach combining Extended Kalman Filter (EKF) for robust state estimation with a Deep Q-Network (DQN) for autonomous stabilisation of quadcopter UAVs. Addresses the challenge of maintaining stable flight in GPS-denied and turbulent environments where traditional PID controllers fail. The EKF fuses noisy IMU and barometer data to produce accurate attitude estimates, while the DQN agent learns optimal corrective thrust commands through trial-and-error in a MATLAB/Simulink simulation environment. Demonstrated significant reduction in roll/pitch drift compared to baseline PID, validated across multiple wind disturbance scenarios. Published at IEEE Conference 2026." data-detail-de="IEEE-veröffentlichtes Forschungsprojekt mit einem hybriden Ansatz: Extended Kalman Filter (EKF) für robuste Zustandsschätzung kombiniert mit Deep Q-Network (DQN) zur autonomen Stabilisierung von Quadcopter-UAVs. Adressiert die Herausforderung stabilen Flugs in GPS-freien und turbulenten Umgebungen, in denen herkömmliche PID-Regler versagen. Der EKF fusioniert verrauschte IMU- und Barometerdaten zu präzisen Lageinschätzungen, während der DQN-Agent optimale Schubkorrekturbefehle durch Trial-and-Error in MATLAB/Simulink erlernt. Signifikante Reduktion der Roll-/Nickabweichung gegenüber Basis-PID, validiert über mehrere Windstörungsszenarien. Veröffentlicht auf der IEEE-Konferenz 2026.">
         <div class="project-header"><span class="project-icon">🚁</span><span class="project-lang">MATLAB</span></div>
         <div class="project-name">Hybrid EKF-DQN Quadcopter Stabilization</div>
         <div class="project-desc"><strong style="color:var(--accent2)">IEEE Published</strong> — Hybrid EKF-DQN model for real-time UAV stabilization. Significant drift reduction vs baseline PID.</div>
@@ -1121,7 +1143,7 @@
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/Fuzzy-PID-in-Temperature-Control-in-MatLAB-and-TIA-Portal" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/Fuzzy-PID-in-Temperature-Control-in-MatLAB-and-TIA-Portal" target="_blank" class="project-card" data-detail="Developed an industrial-grade hybrid Fuzzy-PID temperature controller for HVAC systems. The Fuzzy Logic layer dynamically adjusts PID gains (Kp, Ki, Kd) based on error magnitude and rate of change, enabling superior transient response and reduced overshoot compared to conventional PID. Designed and simulated the control system in MATLAB/Simulink, then deployed the validated controller on Siemens S7-1200 PLC via TIA Portal with HMI visualisation for operator monitoring. The project demonstrates the full control engineering workflow: plant modelling, controller design, simulation, and PLC deployment for industrial temperature regulation." data-detail-de="Entwicklung eines industrietauglichen hybriden Fuzzy-PID-Temperaturreglers für HLK-Anlagen. Die Fuzzy-Logic-Schicht passt die PID-Verstärkungen (Kp, Ki, Kd) dynamisch an Fehlergröße und Änderungsrate an und ermöglicht besseres Übergangsverhalten und reduziertes Überschwingen gegenüber konventionellem PID. Entwurf und Simulation des Regelsystems in MATLAB/Simulink, anschließend Deployment des validierten Reglers auf Siemens S7-1200 SPS über TIA Portal mit HMI-Visualisierung zur Bedienerüberwachung. Das Projekt demonstriert den vollständigen regelungstechnischen Workflow: Streckenmodellierung, Reglerentwurf, Simulation und SPS-Deployment für industrielle Temperaturregelung.">
         <div class="project-header"><span class="project-icon">🌡️</span><span class="project-lang">MATLAB</span></div>
         <div class="project-name">Fuzzy-PID Temperature Control</div>
         <div class="project-desc">Industrial HVAC temperature automation using Fuzzy-PID hybrid controller in MATLAB &amp; deployed on Siemens TIA Portal.</div>
@@ -1135,7 +1157,7 @@
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/Multirobot-Adaptive-Control-with-Reinforcement-Learning" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/Multirobot-Adaptive-Control-with-Reinforcement-Learning" target="_blank" class="project-card" data-detail="Implemented a Reinforcement Learning-based adaptive control framework for coordinating multiple robot arms in collaborative industrial tasks. Each robot agent uses a policy-gradient RL algorithm to learn optimal joint trajectories and task allocation strategies, adapting in real-time to varying workpiece geometries and dynamic task requirements. The multi-agent system handles collision avoidance, workspace sharing, and synchronised handoffs between robots. Developed and validated entirely in MATLAB with Robotics Toolbox, using custom reward functions penalising collisions and rewarding task completion speed and energy efficiency." data-detail-de="Implementierung eines auf Reinforcement Learning basierenden adaptiven Regelungsframeworks zur Koordination mehrerer Roboterarme bei kollaborativen Industrieaufgaben. Jeder Roboter-Agent nutzt einen Policy-Gradient-RL-Algorithmus zum Erlernen optimaler Gelenkbahnen und Aufgabenverteilungsstrategien, mit Echtzeitanpassung an variierende Werkstückgeometrien und dynamische Aufgabenanforderungen. Das Multi-Agenten-System behandelt Kollisionsvermeidung, Arbeitsraumteilung und synchronisierte Übergaben zwischen Robotern. Vollständig in MATLAB mit Robotics Toolbox entwickelt und validiert, mit benutzerdefinierten Belohnungsfunktionen für Kollisionsvermeidung und Optimierung von Aufgabengeschwindigkeit und Energieeffizienz.">
         <div class="project-header"><span class="project-icon">🤝</span><span class="project-lang">MATLAB</span></div>
         <div class="project-name">Multi-Robot Adaptive RL Control</div>
         <div class="project-desc">Multi-robot adaptive control using Reinforcement Learning for coordinated task execution in industrial settings.</div>
@@ -1149,7 +1171,7 @@
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/Implementation-of-AI-in-Fault-Detection" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/Implementation-of-AI-in-Fault-Detection" target="_blank" class="project-card" data-detail="Developed a CNN-based fault classification system for 3-phase power transmission lines. The model processes voltage and current waveform data to detect and classify fault types (single line-to-ground, line-to-line, double line-to-ground, and three-phase faults) in real-time. Implemented data preprocessing pipeline including signal windowing, normalisation, and feature extraction. Trained and evaluated multiple architectures in MATLAB Deep Learning Toolbox, achieving high classification accuracy across all fault categories. The system is designed for integration into SCADA environments for real-time grid protection and monitoring." data-detail-de="Entwicklung eines CNN-basierten Fehlerklassifizierungssystems für 3-Phasen-Hochspannungsleitungen. Das Modell verarbeitet Spannungs- und Stromwellenformdaten zur Echtzeit-Erkennung und Klassifizierung von Fehlertypen (Einphasen-Erdschluss, Leiter-Leiter, Doppel-Erdschluss und Dreiphasenfehler). Implementierung einer Datenvorverarbeitungspipeline mit Signalfensterung, Normalisierung und Merkmalsextraktion. Training und Evaluation mehrerer Architekturen in MATLAB Deep Learning Toolbox mit hoher Klassifizierungsgenauigkeit über alle Fehlerkategorien. Das System ist für die Integration in SCADA-Umgebungen zur Echtzeit-Netzüberwachung und -schutz konzipiert.">
         <div class="project-header"><span class="project-icon">⚡</span><span class="project-lang">MATLAB</span></div>
         <div class="project-name">AI Fault Detection — Power Systems</div>
         <div class="project-desc">CNN-based AI fault detection on 3-phase power systems achieving high classification accuracy for real-time grid monitoring.</div>
@@ -1163,7 +1185,7 @@
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/AI-Enabled-NICU-Monitor-Design" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/AI-Enabled-NICU-Monitor-Design" target="_blank" class="project-card" data-detail="Designed the complete hardware platform for an AI-enabled Neonatal Intensive Care Unit (NICU) patient monitor. Created multi-layer PCB schematics in Altium Designer integrating sensors for heart rate (ECG), blood oxygen saturation (SpO2), and body temperature. Designed a custom 2D/3D enclosure optimised for bedside mounting and medical safety standards. The system supports edge AI inference for early anomaly detection in neonatal vitals, with low-power wireless connectivity for nurse station alerts. Includes full BOM, Gerber files, and mechanical drawings." data-detail-de="Entwurf der vollständigen Hardwareplattform für einen KI-gestützten Patientenmonitor für neonatale Intensivstationen (NICU). Erstellung mehrlagiger Leiterplattenschaltpläne in Altium Designer mit Integration von Sensoren für Herzfrequenz (EKG), Blutsauerstoffsättigung (SpO2) und Körpertemperatur. Entwurf eines maßgeschneiderten 2D/3D-Gehäuses, optimiert für Bettseitige Montage und medizinische Sicherheitsstandards. Das System unterstützt Edge-AI-Inferenz zur Früherkennung von Anomalien bei Neugeborenen-Vitalwerten mit energiesparender Funkverbindung für Schwesternstationsalarme. Enthält vollständige Stückliste, Gerber-Dateien und mechanische Zeichnungen.">
         <div class="project-header"><span class="project-icon">🏥</span><span class="project-lang">HTML</span></div>
         <div class="project-name">AI-Enabled NICU Monitor Design</div>
         <div class="project-desc">Complete hardware design: Altium schematic &amp; 2D/3D enclosure for an AI-enabled NICU monitor tracking HR, SpO₂, and Temp.</div>
@@ -1177,38 +1199,73 @@
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/Motion-Planning-of-a-Trotbot-in-ROS-and-Python" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/Motion-Planning-of-a-Trotbot-in-ROS-and-Python" target="_blank" class="project-card" data-detail="Developed a complete motion planning and control system for a TrotBot walking robot using ROS and Python. Implemented PID-based joint controllers for each leg actuator to achieve stable locomotion gaits. The system includes forward/inverse kinematics, gait generation algorithms, and real-time joint trajectory tracking. Sensor feedback from encoders and IMU is used for closed-loop balance control. Tested in Gazebo simulation with RViz visualisation of joint states and TF frames." data-detail-de="Entwicklung eines vollständigen Bewegungsplanungs- und Steuerungssystems für einen TrotBot-Laufroboter in ROS und Python. Implementierung PID-basierter Gelenkregler für jeden Beinaktuator zur Erzielung stabiler Fortbewegungsgangarten. Das System umfasst Vorwärts-/Inverskinematik, Gangartengenerierungsalgorithmen und Echtzeit-Gelenkbahnverfolgung. Sensorrückkopplung von Encodern und IMU wird für die Gleichgewichtsregelung im geschlossenen Regelkreis genutzt. Getestet in Gazebo-Simulation mit RViz-Visualisierung von Gelenkzuständen und TF-Frames.">
         <div class="project-header"><span class="project-icon">🐢</span><span class="project-lang">Python</span></div>
         <div class="project-name">TrotBot Motion Planning — ROS</div>
-        <div class="project-desc">Motion planning using PID controllers for a TrotBot in ROS &amp; Python.</div>
+        <div class="project-desc">Motion planning and gait control using PID controllers for a walking TrotBot robot in ROS &amp; Python with Gazebo simulation.</div>
+        <div class="project-meta">
+          <span class="project-impact"><i class="fas fa-bolt"></i> Full kinematics pipeline</span>
+          <span class="project-role">Solo developer</span>
+        </div>
+        <div class="project-badges">
+          <span class="project-badge-sm">ROS</span><span class="project-badge-sm">Python</span><span class="project-badge-sm">PID</span><span class="project-badge-sm">Gazebo</span>
+        </div>
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/Complementary-Pulse-Generator-Timer-System" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/Complementary-Pulse-Generator-Timer-System" target="_blank" class="project-card" data-detail="Developed a real-time embedded system for complementary pulse generation and precision timing on a microcontroller. Features a 4x4 keypad interface for user input of pulse parameters (frequency, duty cycle, dead-time) and a graphical LCD display for real-time waveform visualisation. The complementary outputs with configurable dead-time insertion are designed for driving H-bridge inverters in radio transmitter applications. Implemented using timer/counter peripherals with interrupt-driven precision, achieving jitter-free pulse output at frequencies up to 100 kHz." data-detail-de="Entwicklung eines Echtzeit-Embedded-Systems zur komplementären Pulserzeugung und Präzisionszeitmessung auf einem Mikrocontroller. Enthält ein 4x4-Tastenfeld zur Benutzereingabe von Pulsparametern (Frequenz, Tastverhältnis, Totzeit) und ein grafisches LCD-Display zur Echtzeit-Wellenformvisualisierung. Die komplementären Ausgänge mit konfigurierbarer Totzeiteinstellung sind für den Antrieb von H-Brücken-Wechselrichtern in Funksender-Anwendungen konzipiert. Implementiert mit Timer/Counter-Peripherie und interruptgesteuerter Präzision, jitterfreie Pulsausgabe bei Frequenzen bis 100 kHz.">
         <div class="project-header"><span class="project-icon">⏱️</span><span class="project-lang">C</span></div>
         <div class="project-name">Complementary Pulse Generator</div>
-        <div class="project-desc">Real-time microcontroller program for radio-based pulse control with keypad &amp; graphical display.</div>
+        <div class="project-desc">Real-time microcontroller system for precision complementary pulse generation with keypad input and graphical LCD display.</div>
+        <div class="project-meta">
+          <span class="project-impact"><i class="fas fa-bolt"></i> Up to 100 kHz output</span>
+          <span class="project-role">Embedded developer</span>
+        </div>
+        <div class="project-badges">
+          <span class="project-badge-sm">C</span><span class="project-badge-sm">Timers</span><span class="project-badge-sm">LCD</span><span class="project-badge-sm">Keypad</span>
+        </div>
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/Automatic-Vessel-Protection-System-in-AVP" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/Automatic-Vessel-Protection-System-in-AVP" target="_blank" class="project-card" data-detail="Formal verification project modelling an Automatic Vessel Protection (AVP) system in Promela and verifying safety properties using the SPIN model checker. The AVP system monitors vessel parameters (pressure, temperature, flow rate) and triggers protective shutdowns when unsafe conditions are detected. Modelled concurrent sensor monitoring processes, alarm logic, and actuator control with proper mutual exclusion. Verified liveness (system eventually responds) and safety (no unsafe state reached) properties using Linear Temporal Logic (LTL) assertions. Demonstrates formal methods applied to industrial safety-critical systems." data-detail-de="Formales Verifikationsprojekt zur Modellierung eines automatischen Behälterschutzsystems (AVP) in Promela und Verifikation von Sicherheitseigenschaften mit dem SPIN Model Checker. Das AVP-System überwacht Behälterparameter (Druck, Temperatur, Durchflussrate) und löst Schutzabschaltungen bei unsicheren Bedingungen aus. Modellierung nebenläufiger Sensorüberwachungsprozesse, Alarmlogik und Aktorsteuerung mit korrektem gegenseitigem Ausschluss. Verifikation von Lebendigkeits- (System reagiert schließlich) und Sicherheitseigenschaften (kein unsicherer Zustand erreichbar) mittels Linear Temporal Logic (LTL) Zusicherungen. Demonstriert formale Methoden für sicherheitskritische industrielle Systeme.">
         <div class="project-header"><span class="project-icon">🛡️</span><span class="project-lang">Promela</span></div>
         <div class="project-name">Automatic Vessel Protection System</div>
-        <div class="project-desc">Formal verification of vessel protection system modelled in Promela / SPIN.</div>
+        <div class="project-desc">Formal verification of an industrial vessel protection system using Promela/SPIN model checking with LTL safety assertions.</div>
+        <div class="project-meta">
+          <span class="project-impact"><i class="fas fa-bolt"></i> Safety-critical verified</span>
+          <span class="project-role">Formal methods engineer</span>
+        </div>
+        <div class="project-badges">
+          <span class="project-badge-sm">Promela</span><span class="project-badge-sm">SPIN</span><span class="project-badge-sm">LTL</span><span class="project-badge-sm">Formal Methods</span>
+        </div>
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/Heart_Disease_Prediction_using_Machine_Learning" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/Heart_Disease_Prediction_using_Machine_Learning" target="_blank" class="project-card" data-detail="Built a machine learning pipeline for predicting heart disease from patient clinical data using the UCI Heart Disease dataset. Implemented and compared multiple classifiers including Logistic Regression, Random Forest, SVM, KNN, and Decision Tree in Python (Scikit-learn). Performed feature engineering, correlation analysis, and hyperparameter tuning via GridSearchCV. Evaluated models using accuracy, precision, recall, F1-score, and ROC-AUC metrics. Includes Jupyter Notebook with full EDA, visualisations (Matplotlib/Seaborn), and a comparative analysis of classifier performance." data-detail-de="Aufbau einer Machine-Learning-Pipeline zur Vorhersage von Herzerkrankungen aus klinischen Patientendaten mit dem UCI Heart Disease Datensatz. Implementierung und Vergleich mehrerer Klassifikatoren: Logistische Regression, Random Forest, SVM, KNN und Entscheidungsbaum in Python (Scikit-learn). Feature Engineering, Korrelationsanalyse und Hyperparameter-Tuning mittels GridSearchCV. Bewertung der Modelle anhand von Accuracy, Precision, Recall, F1-Score und ROC-AUC-Metriken. Enthält Jupyter Notebook mit vollständiger explorativer Datenanalyse, Visualisierungen (Matplotlib/Seaborn) und vergleichender Analyse der Klassifikatorleistung.">
         <div class="project-header"><span class="project-icon">❤️</span><span class="project-lang">Jupyter</span></div>
         <div class="project-name">Heart Disease Prediction — ML</div>
-        <div class="project-desc">Heart disease prediction using machine learning classifiers in Python / Jupyter Notebook.</div>
+        <div class="project-desc">Heart disease prediction pipeline comparing multiple ML classifiers with full EDA and hyperparameter tuning in Python.</div>
+        <div class="project-meta">
+          <span class="project-impact"><i class="fas fa-bolt"></i> 5 classifiers compared</span>
+          <span class="project-role">Data scientist</span>
+        </div>
+        <div class="project-badges">
+          <span class="project-badge-sm">Scikit-learn</span><span class="project-badge-sm">Pandas</span><span class="project-badge-sm">Seaborn</span><span class="project-badge-sm">GridSearchCV</span>
+        </div>
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
-      <a href="https://github.com/Masimba249/Quantus-Prime-Solutions" target="_blank" class="project-card">
+      <a href="https://github.com/Masimba249/Quantus-Prime-Solutions" target="_blank" class="project-card" data-detail="Collection of FPGA and digital logic design solutions implemented in Verilog for Intel Quartus Prime. Covers combinational and sequential logic circuits including ALUs, multiplexers, state machines (FSMs), counters, and memory controllers. Each module includes testbenches with automated verification, timing constraint files, and pin assignment configurations for FPGA deployment. Demonstrates proficiency in hardware description languages, synthesis, simulation (ModelSim), and FPGA development workflows for embedded digital systems." data-detail-de="Sammlung von FPGA- und Digitallogik-Designlösungen in Verilog für Intel Quartus Prime. Umfasst kombinatorische und sequentielle Logikschaltungen einschließlich ALUs, Multiplexer, Zustandsautomaten (FSMs), Zähler und Speichercontroller. Jedes Modul enthält Testbenches mit automatisierter Verifikation, Timing-Constraint-Dateien und Pin-Zuweisungskonfigurationen für FPGA-Deployment. Demonstriert Kompetenz in Hardwarebeschreibungssprachen, Synthese, Simulation (ModelSim) und FPGA-Entwicklungsworkflows für eingebettete digitale Systeme.">
         <div class="project-header"><span class="project-icon">🔌</span><span class="project-lang">Verilog</span></div>
         <div class="project-name">Quantus Prime Solutions</div>
-        <div class="project-desc">FPGA/Verilog solutions for Quantus Prime — digital logic &amp; hardware description.</div>
+        <div class="project-desc">FPGA/Verilog digital logic solutions for Intel Quartus Prime — ALUs, FSMs, memory controllers with testbenches.</div>
+        <div class="project-meta">
+          <span class="project-impact"><i class="fas fa-bolt"></i> Full synthesis pipeline</span>
+          <span class="project-role">FPGA developer</span>
+        </div>
+        <div class="project-badges">
+          <span class="project-badge-sm">Verilog</span><span class="project-badge-sm">Quartus</span><span class="project-badge-sm">ModelSim</span><span class="project-badge-sm">FPGA</span>
+        </div>
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
@@ -1611,7 +1668,7 @@
     </div>
   </div>
   <div class="footer-copy">
-    © 2026 Collins Masimba. Open to Embedded AI, Edge AI &amp; Embedded Systems opportunities.
+    © 2026 Collins Masimba. Built with ❤️ — Open to Embedded AI, Edge AI &amp; Embedded Systems opportunities.
   </div>
 </footer>
 
@@ -1776,6 +1833,7 @@
     { sel: '#projects .section-label', en: 'Portfolio · GitHub', de: 'Portfolio · GitHub' },
     { sel: '#projects .section-title', p: 'html', en: 'Featured <span class="highlight">Project Portfolio</span>', de: 'Ausgewählte <span class="highlight">Projektauswahl</span>' },
     { sel: '#projects .section-desc', en: 'A curated set of projects spanning embedded AI, robotics, automation, and power systems.', de: 'Eine kuratierte Sammlung von Projekten aus den Bereichen Embedded AI, Robotik, Automatisierung und Energiesysteme.' },
+    { sel: '#download-portfolio', p: 'html', en: '<i class="fas fa-file-pdf"></i> Download Portfolio PDF', de: '<i class="fas fa-file-pdf"></i> Portfolio PDF herunterladen' },
     // Project roles
     { sel: '.project-card:nth-child(1) .project-role', en: 'Solo developer', de: 'Alleinentwickler' },
     { sel: '.project-card:nth-child(2) .project-role', en: 'Lead developer', de: 'Leitender Entwickler' },
@@ -1893,6 +1951,390 @@
     applyLang('de');
   }
 })();
+</script>
+
+<!-- PORTFOLIO PDF GENERATOR -->
+<script>
+function loadJsPDF() {
+  return new Promise(function(resolve, reject) {
+    if (window.jspdf && window.jspdf.jsPDF) { resolve(); return; }
+    var urls = [
+      'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js',
+      'https://unpkg.com/jspdf@2.5.2/dist/jspdf.umd.min.js'
+    ];
+    function tryLoad(i) {
+      if (i >= urls.length) { reject(new Error('Could not load jsPDF library. Check your internet connection.')); return; }
+      var s = document.createElement('script');
+      s.src = urls[i];
+      s.onload = function() {
+        if (window.jspdf && window.jspdf.jsPDF) resolve();
+        else tryLoad(i + 1);
+      };
+      s.onerror = function() { tryLoad(i + 1); };
+      document.head.appendChild(s);
+    }
+    tryLoad(0);
+  });
+}
+
+function generatePortfolioPDF() {
+  var btn = document.getElementById('download-portfolio');
+  btn.classList.add('generating');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading library...';
+
+  loadJsPDF().then(function() {
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+
+      // ── Detect current language
+      var lang = localStorage.getItem('portfolio-lang') || 'en';
+      var isDE = lang === 'de';
+
+      // ── PDF text translations
+      var t = {
+        coverTitle1:    isDE ? 'PROJEKT'      : 'PROJECT',
+        coverTitle2:    isDE ? 'PORTFOLIO'     : 'PORTFOLIO',
+        subtitle:       isDE ? 'Embedded AI & Automatisierungsingenieur' : 'Embedded AI & Automation Engineer',
+        location:       isDE ? 'Wohnhaft in Deutschland  |  EU Blue Card berechtigt' : 'Based in Germany  |  EU Blue Card Eligible',
+        statProjects:   isDE ? 'Projekte'     : 'Projects',
+        statFreelance:  isDE ? 'Jahre Freelancing' : 'Yrs Freelancing',
+        statIndustry:   isDE ? 'Jahre Industrie'   : 'Yrs Industry',
+        statPaper:      isDE ? 'IEEE Paper'   : 'IEEE Paper',
+        coverNote:      isDE
+          ? 'Dieses Portfolio enth\u00e4lt {n} Open-Source-Projekte. Erstellt am '
+          : 'This portfolio contains {n} open-source projects. Generated on ',
+        sectionTitle:   isDE ? 'Projekte'     : 'Projects',
+        footerLine1:    isDE ? 'Dieses Portfolio wurde automatisch von masimba249.github.io generiert' : 'This portfolio was auto-generated from masimba249.github.io',
+        footerLine2:    isDE ? 'Alle Projekte sind Open Source und verf\u00fcgbar auf github.com/Masimba249' : 'All projects are open source and available on github.com/Masimba249',
+        footerContact:  'Kontakt: Masimba249@gmail.com  |  +49 152 13937719',
+        pageFooter:     isDE ? 'Collins Masimba \u2014 Projektportfolio' : 'Collins Masimba \u2014 Project Portfolio',
+        pageLabel:      isDE ? 'Seite' : 'Page',
+        filename:       isDE ? 'Collins_Masimba_Projektportfolio.pdf' : 'Collins_Masimba_Project_Portfolio.pdf',
+        dateLocale:     isDE ? 'de-DE' : 'en-GB'
+      };
+
+      var jsPDF = window.jspdf.jsPDF;
+      var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      var W = 210, H = 297;
+      var margin = 18, y = 0;
+      var maxW = W - margin * 2;
+
+      // Colors
+      var accent = [0, 212, 255];
+      var purple = [124, 58, 237];
+      var dark = [10, 14, 26];
+      var cardBg = [26, 34, 53];
+      var white = [255, 255, 255];
+      var muted = [148, 163, 184];
+      var green = [16, 185, 129];
+
+      // ── Page background
+      function drawBg() {
+        doc.setFillColor(dark[0], dark[1], dark[2]);
+        doc.rect(0, 0, W, H, 'F');
+      }
+
+      function checkPage(needed) {
+        if (y + needed > H - 15) {
+          doc.addPage();
+          drawBg();
+          y = margin;
+        }
+      }
+
+      // ── Collect featured projects from DOM
+      var projects = [];
+      var featuredNames = new Set();
+      document.querySelectorAll('#projects > .container > .projects-grid .project-card').forEach(function(card) {
+        var name = (card.querySelector('.project-name') || {}).textContent || '';
+        var desc = (card.querySelector('.project-desc') || {}).textContent || '';
+        var detail = card.getAttribute(isDE ? 'data-detail-de' : 'data-detail') || card.getAttribute('data-detail') || '';
+        var lang = (card.querySelector('.project-lang') || {}).textContent || '';
+        var impact = (card.querySelector('.project-impact') || {}).textContent || '';
+        var role = (card.querySelector('.project-role') || {}).textContent || '';
+        var url = card.href || '';
+        var badges = [];
+        card.querySelectorAll('.project-badge-sm').forEach(function(b) { badges.push(b.textContent); });
+        projects.push({ name: name, desc: detail || desc, lang: lang, impact: impact, role: role, url: url, badges: badges });
+        // Track featured repo names to avoid duplicates
+        var repoName = url.split('/').pop();
+        if (repoName) featuredNames.add(repoName.toLowerCase());
+      });
+
+      // Also include auto-loaded projects already in DOM
+      document.querySelectorAll('#auto-projects .project-card').forEach(function(card) {
+        var name = (card.querySelector('.project-name') || {}).textContent || '';
+        var desc = (card.querySelector('.project-desc') || {}).textContent || '';
+        var detail = card.getAttribute(isDE ? 'data-detail-de' : 'data-detail') || card.getAttribute('data-detail') || '';
+        var lang = (card.querySelector('.project-lang') || {}).textContent || '';
+        var url = card.href || '';
+        projects.push({ name: name, desc: detail || desc, lang: lang, impact: '', role: '', url: url, badges: [] });
+        var repoName = url.split('/').pop();
+        if (repoName) featuredNames.add(repoName.toLowerCase());
+      });
+
+      // ── Fetch remaining repos from GitHub API if auto-projects section is empty
+      function fetchGitHubRepos() {
+        return fetch('https://api.github.com/users/Masimba249/repos?per_page=100&sort=updated')
+          .then(function(r) { return r.json(); })
+          .then(function(repos) {
+            repos.forEach(function(repo) {
+              if (repo.fork) return;
+              if (repo.name.toLowerCase() === 'masimba249.github.io') return;
+              if (featuredNames.has(repo.name.toLowerCase())) return;
+              var name = repo.name.replace(/-/g, ' ').replace(/_/g, ' ');
+              var desc = repo.description || 'No description provided.';
+              var lang = repo.language || 'N/A';
+              projects.push({ name: name, desc: desc, lang: lang, impact: '', role: '', url: repo.html_url, badges: [] });
+            });
+          })
+          .catch(function() { /* offline — use only DOM projects */ });
+      }
+
+      // Only fetch if auto-projects section has no cards (API hasn't loaded yet or failed)
+      var autoCards = document.querySelectorAll('#auto-projects .project-card');
+      var fetchPromise = autoCards.length === 0 ? fetchGitHubRepos() : Promise.resolve();
+
+      fetchPromise.then(function() {
+      try {
+
+      // ══════════════════════════════
+      // PAGE 1 — Cover
+      // ══════════════════════════════
+      drawBg();
+
+      // Accent line at top
+      doc.setFillColor(accent[0], accent[1], accent[2]);
+      doc.rect(0, 0, W, 3, 'F');
+
+      // Title area
+      y = 60;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(32);
+      doc.setTextColor(white[0], white[1], white[2]);
+      doc.text(t.coverTitle1, margin, y);
+      y += 14;
+      doc.setTextColor(accent[0], accent[1], accent[2]);
+      doc.text(t.coverTitle2, margin, y);
+
+      // Divider
+      y += 10;
+      doc.setDrawColor(accent[0], accent[1], accent[2]);
+      doc.setLineWidth(0.8);
+      doc.line(margin, y, margin + 60, y);
+
+      // Author
+      y += 14;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(16);
+      doc.setTextColor(white[0], white[1], white[2]);
+      doc.text('Collins Masimba', margin, y);
+
+      y += 8;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+      doc.setTextColor(muted[0], muted[1], muted[2]);
+      doc.text(t.subtitle, margin, y);
+
+      y += 12;
+      doc.setFontSize(9);
+      doc.text('Masimba249@gmail.com  |  github.com/Masimba249  |  linkedin.com/in/collinsmasimba', margin, y);
+
+      y += 6;
+      doc.setTextColor(green[0], green[1], green[2]);
+      doc.text(t.location, margin, y);
+
+      // Stats box
+      y += 20;
+      doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
+      doc.roundedRect(margin, y, maxW, 22, 3, 3, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      var stats = [
+        { val: projects.length + '', label: t.statProjects },
+        { val: '13+', label: t.statFreelance },
+        { val: '2+', label: t.statIndustry },
+        { val: '1', label: t.statPaper }
+      ];
+      var statW = maxW / stats.length;
+      stats.forEach(function(s, i) {
+        var sx = margin + (i * statW) + statW / 2;
+        doc.setTextColor(accent[0], accent[1], accent[2]);
+        doc.setFontSize(14);
+        doc.text(s.val, sx, y + 9, { align: 'center' });
+        doc.setTextColor(muted[0], muted[1], muted[2]);
+        doc.setFontSize(7);
+        doc.text(s.label, sx, y + 16, { align: 'center' });
+      });
+
+      // Project count note
+      y += 32;
+      doc.setFontSize(9);
+      doc.setTextColor(muted[0], muted[1], muted[2]);
+      doc.text(t.coverNote.replace('{n}', projects.length) + new Date().toLocaleDateString(t.dateLocale, { day: 'numeric', month: 'long', year: 'numeric' }) + '.', margin, y);
+
+      // Footer line
+      doc.setFillColor(accent[0], accent[1], accent[2]);
+      doc.rect(0, H - 3, W, 3, 'F');
+
+      // ══════════════════════════════
+      // PROJECT PAGES
+      // ══════════════════════════════
+      doc.addPage();
+      drawBg();
+      y = margin;
+
+      // Section title
+      doc.setFillColor(accent[0], accent[1], accent[2]);
+      doc.rect(margin, y, 4, 10, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.setTextColor(white[0], white[1], white[2]);
+      doc.text(t.sectionTitle, margin + 8, y + 8);
+      y += 18;
+
+      projects.forEach(function(proj, idx) {
+        // Calculate dynamic card height based on description length
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        var descLines = doc.splitTextToSize(proj.desc, maxW - 12);
+        var descLineCount = Math.min(descLines.length, 8);
+
+        var cardH = 18 + (descLineCount * 4);
+        if (proj.badges.length > 0) cardH += 7;
+        if (proj.impact || proj.role) cardH += 6;
+        cardH += 6; // url line
+        checkPage(cardH + 4);
+
+        // Card background
+        doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
+        doc.roundedRect(margin, y, maxW, cardH, 2, 2, 'F');
+
+        // Project number + name
+        var innerY = y + 7;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7);
+        doc.setTextColor(accent[0], accent[1], accent[2]);
+        doc.text(String(idx + 1).padStart(2, '0'), margin + 4, innerY);
+
+        doc.setFontSize(11);
+        doc.setTextColor(white[0], white[1], white[2]);
+        doc.text(proj.name, margin + 14, innerY);
+
+        // Language badge
+        if (proj.lang) {
+          var langW = doc.getTextWidth(proj.lang) + 6;
+          var langX = margin + maxW - langW - 4;
+          doc.setFillColor(dark[0], dark[1], dark[2]);
+          doc.roundedRect(langX, innerY - 4, langW, 6, 1, 1, 'F');
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6.5);
+          doc.setTextColor(muted[0], muted[1], muted[2]);
+          doc.text(proj.lang, langX + 3, innerY);
+        }
+
+        // Description
+        innerY += 7;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.setTextColor(muted[0], muted[1], muted[2]);
+        var lines = doc.splitTextToSize(proj.desc, maxW - 12);
+        var showLines = lines.slice(0, 8);
+        doc.text(showLines, margin + 4, innerY);
+        innerY += showLines.length * 4;
+
+        // Impact + Role
+        if (proj.impact || proj.role) {
+          innerY += 3;
+          if (proj.impact) {
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(7);
+            doc.setTextColor(green[0], green[1], green[2]);
+            doc.text('>> ' + proj.impact, margin + 4, innerY);
+          }
+          if (proj.role) {
+            var roleX = proj.impact ? margin + 4 + doc.getTextWidth('>> ' + proj.impact) + 8 : margin + 4;
+            doc.setFont('helvetica', 'italic');
+            doc.setFontSize(7);
+            doc.setTextColor(muted[0], muted[1], muted[2]);
+            doc.text(proj.role, roleX, innerY);
+          }
+          innerY += 4;
+        }
+
+        // Tech badges
+        if (proj.badges.length > 0) {
+          innerY += 1;
+          var bx = margin + 4;
+          proj.badges.forEach(function(badge) {
+            var bw = doc.getTextWidth(badge) * 0.7 + 6;
+            if (bx + bw > margin + maxW - 4) { bx = margin + 4; innerY += 5; }
+            doc.setFillColor(dark[0], dark[1], dark[2]);
+            doc.roundedRect(bx, innerY - 3, bw, 5, 1, 1, 'F');
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(6);
+            doc.setTextColor(accent[0], accent[1], accent[2]);
+            doc.text(badge, bx + 3, innerY);
+            bx += bw + 2;
+          });
+        }
+
+        // GitHub link
+        if (proj.url) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6);
+          doc.setTextColor(100, 116, 139);
+          doc.textWithLink(proj.url.replace('https://', ''), margin + 4, y + cardH - 3, { url: proj.url });
+        }
+
+        y += cardH + 4;
+      });
+
+      // ══════════════════════════════
+      // LAST PAGE — Footer
+      // ══════════════════════════════
+      checkPage(30);
+      y += 8;
+      doc.setDrawColor(accent[0], accent[1], accent[2]);
+      doc.setLineWidth(0.5);
+      doc.line(margin, y, margin + maxW, y);
+      y += 8;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(muted[0], muted[1], muted[2]);
+      doc.text(t.footerLine1, margin, y);
+      y += 5;
+      doc.text(t.footerLine2, margin, y);
+      y += 5;
+      doc.setTextColor(accent[0], accent[1], accent[2]);
+      doc.text(t.footerContact, margin, y);
+
+      // Page numbers
+      var pageCount = doc.internal.getNumberOfPages();
+      for (var i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7);
+        doc.setTextColor(100, 116, 139);
+        doc.text(t.pageFooter, margin, H - 8);
+        doc.text(t.pageLabel + ' ' + i + ' / ' + pageCount, W - margin, H - 8, { align: 'right' });
+      }
+
+      doc.save(t.filename);
+    } catch(e) {
+      console.error('PDF generation failed:', e);
+      alert('PDF generation failed: ' + e.message);
+    }
+
+    btn.classList.remove('generating');
+    btn.innerHTML = '<i class="fas fa-file-pdf"></i> Download Portfolio PDF';
+  }); // end fetchPromise.then
+  }).catch(function(err) {
+    console.error(err);
+    alert(err.message || 'Could not load PDF library. Please check your internet connection and try again.');
+    btn.classList.remove('generating');
+    btn.innerHTML = '<i class="fas fa-file-pdf"></i> Download Portfolio PDF';
+  });
+}
 </script>
 
 </body>
