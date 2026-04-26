@@ -3,402 +3,1226 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Collins Masimba — Embedded AI & Automation Engineer. Böblingen, Germany. STM32, ROS2, TinyML, Siemens TIA Portal, FreeRTOS, EtherCAT."/>
-  <meta name="robots" content="index, follow"/>
-  <title>Collins Masimba | Embedded AI & Robotics Engineer | Böblingen, Germany</title>
+  <title>Collins Masimba | Embedded AI & Robotics Engineer</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    /* ══════════════════════════════════════════════════
-       RESET & ROOT — GERMAN ENGINEERING PROFESSIONAL
-    ══════════════════════════════════════════════════ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg:          #06101f;
-      --bg-card:     #0c1828;
-      --bg-card2:    #101f34;
-      --accent:      #1a75e8;   /* Corporate engineering blue */
-      --accent2:     #e07b1a;   /* RAL 2011 amber / engineering orange */
-      --accent3:     #00b37d;   /* Status green */
-      --text:        #dde5ef;
-      --text-muted:  #7a8fa8;
-      --border:      #172133;
-      --border2:     #1f2f43;
-      --mono:        'JetBrains Mono', monospace;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#06101f;--bg-card:#0c1828;--bg-card2:#101f34;
+      --accent:#1a75e8;--accent2:#e07b1a;--accent3:#00b37d;
+      --text:#dde5ef;--text-muted:#7a8fa8;
+      --border:#172133;--border2:#1f2f43;
+      --mono:'JetBrains Mono',monospace;
     }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
 
-    /* ══════════════════════════════════════════════════
-       DSGVO CONSENT BANNER
-    ══════════════════════════════════════════════════ */
-    #dsgvo-banner {
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
-      background: var(--bg-card); border-top: 2px solid var(--accent);
-      padding: 1rem 2rem;
-      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+    /* DSGVO */
+    #dsgvo-banner{
+      position:fixed;bottom:0;left:0;right:0;z-index:9999;
+      background:var(--bg-card);border-top:2px solid var(--accent);
+      padding:.85rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
     }
-    #dsgvo-banner.hidden { display: none; }
-    .dsgvo-text { font-size: 0.8rem; color: var(--text-muted); flex: 1; min-width: 240px; line-height: 1.6; }
-    .dsgvo-text strong { color: var(--text); }
-    .dsgvo-text a { color: var(--accent); text-decoration: none; }
-    .dsgvo-text a:hover { text-decoration: underline; }
-    .dsgvo-btns { display: flex; gap: 0.6rem; flex-shrink: 0; }
-    .dsgvo-btn {
-      padding: 0.45rem 1rem; border-radius: 4px; font-size: 0.78rem;
-      font-weight: 600; cursor: pointer; border: 1px solid; transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
-    }
-    .dsgvo-accept { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .dsgvo-accept:hover { background: #1260c4; }
-    .dsgvo-decline { background: transparent; color: var(--text-muted); border-color: var(--border2); }
-    .dsgvo-decline:hover { color: var(--text); border-color: var(--text-muted); }
+    #dsgvo-banner.hidden{display:none}
+    .dsgvo-text{font-size:.78rem;color:var(--text-muted);flex:1;min-width:220px;line-height:1.6}
+    .dsgvo-text a{color:var(--accent);text-decoration:none}
+    .dsgvo-btns{display:flex;gap:.55rem}
+    .dsgvo-btn{padding:.38rem .85rem;border-radius:3px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid;font-family:'Inter',sans-serif;transition:all .2s}
+    .dsgvo-accept{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .dsgvo-accept:hover{background:#1260c4}
+    .dsgvo-decline{background:transparent;color:var(--text-muted);border-color:var(--border2)}
+    .dsgvo-decline:hover{color:var(--text)}
 
-    /* ══════════════════════════════════════════════════
-       NAVBAR
-    ══════════════════════════════════════════════════ */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(6,16,31,0.96); backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem; height: 58px;
-      display: flex; align-items: center; justify-content: space-between;
+    /* NAV */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      background:rgba(6,16,31,.96);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);padding:0 2rem;height:56px;
+      display:flex;align-items:center;justify-content:space-between;
     }
-    .nav-logo {
-      font-family: var(--mono); font-size: 0.92rem; font-weight: 700;
-      color: var(--accent); letter-spacing: 0.3px;
+    .nav-logo{font-family:var(--mono);font-size:.88rem;font-weight:700;color:var(--accent)}
+    .nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
+    .nav-links a{color:var(--text-muted);text-decoration:none;font-size:.78rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-cv{color:var(--accent3)!important;border:1px solid rgba(0,179,125,.25)!important;border-radius:3px;padding:.18rem .55rem}
+    .nav-cv:hover{background:rgba(0,179,125,.08)!important}
+    .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.1rem;cursor:pointer;padding:.4rem}
+    @media(max-width:900px){
+      .nav-toggle{display:block}
+      .nav-links{display:none;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:rgba(6,16,31,.98);border-bottom:1px solid var(--border);padding:1rem 2rem;gap:.75rem}
+      .nav-links.open{display:flex}
     }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
-    .nav-links a {
-      color: var(--text-muted); text-decoration: none; font-size: 0.8rem;
-      font-weight: 500; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); }
-    .nav-cv {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      color: var(--accent3) !important;
-      border: 1px solid rgba(0,179,125,0.28); border-radius: 4px;
-      padding: 0.22rem 0.65rem; font-size: 0.75rem !important;
-      transition: background 0.2s !important;
-    }
-    .nav-cv:hover { background: rgba(0,179,125,0.08) !important; border-color: var(--accent3) !important; }
-    .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.1rem; cursor: pointer; padding: 0.4rem; }
-    @media (max-width: 900px) {
-      .nav-toggle { display: block; }
-      .nav-links {
-        display: none; flex-direction: column; position: absolute;
-        top: 58px; left: 0; right: 0; background: rgba(6,16,31,0.98);
-        border-bottom: 1px solid var(--border); padding: 1rem 2rem; gap: 0.75rem;
-      }
-      .nav-links.open { display: flex; }
-    }
-    .lang-switch {
-      display: inline-flex; align-items: center;
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 3px; overflow: hidden;
-    }
-    .lang-btn {
-      padding: 0.18rem 0.5rem; border: none; background: transparent;
-      color: var(--text-muted); font-size: 0.7rem; font-weight: 700;
-      cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
-    }
-    .lang-btn.active { background: var(--accent); color: #fff; }
-    .lang-btn:hover:not(.active) { color: var(--text); }
+    .lang-switch{display:inline-flex;background:var(--bg-card2);border:1px solid var(--border);border-radius:3px;overflow:hidden}
+    .lang-btn{padding:.18rem .48rem;border:none;background:transparent;color:var(--text-muted);font-size:.68rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+    .lang-btn.active{background:var(--accent);color:#fff}
 
-    /* ══════════════════════════════════════════════════
-       BUTTONS
-    ══════════════════════════════════════════════════ */
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.45rem;
-      padding: 0.65rem 1.35rem; border-radius: 5px;
-      font-size: 0.85rem; font-weight: 600; text-decoration: none;
-      transition: all 0.2s; cursor: pointer; border: 1px solid transparent;
-      font-family: 'Inter', sans-serif;
-    }
-    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .btn-primary:hover { background: #1260c4; border-color: #1260c4; }
-    .btn-outline { background: transparent; color: var(--text); border-color: var(--border2); }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-download { background: transparent; color: var(--accent3); border-color: rgba(0,179,125,0.35); }
-    .btn-download:hover { background: rgba(0,179,125,0.08); border-color: var(--accent3); }
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;gap:.42rem;padding:.6rem 1.25rem;border-radius:4px;font-size:.82rem;font-weight:600;text-decoration:none;transition:all .2s;cursor:pointer;border:1px solid transparent;font-family:'Inter',sans-serif}
+    .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .btn-primary:hover{background:#1260c4}
+    .btn-outline{background:transparent;color:var(--text);border-color:var(--border2)}
+    .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-dl{background:transparent;color:var(--accent3);border-color:rgba(0,179,125,.32)}
+    .btn-dl:hover{background:rgba(0,179,125,.07)}
 
-    /* ══════════════════════════════════════════════════
-       SECTIONS
-    ══════════════════════════════════════════════════ */
-    section { padding: 88px 2rem; }
-    .container { max-width: 1060px; margin: 0 auto; }
-    .section-header { margin-bottom: 2.75rem; }
-    .section-eyebrow {
-      display: block; font-family: var(--mono); font-size: 0.68rem;
-      color: var(--accent); letter-spacing: 3px; text-transform: uppercase;
-      margin-bottom: 0.5rem; font-weight: 500;
-    }
-    .section-title {
-      font-size: clamp(1.55rem, 3.2vw, 2.1rem); font-weight: 700;
-      color: var(--text); letter-spacing: -0.25px; line-height: 1.2;
-    }
-    .section-title .hl { color: var(--accent); }
-    .section-rule { width: 36px; height: 2px; background: var(--accent); margin-top: 0.85rem; }
-    .section-desc { color: var(--text-muted); max-width: 520px; margin-top: 0.65rem; font-size: 0.88rem; }
+    /* SECTIONS */
+    section{padding:84px 2rem}
+    .container{max-width:1060px;margin:0 auto}
+    .section-header{margin-bottom:2.5rem}
+    .eyebrow{display:block;font-family:var(--mono);font-size:.65rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:.45rem}
+    .section-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--text);letter-spacing:-.2px}
+    .section-title .hl{color:var(--accent)}
+    .section-rule{width:32px;height:2px;background:var(--accent);margin-top:.75rem}
+    .section-desc{color:var(--text-muted);max-width:500px;margin-top:.6rem;font-size:.86rem}
 
-    /* ══════════════════════════════════════════════════
-       HERO
-    ══════════════════════════════════════════════════ */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center;
-      position: relative; overflow: hidden; padding: 80px 2rem 60px;
-    }
-    .hero::before {
-      content: ''; position: absolute; inset: 0; z-index: 0;
-      background-image: radial-gradient(circle, rgba(26,117,232,0.14) 1px, transparent 1px);
-      background-size: 28px 28px;
-    }
-    .hero::after {
-      content: ''; position: absolute; inset: 0; z-index: 0;
-      background: radial-gradient(ellipse 85% 75% at 50% 50%, transparent 30%, var(--bg) 100%);
-    }
-    .hero-content { position: relative; z-index: 1; max-width: 800px; }
-    .hero-status {
-      display: inline-flex; align-items: center; gap: 0.55rem;
-      background: rgba(26,117,232,0.07); border: 1px solid rgba(26,117,232,0.2);
-      border-radius: 3px; padding: 0.32rem 0.8rem;
-      font-size: 0.75rem; color: var(--accent); font-weight: 500;
-      margin-bottom: 2rem; font-family: var(--mono);
-    }
-    .status-dot { width: 6px; height: 6px; background: var(--accent3); border-radius: 50%; animation: blink 2.5s infinite; }
-    @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.25} }
-    .hero h1 {
-      font-size: clamp(2rem, 5.2vw, 3.6rem); font-weight: 800;
-      line-height: 1.1; letter-spacing: -1px; margin-bottom: 0.7rem;
-    }
-    .hero h1 .name { color: var(--accent); }
-    .hero-role { font-size: clamp(0.92rem, 1.8vw, 1.1rem); color: var(--text-muted); margin-bottom: 1.5rem; }
-    .hero-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 2.25rem; }
-    .chip {
-      background: var(--bg-card); border: 1px solid var(--border2);
-      border-radius: 3px; padding: 0.25rem 0.65rem;
-      font-size: 0.72rem; color: var(--text-muted); font-family: var(--mono);
-    }
-    .hero-btns { display: flex; gap: 0.65rem; flex-wrap: wrap; margin-bottom: 2.75rem; }
-    .hero-stats {
-      display: flex; gap: 2.25rem; flex-wrap: wrap;
-      padding-top: 1.75rem; border-top: 1px solid var(--border);
-    }
-    .stat-val { font-size: 1.55rem; font-weight: 800; color: var(--accent); font-family: var(--mono); }
-    .stat-label { font-size: 0.68rem; color: var(--text-muted); margin-top: 0.1rem; letter-spacing: 0.3px; }
+    /* HERO */
+    .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:76px 2rem 60px}
+    .hero-dots{position:absolute;inset:0;z-index:0;background-image:radial-gradient(circle,rgba(26,117,232,.13) 1px,transparent 1px);background-size:26px 26px}
+    .hero-vignette{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 90% 80% at 50% 50%,transparent 25%,var(--bg) 100%)}
+    .hero-content{position:relative;z-index:1;max-width:780px}
+    .hero-status{display:inline-flex;align-items:center;gap:.5rem;background:rgba(26,117,232,.07);border:1px solid rgba(26,117,232,.18);border-radius:3px;padding:.28rem .75rem;font-size:.72rem;color:var(--accent);font-weight:500;margin-bottom:1.75rem;font-family:var(--mono)}
+    .status-dot{width:6px;height:6px;background:var(--accent3);border-radius:50%;animation:blink 2.5s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+    .hero h1{font-size:clamp(1.9rem,5vw,3.4rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:.65rem}
+    .hero h1 .name{color:var(--accent)}
+    .hero-role{font-size:clamp(.88rem,1.7vw,1.05rem);color:var(--text-muted);margin-bottom:1.4rem}
+    .hero-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:2rem}
+    .chip{background:var(--bg-card);border:1px solid var(--border2);border-radius:3px;padding:.22rem .6rem;font-size:.7rem;color:var(--text-muted);font-family:var(--mono)}
+    .hero-btns{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem}
+    .hero-stats{display:flex;gap:2rem;flex-wrap:wrap;padding-top:1.5rem;border-top:1px solid var(--border)}
+    .stat-val{font-size:1.5rem;font-weight:800;color:var(--accent);font-family:var(--mono)}
+    .stat-label{font-size:.65rem;color:var(--text-muted);margin-top:.08rem;letter-spacing:.3px}
 
-    /* ══════════════════════════════════════════════════
-       ABOUT
-    ══════════════════════════════════════════════════ */
-    #about { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .about-grid { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; align-items: start; }
-    .about-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
-    .avatar-box {
-      width: 172px; height: 172px; border-radius: 6px; overflow: hidden;
-      border: 2px solid var(--accent); background: var(--bg-card2);
-      display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
-    }
-    .avatar-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .contact-list { display: flex; flex-direction: column; width: 100%; }
-    .contact-item {
-      display: flex; align-items: center; gap: 0.55rem; font-size: 0.75rem;
-      color: var(--text-muted); padding: 0.45rem 0; border-bottom: 1px solid var(--border);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .contact-item:last-child { border-bottom: none; }
-    .contact-item:hover { color: var(--accent); }
-    .contact-item i { color: var(--accent); width: 15px; text-align: center; font-size: 0.82rem; }
-    .about-text h3 {
-      font-size: 0.68rem; font-weight: 700; color: var(--accent); letter-spacing: 2.5px;
-      text-transform: uppercase; margin-bottom: 0.7rem; font-family: var(--mono);
-    }
-    .about-text p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.88; margin-bottom: 1.2rem; }
-    .about-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem; }
-    .about-chip {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      background: var(--bg-card2); border: 1px solid var(--border2);
-      border-radius: 3px; padding: 0.28rem 0.65rem; font-size: 0.75rem; color: var(--text-muted);
-    }
-    .about-chip i { color: var(--accent3); font-size: 0.8rem; }
+    /* ABOUT */
+    #about{background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .about-grid{display:grid;grid-template-columns:188px 1fr;gap:2.75rem;align-items:start}
+    @media(max-width:700px){.about-grid{grid-template-columns:1fr}}
+    .avatar-box{width:164px;height:164px;border-radius:5px;overflow:hidden;border:2px solid var(--accent);background:var(--bg-card2);display:flex;align-items:center;justify-content:center;font-size:3rem}
+    .avatar-box img{width:100%;height:100%;object-fit:cover;display:block}
+    .contact-list{display:flex;flex-direction:column;margin-top:.85rem}
+    .contact-item{display:flex;align-items:center;gap:.5rem;font-size:.73rem;color:var(--text-muted);padding:.4rem 0;border-bottom:1px solid var(--border);text-decoration:none;transition:color .2s}
+    .contact-item:last-child{border-bottom:none}
+    .contact-item:hover{color:var(--accent)}
+    .contact-item i{color:var(--accent);width:14px;text-align:center;font-size:.78rem}
+    .about-text h3{font-size:.65rem;font-weight:700;color:var(--accent);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:.65rem;font-family:var(--mono)}
+    .about-text p{color:var(--text-muted);font-size:.875rem;line-height:1.85;margin-bottom:1.1rem}
+    .about-chips{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.2rem}
+    .about-chip{display:inline-flex;align-items:center;gap:.32rem;background:var(--bg-card2);border:1px solid var(--border2);border-radius:3px;padding:.25rem .6rem;font-size:.73rem;color:var(--text-muted)}
+    .about-chip i{color:var(--accent3);font-size:.75rem}
 
-    /* ══════════════════════════════════════════════════
-       TECH STACK STRIP
-    ══════════════════════════════════════════════════ */
-    #core-stack { background: var(--bg); border-bottom: 1px solid var(--border); padding: 32px 2rem; }
-    .stack-eyebrow {
-      text-align: center; margin-bottom: 1rem;
-      font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted);
-      letter-spacing: 3px; text-transform: uppercase;
-    }
-    .stack-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; max-width: 1060px; margin: 0 auto; }
-    .stack-chip {
-      display: flex; align-items: center; gap: 0.38rem;
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 3px; padding: 0.4rem 0.8rem;
-      font-size: 0.75rem; font-weight: 500; color: var(--text-muted); transition: all 0.2s;
-    }
-    .stack-chip:hover { color: var(--text); border-color: rgba(26,117,232,0.45); }
-    .stack-chip i { font-size: 0.9rem; width: 16px; text-align: center; }
-    .eligibility-row {
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-      margin-top: 1.25rem; font-size: 0.75rem; color: var(--accent3); font-family: var(--mono);
-    }
-    .eligibility-row::before, .eligibility-row::after {
-      content: ''; flex: 1; max-width: 100px; height: 1px; background: rgba(0,179,125,0.18);
-    }
+    /* CORE STACK */
+    #core-stack{background:var(--bg);border-bottom:1px solid var(--border);padding:28px 2rem}
+    .stack-eyebrow{text-align:center;margin-bottom:.9rem;font-family:var(--mono);font-size:.62rem;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase}
+    .stack-row{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;max-width:1060px;margin:0 auto}
+    .stack-chip{display:flex;align-items:center;gap:.35rem;background:var(--bg-card);border:1px solid var(--border);border-radius:3px;padding:.35rem .72rem;font-size:.72rem;font-weight:500;color:var(--text-muted);transition:all .2s}
+    .stack-chip:hover{color:var(--text);border-color:rgba(26,117,232,.4)}
+    .stack-chip i{font-size:.85rem;width:15px;text-align:center}
+    .eligibility{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1.1rem;font-size:.72rem;color:var(--accent3);font-family:var(--mono)}
+    .eligibility::before,.eligibility::after{content:'';flex:1;max-width:90px;height:1px;background:rgba(0,179,125,.18)}
 
-    /* ══════════════════════════════════════════════════
-       EXPERIENCE
-    ══════════════════════════════════════════════════ */
-    #experience { background: var(--bg); }
-    .timeline { position: relative; padding-left: 2.25rem; }
-    .timeline::before {
-      content: ''; position: absolute; left: 5px; top: 10px; bottom: 0;
-      width: 1px; background: var(--border2);
-    }
-    .timeline-item { position: relative; padding-bottom: 1.75rem; }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .t-marker {
-      position: absolute; left: -2.25rem; top: 7px;
-      width: 12px; height: 12px; border: 2px solid var(--accent);
-      border-radius: 2px; background: var(--bg);
-    }
-    .t-marker.filled { background: var(--accent); }
-    .t-marker.amber { border-color: var(--accent2); }
-    .t-marker.amber.filled { background: var(--accent2); }
-    .exp-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 5px 5px 0; padding: 1.4rem; transition: border-color 0.2s;
-    }
-    .exp-card.amber { border-left-color: var(--accent2); }
-    .exp-card:hover { border-color: var(--border2); border-left-color: inherit; }
-    .exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.35rem; }
-    .exp-title { font-size: 0.97rem; font-weight: 700; color: var(--text); }
-    .exp-badge {
-      display: inline-flex; align-items: center; gap: 0.3rem;
-      font-size: 0.67rem; font-weight: 600; padding: 0.18rem 0.55rem;
-      border-radius: 3px; border: 1px solid; white-space: nowrap;
-    }
-    .exp-badge.current { color: var(--accent3); border-color: rgba(0,179,125,0.28); background: rgba(0,179,125,0.07); }
-    .exp-badge.freelance { color: var(--accent2); border-color: rgba(224,123,26,0.28); background: rgba(224,123,26,0.07); }
-    .exp-badge.research { color: var(--accent); border-color: rgba(26,117,232,0.28); background: rgba(26,117,232,0.07); }
-    .exp-company { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 0.18rem; }
-    .exp-period { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.85rem; font-family: var(--mono); }
-    .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-    .exp-list li { padding-left: 1rem; position: relative; font-size: 0.855rem; color: var(--text-muted); line-height: 1.72; }
-    .exp-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 3px; }
-    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.8rem; }
-    .exp-tag {
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 2px; padding: 0.18rem 0.5rem; font-size: 0.68rem;
-      color: var(--text-muted); font-family: var(--mono);
-    }
-    .exp-link {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      color: var(--accent); text-decoration: none; font-size: 0.75rem; font-weight: 600;
-      margin-top: 0.8rem; transition: gap 0.2s;
-    }
-    .exp-link:hover { gap: 0.55rem; }
+    /* ANALYTICS PANEL */
+    #analytics-panel{display:none;position:fixed;top:56px;right:0;width:320px;height:calc(100vh - 56px);background:var(--bg-card);border-left:1px solid var(--border);z-index:900;overflow-y:auto;padding:1.25rem}
+    #analytics-panel.visible{display:block}
+    .ap-title{font-family:var(--mono);font-size:.75rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+    .ap-stat{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid var(--border);font-size:.78rem}
+    .ap-stat-key{color:var(--text-muted)}
+    .ap-stat-val{color:var(--text);font-family:var(--mono);font-weight:600}
+    .ap-section{margin-top:1rem;margin-bottom:.4rem;font-size:.62rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;font-family:var(--mono)}
+    .ap-visit-row{font-size:.72rem;color:var(--text-muted);padding:.3rem 0;border-bottom:1px solid var(--border);line-height:1.5}
+    .ap-visit-row span{display:block;color:var(--text-muted);font-size:.65rem}
+    .ap-close{display:block;text-align:center;margin-top:1rem;font-size:.75rem;color:var(--text-muted);cursor:pointer;border:1px solid var(--border);border-radius:3px;padding:.35rem;transition:all .2s}
+    .ap-close:hover{color:var(--accent);border-color:var(--accent)}
 
-    /* ══════════════════════════════════════════════════
-       SKILLS
-    ══════════════════════════════════════════════════ */
-    #skills { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)); gap: 1.1rem; }
-    .skill-cat { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 5px; padding: 1.2rem; transition: border-color 0.2s; }
-    .skill-cat:hover { border-color: var(--border2); }
-    .skill-cat-head {
-      display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.8rem;
-      padding-bottom: 0.7rem; border-bottom: 1px solid var(--border);
-    }
-    .skill-cat-icon { width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
-    .ic-blue { background: rgba(26,117,232,0.14); color: var(--accent); }
-    .ic-amber { background: rgba(224,123,26,0.14); color: var(--accent2); }
-    .ic-green { background: rgba(0,179,125,0.14); color: var(--accent3); }
-    .ic-gray { background: rgba(122,143,168,0.14); color: var(--text-muted); }
-    .skill-cat-name { font-size: 0.8rem; font-weight: 700; color: var(--text); }
-    .skill-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .skill-chip {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 2px; padding: 0.22rem 0.55rem; font-size: 0.72rem;
-      color: var(--text-muted); font-family: var(--mono); transition: all 0.2s;
-    }
-    .skill-chip:hover { color: var(--text); border-color: rgba(26,117,232,0.38); }
+    /* EXPERIENCE */
+    #experience{background:var(--bg)}
+    .timeline{position:relative;padding-left:2rem}
+    .timeline::before{content:'';position:absolute;left:4px;top:10px;bottom:0;width:1px;background:var(--border2)}
+    .timeline-item{position:relative;padding-bottom:1.6rem}
+    .timeline-item:last-child{padding-bottom:0}
+    .t-dot{position:absolute;left:-2rem;top:6px;width:10px;height:10px;border:2px solid var(--accent);border-radius:2px;background:var(--bg)}
+    .t-dot.f{background:var(--accent)}
+    .t-dot.amber{border-color:var(--accent2)}
+    .t-dot.amber.f{background:var(--accent2)}
+    .exp-card{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 4px 4px 0;padding:1.3rem;transition:border-color .2s}
+    .exp-card.amber{border-left-color:var(--accent2)}
+    .exp-card:hover{border-color:var(--border2);border-left-color:inherit}
+    .exp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.32rem}
+    .exp-title{font-size:.93rem;font-weight:700;color:var(--text)}
+    .exp-badge{display:inline-flex;align-items:center;gap:.28rem;font-size:.65rem;font-weight:600;padding:.16rem .5rem;border-radius:2px;border:1px solid;white-space:nowrap}
+    .eb-current{color:var(--accent3);border-color:rgba(0,179,125,.25);background:rgba(0,179,125,.07)}
+    .eb-freelance{color:var(--accent2);border-color:rgba(224,123,26,.25);background:rgba(224,123,26,.07)}
+    .eb-research{color:var(--accent);border-color:rgba(26,117,232,.25);background:rgba(26,117,232,.07)}
+    .exp-company{font-size:.82rem;color:var(--accent);font-weight:600;margin-bottom:.15rem}
+    .exp-period{font-size:.7rem;color:var(--text-muted);margin-bottom:.8rem;font-family:var(--mono)}
+    .exp-list{list-style:none;display:flex;flex-direction:column;gap:.42rem}
+    .exp-list li{padding-left:.95rem;position:relative;font-size:.83rem;color:var(--text-muted);line-height:1.72}
+    .exp-list li::before{content:'—';position:absolute;left:0;color:var(--accent);font-size:.68rem;top:3px}
+    .exp-tags{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.75rem}
+    .exp-tag{background:var(--bg-card2);border:1px solid var(--border);border-radius:2px;padding:.15rem .45rem;font-size:.65rem;color:var(--text-muted);font-family:var(--mono)}
+    .exp-link{display:inline-flex;align-items:center;gap:.32rem;color:var(--accent);text-decoration:none;font-size:.72rem;font-weight:600;margin-top:.75rem;transition:gap .18s}
+    .exp-link:hover{gap:.5rem}
 
-    /* ══════════════════════════════════════════════════
-       PROJECTS
-    ══════════════════════════════════════════════════ */
-    #projects { background: var(--bg); }
-    .projects-toolbar { display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap; margin-top: 0.85rem; }
-    .proj-count-badge {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 3px; padding: 0.28rem 0.65rem;
-      font-size: 0.72rem; color: var(--text-muted); font-family: var(--mono);
-    }
-    .btn-pdf {
-      display: inline-flex; align-items: center; gap: 0.38rem;
-      background: transparent; color: var(--accent2);
-      border: 1px solid rgba(224,123,26,0.32); border-radius: 4px;
-      padding: 0.36rem 0.8rem; font-size: 0.75rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
-    }
-    .btn-pdf:hover { background: rgba(224,123,26,0.07); border-color: var(--accent2); }
-    .btn-pdf.loading { opacity: 0.6; cursor: wait; }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(315px, 1fr)); gap: 1.1rem; margin-top: 1.75rem; }
-    .project-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 5px; padding: 1.2rem;
-      display: flex; flex-direction: column; gap: 0.55rem;
-      transition: all 0.2s; text-decoration: none; color: inherit; position: relative; overflow: hidden;
-    }
-    .project-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; background: var(--accent); opacity: 0; transition: opacity 0.2s;
-    }
-    .project-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-    .project-card:hover::before { opacity: 1; }
-    .proj-head { display: flex; align-items: center; justify-content: space-between; }
-    .proj-icon { font-size: 1.2rem; }
-    .proj-lang {
-      font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted);
-      background: var(--bg-card2); border: 1px solid var(--border); border-radius: 2px; padding: 0.13rem 0.45rem;
-    }
-    .proj-name { font-size: 0.875rem; font-weight: 700; color: var(--text); line-height: 1.4; }
-    .proj-desc { font-size: 0.775rem; color: var(--text-muted); flex: 1; line-height: 1.65; }
-    .proj-impact {
-      display: inline-flex; align-items: center; gap: 0.28rem;
-      font-size: 0.65rem; color: var(--accent3); font-weight: 600;
-      background: rgba(0,179,125,0.07); border: 1px solid rgba(0,179,125,0.17);
-      border-radius: 2px; padding: 0.12rem 0.4rem;
-    }
-    .proj-badges { display: flex; flex-wrap: wrap; gap: 0.28rem; }
-    .proj-badge {
-      font-family: var(--mono); font-size: 0.6rem; color: var(--accent);
-      background: rgba(26,117,232,0.07); border: 1px solid rgba(26,117,232,0.17);
-      border-radius: 2px; padding: 0.1rem 0.38rem;
-    }
-    .proj-role { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
-    .proj-arrow { color: var(--border2); font-size: 0.72rem; margin-left: auto; margin-top: auto; transition: color 0.2s; }
-    .project-card:hover .proj-arrow { color: var(--accent); }
+    /* SKILLS */
+    #skills{background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:1rem}
+    .skill-cat{background:var(--bg-card2);border:1px solid var(--border);border-radius:4px;padding:1.1rem;transition:border-color .2s}
+    .skill-cat:hover{border-color:var(--border2)}
+    .skill-cat-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.72rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+    .skill-cat-icon{width:26px;height:26px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.75rem}
+    .ic-blue{background:rgba(26,117,232,.12);color:var(--accent)}
+    .ic-amber{background:rgba(224,123,26,.12);color:var(--accent2)}
+    .ic-green{background:rgba(0,179,125,.12);color:var(--accent3)}
+    .ic-gray{background:rgba(122,143,168,.12);color:var(--text-muted)}
+    .skill-cat-name{font-size:.78rem;font-weight:700;color:var(--text)}
+    .skill-chips{display:flex;flex-wrap:wrap;gap:.3rem}
+    .skill-chip{background:var(--bg-card);border:1px solid var(--border);border-radius:2px;padding:.2rem .5rem;font-size:.7rem;color:var(--text-muted);font-family:var(--mono);transition:all .2s}
+    .skill-chip:hover{color:var(--text);border-color:rgba(26,117,232,.35)}
 
-    /* ══════════════════════════════════════════════════
-       CONTRIBUTIONS
-    ══════════════════════════════════════════════════ */
-    #contributions { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .contrib-box { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 5px; padding: 1.5rem; max-width: 760px; margin: 0 auto; }
-    .contrib-repo-head {
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-      padding-bottom: 1rem; margin-bottom: 1.1rem; border-bottom: 1px solid var(--border);
+    /* PROJECTS */
+    #projects{background:var(--bg)}
+    .proj-toolbar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:.8rem}
+    .proj-count{display:inline-flex;align-items:center;gap:.32rem;background:var(--bg-card);border:1px solid var(--border);border-radius:3px;padding:.25rem .6rem;font-size:.7rem;color:var(--text-muted);font-family:var(--mono)}
+    .btn-pdf{display:inline-flex;align-items:center;gap:.35rem;background:transparent;color:var(--accent2);border:1px solid rgba(224,123,26,.28);border-radius:3px;padding:.32rem .72rem;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+    .btn-pdf:hover{background:rgba(224,123,26,.07);border-color:var(--accent2)}
+    .btn-pdf.loading{opacity:.6;cursor:wait}
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1rem;margin-top:1.6rem}
+    .project-card{background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;transition:all .2s;text-decoration:none;color:inherit;position:relative;overflow:hidden}
+    .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);opacity:0;transition:opacity .2s}
+    .project-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+    .project-card:hover::before{opacity:1}
+    .proj-head{display:flex;align-items:center;justify-content:space-between}
+    .proj-icon{font-size:1.15rem}
+    .proj-lang{font-family:var(--mono);font-size:.62rem;color:var(--text-muted);background:var(--bg-card2);border:1px solid var(--border);border-radius:2px;padding:.1rem .4rem}
+    .proj-name{font-size:.85rem;font-weight:700;color:var(--text);line-height:1.4}
+    .proj-desc{font-size:.75rem;color:var(--text-muted);flex:1;line-height:1.62}
+    .proj-impact{display:inline-flex;align-items:center;gap:.25rem;font-size:.62rem;color:var(--accent3);font-weight:600;background:rgba(0,179,125,.06);border:1px solid rgba(0,179,125,.15);border-radius:2px;padding:.1rem .38rem}
+    .proj-badges{display:flex;flex-wrap:wrap;gap:.25rem}
+    .proj-badge{font-family:var(--mono);font-size:.58rem;color:var(--accent);background:rgba(26,117,232,.07);border:1px solid rgba(26,117,232,.16);border-radius:2px;padding:.08rem .35rem}
+    .proj-role{font-size:.62rem;color:var(--text-muted);font-style:italic}
+    .proj-arrow{color:var(--border2);font-size:.7rem;margin-left:auto;margin-top:auto;transition:color .2s}
+    .project-card:hover .proj-arrow{color:var(--accent)}
+
+    /* CONTRIBUTIONS */
+    #contributions{background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .contrib-box{background:var(--bg-card2);border:1px solid var(--border);border-radius:4px;padding:1.4rem;max-width:760px;margin:0 auto}
+    .contrib-repo-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-bottom:.9rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+    .contrib-repo-name{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;font-weight:700;color:var(--text);text-decoration:none}
+    .contrib-repo-name:hover{color:var(--accent)}
+    .contrib-repo-desc{font-size:.73rem;color:var(--text-muted);margin-top:.18rem}
+    .contrib-count{background:rgba(0,179,125,.07);border:1px solid rgba(0,179,125,.17);border-radius:3px;padding:.15rem .55rem;font-size:.67rem;color:var(--accent3);font-weight:600}
+    .contrib-list{display:flex;flex-direction:column;gap:.3rem}
+    .contrib-item{display:flex;align-items:flex-start;gap:.65rem;padding:.65rem;border-radius:3px;text-decoration:none;color:inherit;border:1px solid transparent;transition:all .2s}
+    .contrib-item:hover{background:rgba(26,117,232,.04);border-color:var(--border)}
+    .contrib-pr-icon{color:var(--accent3);font-size:.82rem;margin-top:2px;flex-shrink:0}
+    .contrib-pr-title{font-size:.82rem;font-weight:600;color:var(--text)}
+    .contrib-pr-desc{font-size:.72rem;color:var(--text-muted);margin-top:.12rem}
+    .contrib-pr-num{margin-left:auto;font-size:.68rem;color:var(--text-muted);font-family:var(--mono);flex-shrink:0}
+
+    /* EDUCATION */
+    #education{background:var(--bg)}
+    .edu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1rem}
+    .edu-card{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:0 4px 4px 0;padding:1.3rem}
+    .edu-badge{display:inline-block;background:rgba(224,123,26,.07);border:1px solid rgba(224,123,26,.2);border-radius:2px;padding:.15rem .6rem;font-size:.68rem;color:var(--accent2);margin-bottom:.65rem;font-family:var(--mono)}
+    .edu-degree{font-size:.9rem;font-weight:700;margin-bottom:.2rem}
+    .edu-inst{font-size:.8rem;color:var(--accent);font-weight:600;margin-bottom:.18rem}
+    .edu-period{font-size:.68rem;color:var(--text-muted);font-family:var(--mono);margin-bottom:.75rem}
+    .edu-courses{font-size:.75rem;color:var(--text-muted);line-height:1.75}
+    .edu-courses strong{display:block;margin-bottom:.25rem;color:var(--text-muted);font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase}
+
+    /* CERTS */
+    #certifications{background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.9rem}
+    .cert-card{background:var(--bg-card2);border:1px solid var(--border);border-radius:4px;padding:1.1rem;display:flex;align-items:flex-start;gap:.85rem;transition:all .2s;text-decoration:none;color:inherit}
+    .cert-card:hover{border-color:rgba(0,179,125,.3);transform:translateY(-1px)}
+    .cert-icon{width:36px;height:36px;border-radius:4px;flex-shrink:0;background:rgba(0,179,125,.09);border:1px solid rgba(0,179,125,.18);display:flex;align-items:center;justify-content:center;color:var(--accent3);font-size:.95rem}
+    .cert-name{font-size:.82rem;font-weight:600;margin-bottom:.18rem}
+    .cert-issuer{font-size:.72rem;color:var(--accent3)}
+    .cert-year{font-size:.65rem;color:var(--text-muted);font-family:var(--mono);margin-bottom:.32rem}
+    .cert-verify{display:inline-flex;align-items:center;gap:.32rem;color:var(--accent);font-size:.7rem;font-weight:600}
+    .cert-card:hover .cert-verify i{transform:translateX(2px)}
+    .cert-verify i{transition:transform .18s}
+
+    /* TESTIMONIALS */
+    #testimonials{background:var(--bg)}
+    .test-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(305px,1fr));gap:1rem}
+    .test-card{background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:1.4rem;transition:all .2s}
+    .test-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+    .test-quote{font-size:.84rem;color:var(--text-muted);line-height:1.82;font-style:italic;margin-bottom:1.1rem}
+    .test-quote::before{content:'\201C';font-size:2rem;color:var(--accent);line-height:0;vertical-align:-.5rem;margin-right:.15rem;font-family:Georgia,serif}
+    .test-author{display:flex;align-items:center;gap:.65rem;border-top:1px solid var(--border);padding-top:.85rem}
+    .test-avatar{width:34px;height:34px;border-radius:3px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#fff;flex-shrink:0}
+    .test-name{font-size:.8rem;font-weight:700}
+    .test-role{font-size:.7rem;color:var(--text-muted)}
+    .test-source{display:inline-flex;align-items:center;gap:.28rem;font-size:.65rem;color:var(--accent);margin-top:.1rem}
+
+    /* PUBLICATION */
+    #publication{background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .pub-card{background:var(--bg-card2);border:1px solid rgba(26,117,232,.25);border-radius:4px;padding:1.75rem;display:flex;gap:1.25rem;max-width:760px;margin:0 auto}
+    @media(max-width:600px){.pub-card{flex-direction:column}}
+    .pub-icon-box{width:46px;height:46px;border-radius:4px;flex-shrink:0;background:rgba(26,117,232,.1);border:1px solid rgba(26,117,232,.22);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.2rem}
+    .pub-title{font-size:.93rem;font-weight:700;margin-bottom:.35rem;line-height:1.45}
+    .pub-venue{font-size:.78rem;color:var(--accent);margin-bottom:.65rem}
+    .pub-abstract{font-size:.82rem;color:var(--text-muted);line-height:1.75;margin-bottom:.85rem}
+    .pub-link{display:inline-flex;align-items:center;gap:.32rem;color:var(--accent);text-decoration:none;font-size:.78rem;font-weight:600;transition:gap .18s}
+    .pub-link:hover{gap:.5rem}
+    .pub-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.85rem}
+    .pub-tag{background:var(--bg-card);border:1px solid var(--border);border-radius:2px;padding:.15rem .48rem;font-size:.65rem;color:var(--text-muted);font-family:var(--mono)}
+
+    /* ACTIVITIES */
+    #activities{background:var(--bg)}
+    .act-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    @media(max-width:680px){.act-grid{grid-template-columns:1fr}}
+    .misc-card{background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:1.3rem}
+    .misc-title{font-size:.78rem;font-weight:700;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+    .misc-item{display:flex;align-items:flex-start;gap:.65rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.8rem;color:var(--text-muted);line-height:1.55}
+    .misc-item:last-child{border-bottom:none}
+    .misc-item i{margin-top:2px;flex-shrink:0}
+    .lang-level{margin-left:auto;flex-shrink:0;font-size:.65rem;font-family:var(--mono);background:rgba(26,117,232,.08);border:1px solid rgba(26,117,232,.18);border-radius:2px;padding:.12rem .4rem;color:var(--accent)}
+
+    /* IMPRESSUM */
+    #impressum{background:var(--bg-card);border-top:1px solid var(--border)}
+    .impressum-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+    .impressum-block h4{font-size:.65rem;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;font-family:var(--mono);margin-bottom:.6rem}
+    .impressum-block p,.impressum-block li{font-size:.78rem;color:var(--text-muted);line-height:1.8}
+    .impressum-block a{color:var(--accent);text-decoration:none}
+    .impressum-block ul{list-style:none;padding:0}
+
+    /* FOOTER */
+    footer{background:var(--bg-card);border-top:1px solid var(--border);padding:2rem 2rem}
+    .footer-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.25rem}
+    .footer-logo{font-family:var(--mono);font-size:.88rem;font-weight:700;color:var(--accent)}
+    .footer-sub{font-size:.73rem;color:var(--text-muted);margin-top:.2rem}
+    .footer-socials{display:flex;gap:.55rem}
+    .social-btn{width:34px;height:34px;border-radius:3px;background:var(--bg-card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);text-decoration:none;font-size:.88rem;transition:all .2s}
+    .social-btn:hover{color:var(--accent);border-color:var(--accent)}
+    .footer-copy{max-width:1060px;margin:1.25rem auto 0;padding-top:1rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--text-muted);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+    .analytics-toggle-btn{font-size:.68rem;color:var(--text-muted);background:var(--bg-card2);border:1px solid var(--border);border-radius:3px;padding:.2rem .55rem;cursor:pointer;font-family:var(--mono);transition:all .2s}
+    .analytics-toggle-btn:hover{color:var(--accent);border-color:var(--accent)}
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      section{padding:60px 1.25rem}
+      .projects-grid,.skills-grid,.certs-grid,.test-grid,.edu-grid{grid-template-columns:1fr}
+      .hero-btns{flex-direction:column;align-items:flex-start}
+      .hero-stats{gap:1.5rem}
+      #analytics-panel{width:100%;height:auto;position:relative;top:0}
     }
-    .contrib-repo-name { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.88rem; font-weight: 700; color: var(--text); text-decoration: none; }
-    .contrib-repo-name:hover { color: var(--accent); }
-    .contrib-repo-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
-    .contrib-count { background: rgba(0,179,125,0.07); border: 1px solid rgba(0,179,125,0.18); border-radius: 3px; padding: 0.17rem 0.6rem; font-size: 0.7rem; color: var(--accent3); font-weight: 600; }
-    .contrib-list { display: flex; flex-direction: column; gap: 0.35rem; }
-    .contrib-item {
-      display: flex; align-items: flex-start; gap: 0
+  </style>
+</head>
+<body>
+
+<!-- DSGVO CONSENT -->
+<div id="dsgvo-banner">
+  <div class="dsgvo-text">
+    <strong>Datenschutzhinweis / Privacy Notice:</strong> This site uses localStorage to record anonymous visit analytics (IP-based company lookup via ipinfo.io) for portfolio insight purposes only. No cookies. No third-party advertising.
+    See <a href="#impressum">Datenschutzerklärung</a>.
+  </div>
+  <div class="dsgvo-btns">
+    <button class="dsgvo-btn dsgvo-accept" onclick="acceptDSGVO()">Accept</button>
+    <button class="dsgvo-btn dsgvo-decline" onclick="declineDSGVO()">Decline</button>
+  </div>
+</div>
+
+<!-- ANALYTICS PANEL -->
+<div id="analytics-panel">
+  <div class="ap-title"><i class="fas fa-chart-bar" style="margin-right:.4rem"></i>Visitor Analytics</div>
+  <div id="ap-stats"></div>
+  <div class="ap-section">Recent Visits</div>
+  <div id="ap-visits"></div>
+  <div class="ap-close" onclick="toggleAnalytics()">Close Panel ✕</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">C. Masimba // Eng.</span>
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  <ul class="nav-links">
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#experience">Erfahrung</a></li>
+    <li><a href="#projects">Projekte</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Ausbildung</a></li>
+    <li><a href="#certifications">Zertifikate</a></li>
+    <li><a href="#publication">Forschung</a></li>
+    <li><a href="#impressum">Impressum</a></li>
+    <li><a href="Collins_Masimba_CV.pdf" download class="nav-cv"><i class="fas fa-download"></i>Lebenslauf</a></li>
+    <li>
+      <div class="lang-switch" id="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="de">DE</button>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-dots"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-status">
+      <span class="status-dot"></span>
+      <span id="hero-status-text">Verfügbar — Embedded AI · Embedded Systems · SPS-Programmierung</span>
+    </div>
+    <h1 id="hero-h1">Hi, ich bin <span class="name">Collins Masimba</span></h1>
+    <p class="hero-role" id="hero-role">Embedded AI &amp; Automatisierungsingenieur — Böblingen, Deutschland</p>
+    <div class="hero-chips">
+      <span class="chip">TinyML</span><span class="chip">STM32</span><span class="chip">ROS2</span>
+      <span class="chip">Siemens TIA Portal</span><span class="chip">MATLAB/Simulink</span>
+      <span class="chip">FreeRTOS</span><span class="chip">EtherCAT</span><span class="chip">Python · C/C++</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary"><i class="fas fa-folder-open"></i><span id="btn-projects-text">Projekte ansehen</span></a>
+      <a href="#experience" class="btn btn-outline"><i class="fas fa-briefcase"></i><span id="btn-exp-text">Erfahrung</span></a>
+      <a href="https://www.linkedin.com/in/collinsmasimba/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i>LinkedIn</a>
+      <a href="https://github.com/Masimba249" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i>GitHub</a>
+      <a href="Collins_Masimba_CV.pdf" download class="btn btn-dl"><i class="fas fa-download"></i><span id="btn-cv-text">Lebenslauf</span></a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val">13+</div><div class="stat-label" id="stat1">JAHRE FREELANCING</div></div>
+      <div><div class="stat-val">2+</div><div class="stat-label" id="stat2">JAHRE INDUSTRIE</div></div>
+      <div><div class="stat-val">20+</div><div class="stat-label" id="stat3">GITHUB REPOS</div></div>
+      <div><div class="stat-val">1</div><div class="stat-label" id="stat4">IEEE PUBLIKATION</div></div>
+      <div><div class="stat-val">20%</div><div class="stat-label" id="stat5">PRÄZISION VERBESSERT</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="about-eyebrow">01 — Profil</span>
+      <h2 class="section-title" id="about-title">Berufliches <span class="hl">Profil</span></h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-avatar-wrap">
+        <div class="avatar-box">
+          <img src="profile.jpg" alt="Collins Masimba" onerror="this.style.display='none';this.parentNode.innerHTML='👤'"/>
+        </div>
+        <div class="contact-list">
+          <a href="mailto:Masimba249@gmail.com" class="contact-item"><i class="fas fa-envelope"></i>Masimba249@gmail.com</a>
+          <a href="tel:+4915213937719" class="contact-item"><i class="fas fa-phone"></i>+49 152 13937719</a>
+          <a href="https://www.linkedin.com/in/collinsmasimba/" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i>LinkedIn</a>
+          <a href="https://github.com/Masimba249" target="_blank" class="contact-item"><i class="fab fa-github"></i>github.com/Masimba249</a>
+          <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="contact-item"><i class="fas fa-briefcase"></i>Freelancer.com</a>
+          <span class="contact-item"><i class="fas fa-map-marker-alt"></i>Böblingen, 71034, BW</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <h3 id="about-sum-title">Berufliche Zusammenfassung</h3>
+        <p id="about-p1">
+          Automatisierungs- und Robotikingenieur mit 13+ Jahren Freelance-Erfahrung und 2+ Jahren Industrieerfahrung im Bereich Mikrocontroller-basierter Bewegungssteuerung und Servoantriebsfirmware. Bei <strong style="color:var(--text)">Synapticon GmbH</strong> in Schönaich entwickelte und debuggte ich PID/FOC-Algorithmen für Bewegungssteuerungsfirmware, löste komplexe EtherCAT/PROFINET-Integrationsprobleme in Siemens TIA Portal, implementierte sichere FoE-Firmware-Updates und optimierte Drehmoment-/Positionsregelkreise mittels HIL-Simulationen.
+        </p>
+        <p id="about-p2">
+          Als langjähriger Freelancer auf <strong style="color:var(--text)">Freelancer.com</strong> lieferte ich 13+ Jahre MATLAB- und ML-Lösungen für Industrieroboter, Deep Learning, Signalverarbeitung und autonome Systeme. In der Forschung an der Kazakh-British Technical University verbesserte ich die KUKA-Manipulator-Präzision durch Deep-Q-Learning, integriert in eingebettete Steuerungssysteme. Versiert in C/C++, RTOS und teamübergreifender Firmware-Validierung.
+        </p>
+        <div class="about-chips">
+          <span class="about-chip"><i class="fas fa-map-marker-alt"></i>Böblingen, Deutschland</span>
+          <span class="about-chip"><i class="fas fa-check-circle"></i>EU Blue Card berechtigt</span>
+          <span class="about-chip"><i class="fas fa-shield-alt"></i>DSGVO-bewusstes Entwickeln</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE STACK -->
+<section id="core-stack">
+  <div class="stack-eyebrow" id="stack-eyebrow">Kerntechnologien</div>
+  <div class="stack-row">
+    <div class="stack-chip"><i class="fab fa-python" style="color:#3776AB"></i>Python</div>
+    <div class="stack-chip"><i class="fas fa-code" style="color:#00599C"></i>C / C++</div>
+    <div class="stack-chip"><i class="fas fa-square-root-variable" style="color:#EF6C00"></i>MATLAB</div>
+    <div class="stack-chip"><i class="fas fa-robot" style="color:var(--accent)"></i>ROS2</div>
+    <div class="stack-chip"><i class="fas fa-microchip" style="color:var(--accent3)"></i>STM32 / FreeRTOS</div>
+    <div class="stack-chip"><i class="fas fa-industry" style="color:var(--accent2)"></i>Siemens TIA Portal</div>
+    <div class="stack-chip"><i class="fas fa-cogs" style="color:#f59e0b"></i>TwinCAT / EtherCAT</div>
+    <div class="stack-chip"><i class="fab fa-docker" style="color:#2496ED"></i>Docker</div>
+    <div class="stack-chip"><i class="fas fa-code-branch" style="color:#E44332"></i>Jenkins / CI-CD</div>
+    <div class="stack-chip"><i class="fab fa-git-alt" style="color:#F05032"></i>Git</div>
+    <div class="stack-chip"><i class="fas fa-brain" style="color:var(--accent)"></i>TinyML / Edge AI</div>
+    <div class="stack-chip"><i class="fas fa-eye" style="color:var(--accent)"></i>OpenCV / YOLOv8</div>
+    <div class="stack-chip"><i class="fab fa-linux" style="color:#FCC624"></i>Linux / Ubuntu</div>
+  </div>
+  <div class="eligibility">
+    <i class="fas fa-check-circle"></i>
+    <span id="eligibility-text">Wohnhaft in Deutschland · EU Blue Card berechtigt · Offen für Stellen in Deutschland & Europa</span>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="exp-eyebrow">02 — Berufserfahrung</span>
+      <h2 class="section-title" id="exp-title">Berufliche <span class="hl">Erfahrung</span></h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="timeline">
+
+      <!-- Synapticon -->
+      <div class="timeline-item">
+        <div class="t-dot f"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <span class="exp-title" id="exp1-title">Robotics Engineer Internship</span>
+            <span class="exp-badge eb-current"><i class="fas fa-circle" style="font-size:.45rem"></i><span id="exp1-badge">Aktuell</span></span>
+          </div>
+          <div class="exp-company">Synapticon GmbH — Schönaich, Deutschland</div>
+          <div class="exp-period">Juni 2025 – Heute</div>
+          <ul class="exp-list">
+            <li id="exp1-li1">Python-, Bash- und pytest-Skripte für automatisiertes Testen von Bewegungssteuerungsfirmware (PID und FOC) entwickelt.</li>
+            <li id="exp1-li2">ROS2-Pakete in C++ und Python für das Testen der SMM-Antriebe (Safe Motion Module) für Positron Humanoid entwickelt.</li>
+            <li id="exp1-li3">Integrationszykluszeiten um 20% reduziert durch Skalierung der Testabdeckung und Optimierung der Testausführung in TwinCAT.</li>
+            <li id="exp1-li4">Testsuite für Bumpless Transfer in der Roboterbewegungssteuerung in TwinCAT mit Structured Text (ST) für PMSMs entworfen.</li>
+            <li id="exp1-li5">Komplexe Firmware-Defekte in der Motorsteuerung für Stabilität und Drehmomentschwingung mittels JTAG debuggt.</li>
+            <li id="exp1-li6">CI/CD-Pipelines mit Jenkins, Docker und GitHub aufgebaut und verwaltet.</li>
+            <li id="exp1-li7">Kritische Build-/Integrationsfehler bei EtherCAT-Master/Slave-Kommunikation und PROFINET-Integration untersucht und behoben.</li>
+            <li id="exp1-li8">HIL-Simulationen (MATLAB/Simulink) und Bench-Tests zur Aktorvalidierung nach V-Modell integriert.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Python</span><span class="exp-tag">ROS2</span><span class="exp-tag">TwinCAT</span>
+            <span class="exp-tag">EtherCAT</span><span class="exp-tag">Jenkins</span><span class="exp-tag">Docker</span>
+            <span class="exp-tag">MATLAB/Simulink</span><span class="exp-tag">JTAG</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KBTU -->
+      <div class="timeline-item">
+        <div class="t-dot f" style="border-color:var(--accent);background:var(--accent)"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <span class="exp-title" id="exp2-title">Wissenschaftlicher Mitarbeiter Robotik</span>
+            <span class="exp-badge eb-research" id="exp2-badge">Forschung</span>
+          </div>
+          <div class="exp-company">Kazakh-British Technical University — Almaty, Kasachstan</div>
+          <div class="exp-period">Oktober 2023 – Juni 2025</div>
+          <ul class="exp-list">
+            <li id="exp2-li1">Modicon M221 SPS + SCADA-System für Wasseraufbereitungsanlage entwickelt, Energieverbrauch 3,5% gesenkt, 98% Betriebszeit erreicht.</li>
+            <li id="exp2-li2">OpenCV Bewegungsplanungsalgorithmus in ROS2 für autonomen Roboter entwickelt, Effizienz 5,56% verbessert (0,90 → 0,95).</li>
+            <li id="exp2-li3">Hierarchisches diffusionsbasiertes Framework für Trajektorienplanung in mobilen Robotern mit SLAM in ROS2 entwickelt.</li>
+            <li id="exp2-li4">Siemens S7-1200 SPS + TIA Portal HMI für Förderband-Automatisierung implementiert, Durchsatz 10% gesteigert.</li>
+            <li id="exp2-li5">DQN-EKF-Fusion für robuste Zustandsschätzung in ungewissen Roboterumgebungen untersucht.</li>
+            <li id="exp2-li6">Deep Q-Learning auf KUKA-Manipulatoren angewandt, Endeffektorpräzision 20% verbessert (0,25 mm → 0,20 mm).</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">ROS2</span><span class="exp-tag">SLAM</span><span class="exp-tag">TIA Portal</span>
+            <span class="exp-tag">DQN</span><span class="exp-tag">EKF</span><span class="exp-tag">KUKA</span><span class="exp-tag">OpenCV</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Freelancer ML -->
+      <div class="timeline-item">
+        <div class="t-dot f amber"></div>
+        <div class="exp-card amber">
+          <div class="exp-header">
+            <span class="exp-title" id="exp3-title">ML-Experte für autonome Roboter</span>
+            <span class="exp-badge eb-freelance"><i class="fas fa-globe" style="font-size:.45rem"></i><span id="exp3-badge">Freelance</span></span>
+          </div>
+          <div class="exp-company">Freelancer.com — Remote</div>
+          <div class="exp-period">November 2022 – Heute · 3 J. 6 Mo.</div>
+          <ul class="exp-list">
+            <li id="exp3-li1">SPS-basierte Steuerungssysteme für Armroboter in industriellen Prozessen entwickelt und implementiert.</li>
+            <li id="exp3-li2">Technisches Know-how für YOLOv8-Implementierung in autonomen Robotern via Videokonferenzen und Online-Training weitergegeben.</li>
+            <li id="exp3-li3">Positionsgenauigkeit von KUKA-Armrobotern mit Machine Learning bestimmt.</li>
+            <li id="exp3-li4">PID-Tuning und Optimierung zur Verbesserung der Regelungssystemleistung durchgeführt.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Python</span><span class="exp-tag">YOLOv8</span><span class="exp-tag">SPS</span>
+            <span class="exp-tag">PID</span><span class="exp-tag">KUKA</span><span class="exp-tag">ML</span>
+          </div>
+          <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="exp-link" id="exp3-link">
+            <i class="fas fa-external-link-alt"></i><span>Freelancer-Profil ansehen</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Freelancer MATLAB -->
+      <div class="timeline-item">
+        <div class="t-dot f amber"></div>
+        <div class="exp-card amber">
+          <div class="exp-header">
+            <span class="exp-title" id="exp4-title">MATLAB-Experte für Industrieroboter</span>
+            <span class="exp-badge eb-freelance"><i class="fas fa-globe" style="font-size:.45rem"></i>Freelance · 13+ J.</span>
+          </div>
+          <div class="exp-company">Freelancer.com — Remote</div>
+          <div class="exp-period">Februar 2013 – Heute · 13 J. 3 Mo.</div>
+          <ul class="exp-list">
+            <li id="exp4-li1">Deep-Learning-Projekte in MATLAB: CNN, ANN, RNN, LSTM, SVM, RL, KNN, Random Forest, PyTorch, TensorFlow, Keras.</li>
+            <li id="exp4-li2">Projekte in Signalverarbeitung, DCT, FFT, Wavelet, Optimierung (GA, PSO, ACO), Bildverarbeitung, PID, Fuzzy-Regelung, CFD, FEM, FDTD.</li>
+            <li id="exp4-li3">ML-Modelle und Algorithmen mit Python und SQL entworfen, entwickelt und implementiert.</li>
+            <li id="exp4-li4">NLP und Computer Vision erforscht — Sentimentanalyse und Bilderkennung für sprachgesteuerte Roboter in MATLAB.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">MATLAB</span><span class="exp-tag">Deep Learning</span><span class="exp-tag">CNN</span>
+            <span class="exp-tag">NLP</span><span class="exp-tag">Computer Vision</span><span class="exp-tag">FEM</span>
+            <span class="exp-tag">CFD</span><span class="exp-tag">Signal Processing</span>
+          </div>
+          <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="exp-link" id="exp4-link">
+            <i class="fas fa-external-link-alt"></i><span>Freelancer-Portfolio ansehen</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="skills-eyebrow">03 — Technischer Stack</span>
+      <h2 class="section-title" id="skills-title">Fähigkeiten &amp; <span class="hl">Werkzeuge</span></h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <div class="skill-cat-head"><div class="skill-cat-icon ic-blue"><i class="fas fa-code"></i></div><span class="skill-cat-name" id="sk1">Programmiersprachen</span></div>
+        <div class="skill-chips">
+          <span class="skill-chip">Python</span><span class="skill-chip">C</span><span class="skill-chip">C++</span>
+          <span class="skill-chip">MATLAB</span><span class="skill-chip">Pytest</span><span class="skill-chip">Bash</span>
+          <span class="skill-chip">SQL</span><span class="skill-chip">Verilog</span><span class="skill-chip">Structured Text</span>
+          <span class="skill-chip">Ladder Logic</span><span class="skill-chip">SCL</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-head"><div class="skill-cat-icon ic-amber"><i class="fas fa-robot"></i></div><span class="skill-cat-name" id="sk2">Robotik &amp; Automatisierung</span></div>
+        <div class="skill-chips">
+          <span class="skill-chip">ROS2</span><span class="skill-chip">SLAM Toolbox</span><span class="skill-chip">Nav2 MPPI</span>
+          <span class="skill-chip">Gazebo</span><span class="skill-chip">RViz</span><span class="skill-chip">MuJoCo</span>
+          <span class="skill-chip">Siemens TIA Portal</span><span class="skill-chip">TwinCAT</span>
+          <span class="skill-chip">SCADA/DCS</span><span class="skill-chip">HMI Design</span><span class="skill-chip">KUKA</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-head"><div class="skill-cat-icon ic-green"><i class="fas fa-microchip"></i></div><span class="skill-cat-name" id="sk3">Embedded &amp; Hardware</span></div>
+        <div class="skill-chips">
+          <span class="skill-chip">STM32</span><span class="skill-chip">FreeRTOS</span><span class="skill-chip">ARM Cortex-M</span>
+          <span class="skill-chip">Raspberry Pi</span><span class="skill-chip">JTAG Debug</span>
+          <span class="skill-chip">EtherCAT</span><span class="skill-chip">PROFINET</span>
+          <span class="skill-chip">Altium Designer</span><span class="skill-chip">FoE Protocol</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-head"><div class="skill-cat-icon ic-blue"><i class="fas fa-brain"></i></div><span class="skill-cat-name" id="sk4">KI / ML &amp; Bildverarbeitung</span></div>
+        <div class="skill-chips">
+          <span class="skill-chip">TFLite Micro</span><span class="skill-chip">Edge Impulse</span><span class="skill-chip">TinyML</span>
+          <span class="skill-chip">OpenCV</span><span class="skill-chip">YOLOv8</span><span class="skill-chip">CNN</span>
+          <span class="skill-chip">RNN/LSTM</span><span class="skill-chip">DQN/RL</span><span class="skill-chip">EKF</span>
+          <span class="skill-chip">NLP</span><span class="skill-chip">PyTorch</span><span class="skill-chip">TensorFlow</span>
+          <span class="skill-chip">Keras</span><span class="skill-chip">Scikit-learn</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-head"><div class="skill-cat-icon ic-gray"><i class="fas fa-tools"></i></div><span class="skill-cat-name" id="sk5">DevOps &amp; Werkzeuge</span></div>
+        <div class="skill-chips">
+          <span class="skill-chip">Git/GitHub</span><span class="skill-chip">Jenkins</span><span class="skill-chip">Docker</span>
+          <span class="skill-chip">Podman</span><span class="skill-chip">Linux/Ubuntu</span>
+          <span class="skill-chip">RestAPI</span><span class="skill-chip">MATLAB/Simulink</span><span class="skill-chip">HIL</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-head"><div class="skill-cat-icon ic-green"><i class="fas fa-users"></i></div><span class="skill-cat-name" id="sk6">Sozialkompetenzen</span></div>
+        <div class="skill-chips">
+          <span class="skill-chip" id="soft1">Teamarbeit</span><span class="skill-chip" id="soft2">Problemlösung</span>
+          <span class="skill-chip" id="soft3">Eigenmotiviert</span><span class="skill-chip" id="soft4">Kundensupport</span>
+          <span class="skill-chip" id="soft5">Technische Dokumentation</span>
+          <span class="skill-chip" id="soft6">Bereichsübergreifend</span><span class="skill-chip" id="soft7">Online-Schulung</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="proj-eyebrow">04 — Portfolio · GitHub</span>
+      <h2 class="section-title" id="proj-title">Ausgewählte <span class="hl">Projektauswahl</span></h2>
+      <div class="section-rule"></div>
+      <p class="section-desc" id="proj-desc">Projekte aus Embedded AI, Robotik, Automatisierung und Energiesystemen.</p>
+      <div class="proj-toolbar">
+        <span class="proj-count"><i class="fas fa-folder-open"></i>&nbsp;<span id="proj-count-num">12</span> Projekte · Open Source</span>
+        <button class="btn-pdf" id="download-portfolio" onclick="generatePortfolioPDF()"><i class="fas fa-file-pdf"></i><span id="btn-pdf-text">Portfolio PDF</span></button>
+      </div>
+    </div>
+    <div class="projects-grid" id="featured-projects">
+
+      <a href="https://github.com/Masimba249/AI-Powered-Predictive-Sensor-Node" target="_blank" class="project-card"
+         data-detail="Edge AI sensor node on STM32 using TinyML (TensorFlow Lite Micro) on FreeRTOS for real-time anomaly detection on sensor data streams (temperature, vibration, pressure). MQTT telemetry for cloud reporting. Sub-10ms inference latency."
+         data-detail-de="Edge-AI-Sensorknoten auf STM32 mit TinyML (TensorFlow Lite Micro) auf FreeRTOS zur Echtzeit-Anomalieerkennung (Temperatur, Vibration, Druck). MQTT-Telemetrie für Cloud-Berichterstellung. Inferenzlatenz unter 10ms.">
+        <div class="proj-head"><span class="proj-icon">🔋</span><span class="proj-lang">C</span></div>
+        <div class="proj-name">AI-Powered Predictive Sensor Node</div>
+        <div class="proj-desc">Edge-AI-Anomalieerkennung auf STM32 mit TinyML + FreeRTOS + MQTT. Erkennt Sensordrift und prognostiziert Ausfälle.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>Echtzeit-Inferenz &lt;10ms</div>
+        <div class="proj-badges"><span class="proj-badge">STM32</span><span class="proj-badge">TinyML</span><span class="proj-badge">FreeRTOS</span><span class="proj-badge">MQTT</span></div>
+        <span class="proj-role">Alleinentwickler</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/SLAM-Navigation-in-ROS2-navigation" target="_blank" class="project-card"
+         data-detail="Autonomous navigation stack for a mobile robot using ROS2 Humble. SLAM Toolbox for real-time map generation, Nav2 MPPI controller, Gazebo simulation. 5.56% efficiency improvement."
+         data-detail-de="Autonomer Navigationsstack für mobilen Roboter mit ROS2 Humble. SLAM Toolbox, Nav2 MPPI-Controller, Gazebo-Simulation. 5,56% Effizienzverbesserung.">
+        <div class="proj-head"><span class="proj-icon">🗺️</span><span class="proj-lang">Python</span></div>
+        <div class="proj-name">SLAM Navigation in ROS2</div>
+        <div class="proj-desc">Autonomer mobiler Roboter mit SLAM Toolbox, Nav2 MPPI-Controller &amp; Gazebo-Simulation.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>5,56% Effizienzgewinn</div>
+        <div class="proj-badges"><span class="proj-badge">ROS2</span><span class="proj-badge">SLAM</span><span class="proj-badge">Nav2</span><span class="proj-badge">Gazebo</span></div>
+        <span class="proj-role">Leitender Entwickler</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="project-card"
+         data-detail="IEEE-published hybrid EKF-DQN model for real-time stabilization of quadcopter UAVs. Significant drift reduction vs PID baseline. Published IEEE 2026."
+         data-detail-de="IEEE-veröffentlichtes hybrides EKF-DQN-Modell zur Echtzeit-Stabilisierung von Quadcopter-UAVs. Signifikante Driftreduktion gegenüber PID-Baseline. Veröffentlicht IEEE 2026.">
+        <div class="proj-head"><span class="proj-icon">🚁</span><span class="proj-lang">MATLAB</span></div>
+        <div class="proj-name">Hybrid EKF-DQN Quadcopter Stabilization</div>
+        <div class="proj-desc"><strong style="color:var(--accent)">IEEE veröffentlicht</strong> — Hybrides EKF-DQN-Modell zur UAV-Stabilisierung in Echtzeit.</div>
+        <div class="proj-impact"><i class="fas fa-trophy"></i>IEEE 2026</div>
+        <div class="proj-badges"><span class="proj-badge">EKF</span><span class="proj-badge">DQN</span><span class="proj-badge">Simulink</span><span class="proj-badge">RL</span></div>
+        <span class="proj-role">Hauptforscher</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/Fuzzy-PID-in-Temperature-Control-in-MatLAB-and-TIA-Portal" target="_blank" class="project-card"
+         data-detail="Industrial HVAC temperature automation using Fuzzy-PID hybrid controller in MATLAB and deployed on Siemens S7-1200 with TIA Portal HMI."
+         data-detail-de="Industrielle HLK-Temperaturautomatisierung mit Fuzzy-PID-Hybridregler in MATLAB, eingesetzt auf Siemens S7-1200 mit TIA Portal HMI.">
+        <div class="proj-head"><span class="proj-icon">🌡️</span><span class="proj-lang">MATLAB</span></div>
+        <div class="proj-name">Fuzzy-PID Temperature Control</div>
+        <div class="proj-desc">Industrielle HLK-Temperaturautomatisierung mit Fuzzy-PID in MATLAB &amp; Siemens TIA Portal.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>Industrietauglich</div>
+        <div class="proj-badges"><span class="proj-badge">Fuzzy Logic</span><span class="proj-badge">PID</span><span class="proj-badge">TIA Portal</span></div>
+        <span class="proj-role">Vollständige Umsetzung</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/Multirobot-Adaptive-Control-with-Reinforcement-Learning" target="_blank" class="project-card"
+         data-detail="RL-based adaptive control for coordinating multiple robot arms in collaborative industrial tasks. Policy-gradient RL for optimal joint trajectories."
+         data-detail-de="RL-basierte adaptive Regelung zur Koordination mehrerer Roboterarme bei kollaborativen Industrieaufgaben. Policy-Gradient-RL für optimale Gelenkbahnen.">
+        <div class="proj-head"><span class="proj-icon">🤝</span><span class="proj-lang">MATLAB</span></div>
+        <div class="proj-name">Multi-Robot Adaptive RL Control</div>
+        <div class="proj-desc">Multi-Roboter-Adaptivregelung mit Reinforcement Learning für koordinierte Aufgabenausführung.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>Multi-Agenten-Koordination</div>
+        <div class="proj-badges"><span class="proj-badge">RL</span><span class="proj-badge">MATLAB</span><span class="proj-badge">Multi-Robot</span></div>
+        <span class="proj-role">Leitender Entwickler</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/Implementation-of-AI-in-Fault-Detection" target="_blank" class="project-card"
+         data-detail="CNN-based fault classification for 3-phase power transmission lines. Detects fault types in real-time for SCADA integration."
+         data-detail-de="CNN-basierte Fehlerklassifizierung für 3-Phasen-Hochspannungsleitungen. Echtzeit-Fehlererkennung für SCADA-Integration.">
+        <div class="proj-head"><span class="proj-icon">⚡</span><span class="proj-lang">MATLAB</span></div>
+        <div class="proj-name">AI Fault Detection — Power Systems</div>
+        <div class="proj-desc">CNN-basierte KI-Fehlererkennung in 3-Phasen-Energiesystemen für Echtzeit-Netzüberwachung.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>Hohe Klassifizierungsgenauigkeit</div>
+        <div class="proj-badges"><span class="proj-badge">CNN</span><span class="proj-badge">MATLAB</span><span class="proj-badge">Power Systems</span></div>
+        <span class="proj-role">Alleinentwickler</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/AI-Enabled-NICU-Monitor-Design" target="_blank" class="project-card"
+         data-detail="Full hardware design: Altium multi-layer PCB for AI-enabled NICU monitor tracking HR, SpO2, temperature. Custom 2D/3D enclosure."
+         data-detail-de="Vollständiges Hardware-Design: Altium-Mehrschicht-Leiterplatte für KI-gestützten NICU-Monitor (Herzfrequenz, SpO2, Temperatur). Benutzerdefiniertes 2D/3D-Gehäuse.">
+        <div class="proj-head"><span class="proj-icon">🏥</span><span class="proj-lang">Altium</span></div>
+        <div class="proj-name">AI-Enabled NICU Monitor Design</div>
+        <div class="proj-desc">Vollständiges Hardware-Design: Altium-Schaltplan &amp; 2D/3D-Gehäuse für KI-gestützten NICU-Monitor.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>Vollständige HW-Pipeline</div>
+        <div class="proj-badges"><span class="proj-badge">Altium</span><span class="proj-badge">PCB</span><span class="proj-badge">Edge AI</span></div>
+        <span class="proj-role">Hardware-Designer</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/Motion-Planning-of-a-Trotbot-in-ROS-and-Python" target="_blank" class="project-card"
+         data-detail="Motion planning and gait control for TrotBot walking robot. PID-based joint controllers, forward/inverse kinematics, Gazebo simulation."
+         data-detail-de="Bewegungsplanung und Gangsteuerung für TrotBot-Laufroboter. PID-basierte Gelenkregler, Vorwärts-/Inverskinematik, Gazebo-Simulation.">
+        <div class="proj-head"><span class="proj-icon">🐢</span><span class="proj-lang">Python</span></div>
+        <div class="proj-name">TrotBot Motion Planning — ROS</div>
+        <div class="proj-desc">Bewegungsplanung und Gangsteuerung für TrotBot in ROS &amp; Python mit Gazebo-Simulation.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>Vollständige Kinematik-Pipeline</div>
+        <div class="proj-badges"><span class="proj-badge">ROS</span><span class="proj-badge">Python</span><span class="proj-badge">PID</span></div>
+        <span class="proj-role">Alleinentwickler</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/Complementary-Pulse-Generator-Timer-System" target="_blank" class="project-card"
+         data-detail="Real-time embedded system for complementary pulse generation. Keypad interface, graphical LCD display. Up to 100 kHz output."
+         data-detail-de="Echtzeit-Embedded-System zur komplementären Pulserzeugung. Tastenfeld, grafisches LCD. Bis zu 100 kHz Ausgabe.">
+        <div class="proj-head"><span class="proj-icon">⏱️</span><span class="proj-lang">C</span></div>
+        <div class="proj-name">Complementary Pulse Generator</div>
+        <div class="proj-desc">Echtzeit-Mikrocontrollersystem zur Präzisions-Pulserzeugung mit Tastenfeld und LCD-Anzeige.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>Bis zu 100 kHz</div>
+        <div class="proj-badges"><span class="proj-badge">C</span><span class="proj-badge">Timer</span><span class="proj-badge">LCD</span></div>
+        <span class="proj-role">Embedded-Entwickler</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/Automatic-Vessel-Protection-System-in-AVP" target="_blank" class="project-card"
+         data-detail="Formal verification of an industrial vessel protection system using Promela/SPIN model checking with LTL safety assertions."
+         data-detail-de="Formale Verifikation eines industriellen Behälterschutzsystems mit Promela/SPIN Model-Checking und LTL-Sicherheitszusicherungen.">
+        <div class="proj-head"><span class="proj-icon">🛡️</span><span class="proj-lang">Promela</span></div>
+        <div class="proj-name">Automatic Vessel Protection System</div>
+        <div class="proj-desc">Formale Verifikation eines industriellen Behälterschutzsystems mit Promela/SPIN und LTL.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>Sicherheitskritisch verifiziert</div>
+        <div class="proj-badges"><span class="proj-badge">Promela</span><span class="proj-badge">SPIN</span><span class="proj-badge">LTL</span></div>
+        <span class="proj-role">Formal Methods Engineer</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/Heart_Disease_Prediction_using_Machine_Learning" target="_blank" class="project-card"
+         data-detail="ML pipeline for heart disease prediction. Logistic Regression, Random Forest, SVM, KNN, Decision Tree. GridSearchCV, ROC-AUC evaluation."
+         data-detail-de="ML-Pipeline zur Herzerkrankungsvorhersage. Logistische Regression, Random Forest, SVM, KNN, Entscheidungsbaum. GridSearchCV, ROC-AUC-Bewertung.">
+        <div class="proj-head"><span class="proj-icon">❤️</span><span class="proj-lang">Jupyter</span></div>
+        <div class="proj-name">Heart Disease Prediction — ML</div>
+        <div class="proj-desc">Herzerkrankungsvorhersage-Pipeline mit 5 ML-Klassifikatoren, vollständiger EDA und Hyperparameter-Tuning.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>5 Klassifikatoren verglichen</div>
+        <div class="proj-badges"><span class="proj-badge">Scikit-learn</span><span class="proj-badge">Pandas</span><span class="proj-badge">GridSearchCV</span></div>
+        <span class="proj-role">Data Scientist</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+      <a href="https://github.com/Masimba249/Quantus-Prime-Solutions" target="_blank" class="project-card"
+         data-detail="FPGA/Verilog digital logic solutions for Intel Quartus Prime. ALUs, FSMs, memory controllers with testbenches and ModelSim simulation."
+         data-detail-de="FPGA/Verilog-Digitallogiklösungen für Intel Quartus Prime. ALUs, FSMs, Speichercontroller mit Testbenches und ModelSim-Simulation.">
+        <div class="proj-head"><span class="proj-icon">🔌</span><span class="proj-lang">Verilog</span></div>
+        <div class="proj-name">Quantus Prime Solutions</div>
+        <div class="proj-desc">FPGA/Verilog-Digitallogiklösungen für Intel Quartus Prime — ALUs, FSMs, Speichercontroller.</div>
+        <div class="proj-impact"><i class="fas fa-bolt"></i>Vollständige Synthese-Pipeline</div>
+        <div class="proj-badges"><span class="proj-badge">Verilog</span><span class="proj-badge">Quartus</span><span class="proj-badge">ModelSim</span></div>
+        <span class="proj-role">FPGA-Entwickler</span>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </a>
+
+    </div>
+
+    <!-- Auto GitHub repos -->
+    <div style="margin-top:2rem">
+      <div style="font-size:.7rem;color:var(--text-muted);font-family:var(--mono);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem">
+        <i class="fas fa-sync-alt" style="color:var(--accent)"></i>
+        <span id="auto-label">Weitere GitHub-Repos (automatisch aktualisiert)</span>
+      </div>
+      <div id="auto-projects" class="projects-grid"></div>
+      <p id="auto-empty" style="display:none;text-align:center;font-size:.8rem;color:var(--text-muted);font-family:var(--mono)">Alle Repos sind oben als Featured gelistet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRIBUTIONS -->
+<section id="contributions">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="contrib-eyebrow">05 — Open Source</span>
+      <h2 class="section-title" id="contrib-title">Externe <span class="hl">Beiträge</span></h2>
+      <div class="section-rule"></div>
+      <p class="section-desc" id="contrib-desc">Pull Requests und Beiträge zu Repositorys anderer Entwickler.</p>
+    </div>
+    <div class="contrib-box">
+      <div class="contrib-repo-head">
+        <div>
+          <a href="https://github.com/rassulz/multirobot_painting_control_system" target="_blank" class="contrib-repo-name">
+            <i class="fab fa-github"></i> rassulz / multirobot_painting_control_system
+          </a>
+          <div class="contrib-repo-desc">Multi-Roboter-Lackiersystem — BSc-Abschlussarbeit (KBTU)</div>
+        </div>
+        <span class="contrib-count">5 Pull Requests</span>
+      </div>
+      <div class="contrib-list">
+        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/5" target="_blank" class="contrib-item">
+          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
+          <div><div class="contrib-pr-title">MATLAB KUKA-Steuerungsdateien und Wegpunkte hinzugefügt</div><div class="contrib-pr-desc">Vollständige Implementierung des D-H-Algorithmus für den KUKA-Roboter-Controller</div></div>
+          <span class="contrib-pr-num">#5</span>
+        </a>
+        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/4" target="_blank" class="contrib-item">
+          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
+          <div><div class="contrib-pr-title">KUKA-Integration ReadMe &amp; MATLAB-Netzwerkkonfiguration</div><div class="contrib-pr-desc">Schritt-für-Schritt-Anleitung für KUKA-Integration mit MATLAB und Netzwerkkonfigurationsdateien</div></div>
+          <span class="contrib-pr-num">#4</span>
+        </a>
+        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/3" target="_blank" class="contrib-item">
+          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
+          <div><div class="contrib-pr-title">SPS-Implementierung &amp; Hardware-Beschreibung hinzugefügt</div><div class="contrib-pr-desc">SPS-Implementierungsordner und Hardware-Beschreibung für Almat-SPS und Ayans-Hardware</div></div>
+          <span class="contrib-pr-num">#3</span>
+        </a>
+        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/2" target="_blank" class="contrib-item">
+          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
+          <div><div class="contrib-pr-title">README und initiale Projektstruktur hinzugefügt</div><div class="contrib-pr-desc">Projektdokumentation und Ordnerstruktur aufgebaut</div></div>
+          <span class="contrib-pr-num">#2</span>
+        </a>
+      </div>
+    </div>
+    <div id="auto-contribs" style="margin-top:1.25rem"></div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="edu-eyebrow">06 — Akademisch</span>
+      <h2 class="section-title" id="edu-title">Ausbildung &amp; <span class="hl">Hintergrund</span></h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-badge">Bachelor of Science</div>
+        <div class="edu-degree" id="edu-degree">BSc Automatisierungs- und Regelungstechnik</div>
+        <div class="edu-inst">Kazakh-British Technical University (KBTU)</div>
+        <div class="edu-period">Sep 2022 – Jan 2026 · Almaty, Kasachstan</div>
+        <div class="edu-courses">
+          <strong id="edu-courses-label">Relevante Studieninhalte</strong>
+          Modellierung &amp; Regelung von Robotikarmen · Regelungstheorie &amp; -anwendung ·
+          Wissenschaftliches Programmieren mit MATLAB · Höhere Ingenieurmathematik ·
+          Mobile Roboter · Netzwerkmobile Robotersysteme · Prozessleittechnik-Labor ·
+          Automatisiertes Fahren · 3D Computer Vision · Statistik für Forscher ·
+          Anwendung von Robotern · Siemens SPS: TIA Portal ·
+          Maschinelles Sehen &amp; Bildverarbeitung · Automatisierung und intelligente Systeme ·
+          Eingebettete Systeme mit Raspberry Pi &amp; Jetson
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="cert-eyebrow">07 — Coursera · Verifiziert</span>
+      <h2 class="section-title" id="cert-title">Zertifizierungen &amp; <span class="hl">Kurse</span></h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="certs-grid">
+      <a href="https://www.coursera.org/account/accomplishments/verify/6UQLC2393U58" target="_blank" class="cert-card">
+        <div class="cert-icon"><i class="fas fa-microchip"></i></div>
+        <div><div class="cert-name">Microcontroller Theory &amp; Applications</div><div class="cert-issuer">UC Irvine (Coursera)</div><div class="cert-year">2024</div><span class="cert-verify">Zertifikat ansehen <i class="fas fa-arrow-right"></i></span></div>
+      </a>
+      <a href="https://www.coursera.org/account/accomplishments/verify/45ZAHYELUPYV" target="_blank" class="cert-card">
+        <div class="cert-icon"><i class="fas fa-robot"></i></div>
+        <div><div class="cert-name">Robotics Specialization</div><div class="cert-issuer">Univ. of Pennsylvania (Coursera)</div><div class="cert-year">2024</div><span class="cert-verify">Zertifikat ansehen <i class="fas fa-arrow-right"></i></span></div>
+      </a>
+      <a href="https://www.coursera.org/account/accomplishments/verify/45ZAHYELUPYV" target="_blank" class="cert-card">
+        <div class="cert-icon"><i class="fas fa-brain"></i></div>
+        <div><div class="cert-name">Machine Learning &amp; Deep Learning</div><div class="cert-issuer">DeepLearning.AI / Coursera</div><div class="cert-year">2023</div><span class="cert-verify">Zertifikat ansehen <i class="fas fa-arrow-right"></i></span></div>
+      </a>
+      <a href="https://www.coursera.org/account/accomplishments/certificate/2SWCE4TXBXMG" target="_blank" class="cert-card">
+        <div class="cert-icon"><i class="fas fa-industry"></i></div>
+        <div><div class="cert-name">Siemens PLC: TIA Portal Programming</div><div class="cert-issuer">Siemens / Online-Zertifizierung</div><div class="cert-year">2023</div><span class="cert-verify">Zertifikat ansehen <i class="fas fa-arrow-right"></i></span></div>
+      </a>
+      <a href="https://www.coursera.org/account/accomplishments/certificate/BRH54TK6E6YE" target="_blank" class="cert-card">
+        <div class="cert-icon"><i class="fas fa-car"></i></div>
+        <div><div class="cert-name">Self-Driving Cars Specialization</div><div class="cert-issuer">Univ. of Toronto (Coursera)</div><div class="cert-year">2024</div><span class="cert-verify">Zertifikat ansehen <i class="fas fa-arrow-right"></i></span></div>
+      </a>
+      <a href="https://www.coursera.org/account/accomplishments/verify/6UQLC2393U58" target="_blank" class="cert-card">
+        <div class="cert-icon"><i class="fas fa-code"></i></div>
+        <div><div class="cert-name">Python for Everybody Specialization</div><div class="cert-issuer">Univ. of Michigan (Coursera)</div><div class="cert-year">2023</div><span class="cert-verify">Zertifikat ansehen <i class="fas fa-arrow-right"></i></span></div>
+      </a>
+      <a href="https://www.coursera.org/account/accomplishments/verify/6UQLC2393U58" target="_blank" class="cert-card">
+        <div class="cert-icon"><i class="fas fa-project-diagram"></i></div>
+        <div><div class="cert-name">Control of Mobile Robots</div><div class="cert-issuer">Georgia Tech (Coursera)</div><div class="cert-year">2023</div><span class="cert-verify">Zertifikat ansehen <i class="fas fa-arrow-right"></i></span></div>
+      </a>
+      <a href="https://www.coursera.org/account/accomplishments/verify/6UQLC2393U58" target="_blank" class="cert-card">
+        <div class="cert-icon"><i class="fas fa-cogs"></i></div>
+        <div><div class="cert-name">Modern Robotics Specialization</div><div class="cert-issuer">Northwestern University (Coursera)</div><div class="cert-year">2024</div><span class="cert-verify">Zertifikat ansehen <i class="fas fa-arrow-right"></i></span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="test-eyebrow">08 — Referenzen</span>
+      <h2 class="section-title" id="test-title">Referenzen &amp; <span class="hl">Empfehlungen</span></h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-quote" id="tq1">Collins lieferte durchgehend hochwertige MATLAB-Lösungen für unsere Robotikprojekte. Sein tiefes Verständnis von Steuerungssystemen und ML machte ihn zu unserem bevorzugten Experten für komplexe Automatisierungsherausforderungen.</div>
+        <div class="test-author">
+          <div class="test-avatar">C</div>
+          <div>
+            <div class="test-name" id="tn1">Kundenbewertung</div>
+            <div class="test-role" id="tr1">Freelancer.com · Robotik &amp; ML-Projekt</div>
+            <div class="test-source"><i class="fas fa-star" style="color:#f59e0b"></i> 5-Sterne-Bewertung</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-quote" id="tq2">Hervorragende Arbeit bei der SPS-Implementierung und KUKA-Roboterintegration. Vorzeitig geliefert mit gründlicher Dokumentation. Sehr starke technische Fähigkeiten in der industriellen Automatisierung.</div>
+        <div class="test-author">
+          <div class="test-avatar">P</div>
+          <div>
+            <div class="test-name" id="tn2">Projektpartner</div>
+            <div class="test-role" id="tr2">KBTU · Multi-Roboter Abschlussarbeit</div>
+            <div class="test-source"><i class="fas fa-handshake" style="color:var(--accent3)"></i> Akademische Zusammenarbeit</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-quote" id="tq3">Starke Debugging-Fähigkeiten und systematischer Ansatz zur Firmware-Validierung. Collins brachte echten Mehrwert in unsere Bewegungssteuerungs-Testpipeline durch seine ROS2- und CI/CD-Beiträge.</div>
+        <div class="test-author">
+          <div class="test-avatar">S</div>
+          <div>
+            <div class="test-name" id="tn3">Ingenieurteam</div>
+            <div class="test-role" id="tr3">Synapticon GmbH · Bewegungssteuerungsfirmware</div>
+            <div class="test-source"><i class="fas fa-building" style="color:var(--accent)"></i> Industriereferenz</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATION -->
+<section id="publication">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="pub-eyebrow">09 — Forschung</span>
+      <h2 class="section-title" id="pub-title">Publikation &amp; <span class="hl">Forschung</span></h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-icon-box"><i class="fas fa-file-alt"></i></div>
+      <div>
+        <div class="pub-title">"Hybrid EKF-DQN Model for Real-time Stabilization and Drift Reduction of a Quadcopter UAV"</div>
+        <div class="pub-venue">📰 IEEE Conference, 2026</div>
+        <div class="pub-tags">
+          <span class="pub-tag">Quadcopter UAV</span><span class="pub-tag">EKF</span><span class="pub-tag">DQN</span>
+          <span class="pub-tag">MATLAB/Simulink</span><span class="pub-tag">Reinforcement Learning</span>
+        </div>
+        <div class="pub-abstract" id="pub-abstract">Hybridansatz: Extended Kalman Filter (EKF) für robuste Zustandsschätzung kombiniert mit Deep Q-Network (DQN) zur autonomen Stabilisierung von Quadcopter-UAVs in GPS-freien und turbulenten Umgebungen. Signifikante Reduktion der Lagabweichung gegenüber PID-Baseline, validiert über mehrere Windstörungsszenarien.</div>
+        <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="pub-link" id="pub-link1">Code &amp; Paper ansehen <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="pub-card" style="margin-top:1.25rem;border-color:rgba(0,179,125,.22)">
+      <div class="pub-icon-box" style="background:rgba(0,179,125,.1);border-color:rgba(0,179,125,.2);color:var(--accent3)"><i class="fas fa-graduation-cap"></i></div>
+      <div>
+        <div class="pub-title" id="thesis-title">Forschungsarbeit: Multi-Roboter-Lackiersystem</div>
+        <div class="pub-venue" style="color:var(--accent3)" id="thesis-venue">🎓 BSc-Abschlussarbeit — Kazakh-British Technical University, 2026</div>
+        <div class="pub-tags">
+          <span class="pub-tag">MATLAB</span><span class="pub-tag">SPS</span><span class="pub-tag">Multi-Robot</span>
+          <span class="pub-tag">RL</span><span class="pub-tag">Adaptive Regelung</span>
+        </div>
+        <div class="pub-abstract" id="thesis-abstract">RL-basiertes adaptives Regelungsframework zur Koordination mehrerer Roboterarme in industriellen Lackieranwendungen. RL-Agenten erlernen optimale Gelenkbahnen und Echtzeit-Aufgabenverteilungsstrategien. Integration von MATLAB für RL-Training und SPS-basierter Koordination für Echtzeit-Ausführung.</div>
+        <a href="https://github.com/rassulz/multirobot_painting_control_system" target="_blank" class="pub-link" style="color:var(--accent3)" id="pub-link2">Thesis-Repository ansehen <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div style="margin-top:1.75rem">
+      <div style="font-size:.65rem;color:var(--text-muted);font-family:var(--mono);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem" id="res-label">Forschungsprojekte an der KBTU</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.8rem">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:.9rem;font-size:.78rem;color:var(--text-muted)"><div style="color:var(--accent);font-weight:600;margin-bottom:.28rem;font-size:.72rem">💧 Wasseraufbereitung</div>Wasseraufbereitungs-Automation — Modicon M221 SPS + SCADA</div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:.9rem;font-size:.78rem;color:var(--text-muted)"><div style="color:var(--accent);font-weight:600;margin-bottom:.28rem;font-size:.72rem">🤖 Autonome Bewegung</div>Autonome Roboter-Bewegungsplanung — OpenCV + ROS2</div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:.9rem;font-size:.78rem;color:var(--text-muted)"><div style="color:var(--accent);font-weight:600;margin-bottom:.28rem;font-size:.72rem">🦾 KUKA Manipulator</div>KUKA Adaptive Regelung — Deep Q-Learning</div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:.9rem;font-size:.78rem;color:var(--text-muted)"><div style="color:var(--accent);font-weight:600;margin-bottom:.28rem;font-size:.72rem">🏭 Förderband</div>Förderband-Automation — Siemens S7-1200 + TIA Portal HMI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES & LANGUAGES -->
+<section id="activities">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" id="act-eyebrow">10 — Sonstiges</span>
+      <h2 class="section-title" id="act-title">Aktivitäten &amp; <span class="hl">Sprachen</span></h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="act-grid">
+      <div class="misc-card">
+        <div class="misc-title"><i class="fas fa-star" style="color:var(--accent)"></i><span id="act-card-title">Aktivitäten</span></div>
+        <div class="misc-item"><i class="fas fa-leaf" style="color:var(--accent3)"></i><span>KBTU Engineering Club — Eco-Shell 2024 (Energieeffizientes Fahrzeug)</span></div>
+        <div class="misc-item"><i class="fas fa-graduation-cap" style="color:var(--accent)"></i><span>Aktives IEEE-Studentenmitglied — UAV-Forschungspublikation (2026)</span></div>
+        <div class="misc-item"><i class="fas fa-code-branch" style="color:var(--accent)"></i><span>Open-Source-Beiträger — 20+ GitHub-Repos in Robotik &amp; Embedded AI</span></div>
+        <div class="misc-item"><i class="fas fa-briefcase" style="color:var(--accent2)"></i><span>13+ Jahre Freelancing auf Freelancer.com — MATLAB, ML &amp; Robotik</span></div>
+      </div>
+      <div class="misc-card">
+        <div class="misc-title"><i class="fas fa-language" style="color:var(--accent)"></i><span id="lang-card-title">Sprachen</span></div>
+        <div class="misc-item"><i class="fas fa-flag" style="color:var(--accent)"></i><span>Englisch</span><span class="lang-level">C2 — Kompetent</span></div>
+        <div class="misc-item"><i class="fas fa-flag" style="color:#333"></i><span>Deutsch</span><span class="lang-level">B2 — Gehobene Mittelstufe</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPRESSUM & DATENSCHUTZ -->
+<section id="impressum">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Rechtliche Informationen</span>
+      <h2 class="section-title">Impressum &amp; <span class="hl">Datenschutz</span></h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="impressum-grid">
+      <div class="impressum-block">
+        <h4>Angaben gemäß § 5 TMG</h4>
+        <p>
+          Collins Masimba<br>
+          Böblingen, 71034<br>
+          Baden-Württemberg, Deutschland<br><br>
+          <strong>Kontakt:</strong><br>
+          Tel: +49 152 13937719<br>
+          E-Mail: <a href="mailto:Masimba249@gmail.com">Masimba249@gmail.com</a>
+        </p>
+      </div>
+      <div class="impressum-block">
+        <h4>Haftungsausschluss</h4>
+        <p>
+          Die Inhalte dieser Seite wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte wird keine Gewähr übernommen. Diese Website dient ausschließlich der beruflichen Selbstdarstellung und enthält keine geschäftlichen Transaktionen.
+        </p>
+      </div>
+      <div class="impressum-block">
+        <h4>Datenschutzerklärung (DSGVO)</h4>
+        <p>
+          Diese Website speichert anonyme Besuchsstatistiken ausschließlich im <code style="font-family:var(--mono);font-size:.75rem;background:var(--bg-card2);padding:.1rem .3rem;border-radius:2px">localStorage</code> Ihres Browsers.
+          Es werden keine Cookies gesetzt. Es erfolgt keine Weitergabe an Dritte.
+          Bei Zustimmung wird die IP-Adresse über <a href="https://ipinfo.io" target="_blank">ipinfo.io</a> anonymisiert zur Organisations-Erkennung genutzt.
+          Sie können Ihre Zustimmung jederzeit widerrufen, indem Sie den Browser-Speicher löschen.
+          Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).
+        </p>
+      </div>
+      <div class="impressum-block">
+        <h4>Externe Links</h4>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/collinsmasimba/" target="_blank">LinkedIn-Profil</a></li>
+          <li><a href="https://github.com/Masimba249" target="_blank">GitHub-Profil</a></li>
+          <li><a href="https://www.freelancer.com/u/mcollinscalz" target="_blank">Freelancer-Profil</a></li>
+        </ul>
+        <p style="margin-top:.6rem">Für die Inhalte externer Links übernehme ich keine Haftung. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Collins Masimba</div>
+      <div class="footer-sub" id="footer-sub">Embedded AI · Automatisierung · Robotikingenieur</div>
+    </div>
+    <div class="footer-socials">
+      <a href="mailto:Masimba249@gmail.com" class="social-btn" title="E-Mail"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/collinsmasimba/" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/Masimba249" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="social-btn" title="Freelancer"><i class="fas fa-briefcase"></i></a>
+      <a href="Collins_Masimba_CV.pdf" download class="social-btn" title="CV herunterladen"><i class="fas fa-download"></i></a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span id="footer-copy">© 2026 Collins Masimba — Offen für Embedded AI, Edge AI &amp; Embedded Systems.</span>
+    <button class="analytics-toggle-btn" onclick="toggleAnalytics()" title="Besucherstatistiken (nur für Seiteninhaber)"><i class="fas fa-chart-bar"></i> Analytics</button>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════ -->
+<script>
+/* ── DSGVO ── */
+(function(){
+  var b = document.getElementById('dsgvo-banner');
+  if(localStorage.getItem('dsgvo-decision')) b.classList.add('hidden');
+})();
+function acceptDSGVO(){
+  localStorage.setItem('dsgvo-decision','accepted');
+  document.getElementById('dsgvo-banner').classList.add('hidden');
+  recordVisit();
+}
+function declineDSGVO(){
+  localStorage.setItem('dsgvo-decision','declined');
+  document.getElementById('dsgvo-banner').classList.add('hidden');
+}
+
+/* ── ANALYTICS ── */
+function recordVisit(){
+  if(localStorage.getItem('dsgvo-decision') !== 'accepted') return;
+  fetch('https://ipinfo.io/json?token=')
+    .then(function(r){return r.json()})
+    .catch(function(){return {}})
+    .then(function(info){
+      var visits = JSON.parse(localStorage.getItem('portfolio-visits')||'[]');
+      visits.push({
+        ts: new Date().toISOString(),
+        ip: info.ip||'unknown',
+        city: info.city||'',
+        region: info.region||'',
+        country: info.country||'',
+        org: info.org||'',
+        company: (info.org||'').replace(/^AS\d+\s*/,'')
+      });
+      if(visits.length > 200) visits = visits.slice(-200);
+      localStorage.setItem('portfolio-visits', JSON.stringify(visits));
+    });
+}
+
+// Auto-record if already accepted
+if(localStorage.getItem('dsgvo-decision')==='accepted') recordVisit();
+
+function toggleAnalytics(){
+  var p = document.getElementById('analytics-panel');
+  p.classList.toggle('visible');
+  if(p.classList.contains('visible')) renderAnalytics();
+}
+
+function renderAnalytics(){
+  var visits = JSON.parse(localStorage.getItem('portfolio-visits')||'[]');
+  var statsEl = document.getElementById('ap-stats');
+  var visitsEl = document.getElementById('ap-visits');
+
+  // Count companies
+  var companies = {};
+  visits.forEach(function(v){
+    var c = v.company||v.org||'Unknown';
+    companies[c] = (companies[c]||0)+1;
+  });
+  var topCompanies = Object.entries(companies).sort(function(a,b){return b[1]-a[1]}).slice(0,5);
+
+  statsEl.innerHTML =
+    '<div class="ap-stat"><span class="ap-stat-key">Total Visits</span><span class="ap-stat-val">'+visits.length+'</span></div>'+
+    '<div class="ap-stat"><span class="ap-stat-key">Unique Orgs</span><span class="ap-stat-val">'+Object.keys(companies).length+'</span></div>'+
+    '<div class="ap-section">Top Organisations</div>'+
+    topCompanies.map(function(e){
+      return '<div class="ap-stat"><span class="ap-stat-key" style="font-size:.7rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+e[0]+'</span><span class="ap-stat-val">'+e[1]+'</span></div>';
+    }).join('');
+
+  var recent = visits.slice(-20).reverse();
+  visitsEl.innerHTML = recent.length === 0
+    ? '<div style="font-size:.72rem;color:var(--text-muted);padding:.5rem 0">Noch keine Besuche aufgezeichnet.</div>'
+    : recent.map(function(v){
+        return '<div class="ap-visit-row">'+
+          '<strong>'+v.company+'</strong>'+
+          '<span>'+[v.city,v.region,v.country].filter(Boolean).join(', ')+'</span>'+
+          '<span>'+new Date(v.ts).toLocaleString('de-DE')+'</span>'+
+          '</div>';
+      }).join('');
+}
+
+/* ── LANGUAGE TOGGLE ── */
+(function(){
+  var currentLang = localStorage.getItem('portfolio-lang')||'de';
+  var T = {
+    'hero-status-text': {en:'Available — Embedded AI · Embedded Systems · PLC Programming', de:'Verfügbar — Embedded AI · Embedded Systems · SPS-Programmierung'},
+    'hero-h1': {en:'Hi, I\'m <span class="name">Collins Masimba</span>', de:'Hi, ich bin <span class="name">Collins Masimba</span>'},
+    'hero-role': {en:'Embedded AI & Automation Engineer — Böblingen, Germany', de:'Embedded AI & Automatisierungsingenieur — Böblingen, Deutschland'},
+    'btn-projects-text': {en:'View Projects', de:'Projekte ansehen'},
+    'btn-exp-text': {en:'Experience', de:'Erfahrung'},
+    'btn-cv-text': {en:'Download CV', de:'Lebenslauf'},
+    'stat1': {en:'YRS FREELANCING', de:'JAHRE FREELANCING'},
+    'stat2': {en:'YRS INDUSTRY', de:'JAHRE INDUSTRIE'},
+    'stat3': {en:'GITHUB REPOS', de:'GITHUB REPOS'},
+    'stat4': {en:'IEEE PUBLICATION', de:'IEEE PUBLIKATION'},
+    'stat5': {en:'PRECISION IMPROVED', de:'PRÄZISION VERBESSERT'},
+    'about-eyebrow': {en:'01 — Profile', de:'01 — Profil'},
+    'about-title': {en:'Professional <span class="hl">Profile</span>', de:'Berufliches <span class="hl">Profil</span>'},
+    'about-sum-title': {en:'PROFESSIONAL SUMMARY', de:'BERUFLICHE
