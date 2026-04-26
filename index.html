@@ -1,2341 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Collins Masimba | Portfolio & CV — Embedded AI & Robotics Engineer</title>
+  <meta name="description" content="Collins Masimba — Embedded AI & Automation Engineer. Böblingen, Germany. STM32, ROS2, TinyML, Siemens TIA Portal, FreeRTOS, EtherCAT."/>
+  <meta name="robots" content="index, follow"/>
+  <title>Collins Masimba | Embedded AI & Robotics Engineer | Böblingen, Germany</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    /* ===== RESET & ROOT ===== */
+    /* ══════════════════════════════════════════════════
+       RESET & ROOT — GERMAN ENGINEERING PROFESSIONAL
+    ══════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:        #0a0e1a;
-      --bg-card:   #111827;
-      --bg-card2:  #1a2235;
-      --accent:    #00d4ff;
-      --accent2:   #7c3aed;
-      --accent3:   #10b981;
-      --text:      #e2e8f0;
-      --text-muted:#8892a4;
-      --border:    #1e2d45;
-      --grad1: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
-      --grad2: linear-gradient(135deg, #7c3aed 0%, #10b981 100%);
-      --shadow: 0 4px 24px rgba(0,212,255,0.08);
+      --bg:          #06101f;
+      --bg-card:     #0c1828;
+      --bg-card2:    #101f34;
+      --accent:      #1a75e8;   /* Corporate engineering blue */
+      --accent2:     #e07b1a;   /* RAL 2011 amber / engineering orange */
+      --accent3:     #00b37d;   /* Status green */
+      --text:        #dde5ef;
+      --text-muted:  #7a8fa8;
+      --border:      #172133;
+      --border2:     #1f2f43;
+      --mono:        'JetBrains Mono', monospace;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ===== SCROLLBAR ===== */
-    ::-webkit-scrollbar { width: 6px; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
-    /* ===== NAVBAR ===== */
+    /* ══════════════════════════════════════════════════
+       DSGVO CONSENT BANNER
+    ══════════════════════════════════════════════════ */
+    #dsgvo-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+      background: var(--bg-card); border-top: 2px solid var(--accent);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+    }
+    #dsgvo-banner.hidden { display: none; }
+    .dsgvo-text { font-size: 0.8rem; color: var(--text-muted); flex: 1; min-width: 240px; line-height: 1.6; }
+    .dsgvo-text strong { color: var(--text); }
+    .dsgvo-text a { color: var(--accent); text-decoration: none; }
+    .dsgvo-text a:hover { text-decoration: underline; }
+    .dsgvo-btns { display: flex; gap: 0.6rem; flex-shrink: 0; }
+    .dsgvo-btn {
+      padding: 0.45rem 1rem; border-radius: 4px; font-size: 0.78rem;
+      font-weight: 600; cursor: pointer; border: 1px solid; transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .dsgvo-accept { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .dsgvo-accept:hover { background: #1260c4; }
+    .dsgvo-decline { background: transparent; color: var(--text-muted); border-color: var(--border2); }
+    .dsgvo-decline:hover { color: var(--text); border-color: var(--text-muted); }
+
+    /* ══════════════════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════════════════ */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(10,14,26,0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(6,16,31,0.96); backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      height: 64px;
+      padding: 0 2rem; height: 58px;
       display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo {
-      font-size: 1.2rem; font-weight: 700;
-      background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
+      font-family: var(--mono); font-size: 0.92rem; font-weight: 700;
+      color: var(--accent); letter-spacing: 0.3px;
     }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
     .nav-links a {
-      color: var(--text-muted); text-decoration: none; font-size: 0.875rem;
+      color: var(--text-muted); text-decoration: none; font-size: 0.8rem;
       font-weight: 500; transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links .nav-highlight {
-      color: var(--accent); font-weight: 700;
-      background: rgba(0,212,255,0.1); padding: 0.3rem 0.75rem;
-      border-radius: 6px; border: 1px solid rgba(0,212,255,0.25);
+    .nav-links a:hover { color: var(--text); }
+    .nav-cv {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      color: var(--accent3) !important;
+      border: 1px solid rgba(0,179,125,0.28); border-radius: 4px;
+      padding: 0.22rem 0.65rem; font-size: 0.75rem !important;
+      transition: background 0.2s !important;
     }
-    .nav-links .nav-highlight:hover { background: rgba(0,212,255,0.18); }
-
-    /* Mobile hamburger */
-    .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; padding: 0.5rem; }
-    @media (max-width: 768px) {
+    .nav-cv:hover { background: rgba(0,179,125,0.08) !important; border-color: var(--accent3) !important; }
+    .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.1rem; cursor: pointer; padding: 0.4rem; }
+    @media (max-width: 900px) {
       .nav-toggle { display: block; }
       .nav-links {
         display: none; flex-direction: column; position: absolute;
-        top: 64px; left: 0; right: 0; background: rgba(10,14,26,0.97);
-        border-bottom: 1px solid var(--border); padding: 1rem 2rem; gap: 1rem;
+        top: 58px; left: 0; right: 0; background: rgba(6,16,31,0.98);
+        border-bottom: 1px solid var(--border); padding: 1rem 2rem; gap: 0.75rem;
       }
       .nav-links.open { display: flex; }
     }
-
-    /* Download CV button */
-    .btn-download {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff;
-      box-shadow: 0 4px 20px rgba(16,185,129,0.3);
-    }
-    .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(16,185,129,0.4); }
-
-    /* Portfolio PDF button */
-    .btn-portfolio {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: #fff;
-      padding: 0.6rem 1.25rem; border-radius: 10px; border: none;
-      font-size: 0.85rem; font-weight: 600; cursor: pointer;
-      box-shadow: 0 4px 20px rgba(124,58,237,0.3);
-      transition: all 0.25s; font-family: 'Inter', sans-serif;
-      text-decoration: none;
-    }
-    .btn-portfolio:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.4); }
-    .btn-portfolio.generating { opacity: 0.7; cursor: wait; }
-    .projects-header-actions {
-      display: flex; align-items: center; justify-content: center; gap: 1rem;
-      margin-top: 1rem; flex-wrap: wrap;
-    }
-
-    /* Language switcher */
     .lang-switch {
-      display: inline-flex; align-items: center; gap: 0.2rem;
+      display: inline-flex; align-items: center;
       background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 50px; padding: 0.2rem;
-      font-size: 0.75rem; cursor: pointer;
-      transition: all 0.2s;
+      border-radius: 3px; overflow: hidden;
     }
-    .lang-switch:hover { border-color: var(--accent); }
     .lang-btn {
-      padding: 0.2rem 0.55rem; border-radius: 50px; border: none;
-      background: transparent; color: var(--text-muted);
-      font-size: 0.75rem; font-weight: 600; cursor: pointer;
-      transition: all 0.2s; font-family: 'Inter', sans-serif;
+      padding: 0.18rem 0.5rem; border: none; background: transparent;
+      color: var(--text-muted); font-size: 0.7rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
     }
-    .lang-btn.active {
-      background: var(--accent); color: #0a0e1a;
-    }
+    .lang-btn.active { background: var(--accent); color: #fff; }
     .lang-btn:hover:not(.active) { color: var(--text); }
 
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-      padding: 100px 2rem 60px;
-    }
-    .hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 20% 40%, rgba(0,212,255,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 80% 60%, rgba(124,58,237,0.12) 0%, transparent 60%);
-    }
-    .hero-grid {
-      position: absolute; inset: 0; z-index: 0;
-      background-image:
-        linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    .hero-content {
-      position: relative; z-index: 1; text-align: center; max-width: 860px;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.25);
-      border-radius: 50px; padding: 0.4rem 1rem;
-      font-size: 0.8rem; color: var(--accent); font-weight: 500;
-      margin-bottom: 1.5rem;
-    }
-    .hero-badge span { width: 8px; height: 8px; background: var(--accent3); border-radius: 50%; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800; line-height: 1.1;
-      letter-spacing: -1.5px; margin-bottom: 1rem;
-    }
-    .hero h1 .name { background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: var(--text-muted); margin-bottom: 0.75rem;
-      font-weight: 400;
-    }
-    .hero-tags {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem;
-      margin-bottom: 2.5rem;
-    }
-    .tag {
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 50px; padding: 0.3rem 0.85rem;
-      font-size: 0.78rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
-    }
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+    /* ══════════════════════════════════════════════════
+       BUTTONS
+    ══════════════════════════════════════════════════ */
     .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.75rem; border-radius: 10px;
-      font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.25s;
-      cursor: pointer; border: none;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.65rem 1.35rem; border-radius: 5px;
+      font-size: 0.85rem; font-weight: 600; text-decoration: none;
+      transition: all 0.2s; cursor: pointer; border: 1px solid transparent;
+      font-family: 'Inter', sans-serif;
     }
-    .btn-primary {
-      background: var(--grad1); color: #fff;
-      box-shadow: 0 4px 20px rgba(0,212,255,0.3);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.4); }
-    .btn-outline {
-      background: transparent; color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover { background: #1260c4; border-color: #1260c4; }
+    .btn-outline { background: transparent; color: var(--text); border-color: var(--border2); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-download { background: transparent; color: var(--accent3); border-color: rgba(0,179,125,0.35); }
+    .btn-download:hover { background: rgba(0,179,125,0.08); border-color: var(--accent3); }
 
-    .hero-stats {
-      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
-    }
-    .stat { text-align: center; }
-    .stat-val { font-size: 1.75rem; font-weight: 800; background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.1rem; }
-
-    /* ===== SECTION COMMON ===== */
-    section { padding: 90px 2rem; }
-    .container { max-width: 1100px; margin: 0 auto; }
-    .section-header { text-align: center; margin-bottom: 3.5rem; }
-    .section-label {
-      display: inline-block; font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem; font-weight: 500; color: var(--accent);
-      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.75rem;
+    /* ══════════════════════════════════════════════════
+       SECTIONS
+    ══════════════════════════════════════════════════ */
+    section { padding: 88px 2rem; }
+    .container { max-width: 1060px; margin: 0 auto; }
+    .section-header { margin-bottom: 2.75rem; }
+    .section-eyebrow {
+      display: block; font-family: var(--mono); font-size: 0.68rem;
+      color: var(--accent); letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 0.5rem; font-weight: 500;
     }
     .section-title {
-      font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800;
-      letter-spacing: -0.5px;
+      font-size: clamp(1.55rem, 3.2vw, 2.1rem); font-weight: 700;
+      color: var(--text); letter-spacing: -0.25px; line-height: 1.2;
     }
-    .section-title .highlight {
-      background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .section-desc { color: var(--text-muted); max-width: 560px; margin: 0.75rem auto 0; font-size: 0.95rem; }
+    .section-title .hl { color: var(--accent); }
+    .section-rule { width: 36px; height: 2px; background: var(--accent); margin-top: 0.85rem; }
+    .section-desc { color: var(--text-muted); max-width: 520px; margin-top: 0.65rem; font-size: 0.88rem; }
 
-    /* ===== ABOUT ===== */
+    /* ══════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════ */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding: 80px 2rem 60px;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background-image: radial-gradient(circle, rgba(26,117,232,0.14) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 85% 75% at 50% 50%, transparent 30%, var(--bg) 100%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .hero-status {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      background: rgba(26,117,232,0.07); border: 1px solid rgba(26,117,232,0.2);
+      border-radius: 3px; padding: 0.32rem 0.8rem;
+      font-size: 0.75rem; color: var(--accent); font-weight: 500;
+      margin-bottom: 2rem; font-family: var(--mono);
+    }
+    .status-dot { width: 6px; height: 6px; background: var(--accent3); border-radius: 50%; animation: blink 2.5s infinite; }
+    @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.25} }
+    .hero h1 {
+      font-size: clamp(2rem, 5.2vw, 3.6rem); font-weight: 800;
+      line-height: 1.1; letter-spacing: -1px; margin-bottom: 0.7rem;
+    }
+    .hero h1 .name { color: var(--accent); }
+    .hero-role { font-size: clamp(0.92rem, 1.8vw, 1.1rem); color: var(--text-muted); margin-bottom: 1.5rem; }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 2.25rem; }
+    .chip {
+      background: var(--bg-card); border: 1px solid var(--border2);
+      border-radius: 3px; padding: 0.25rem 0.65rem;
+      font-size: 0.72rem; color: var(--text-muted); font-family: var(--mono);
+    }
+    .hero-btns { display: flex; gap: 0.65rem; flex-wrap: wrap; margin-bottom: 2.75rem; }
+    .hero-stats {
+      display: flex; gap: 2.25rem; flex-wrap: wrap;
+      padding-top: 1.75rem; border-top: 1px solid var(--border);
+    }
+    .stat-val { font-size: 1.55rem; font-weight: 800; color: var(--accent); font-family: var(--mono); }
+    .stat-label { font-size: 0.68rem; color: var(--text-muted); margin-top: 0.1rem; letter-spacing: 0.3px; }
+
+    /* ══════════════════════════════════════════════════
+       ABOUT
+    ══════════════════════════════════════════════════ */
     #about { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 3.5rem; align-items: center; }
-    .about-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-    .avatar-ring {
-      width: 200px; height: 200px; border-radius: 50%;
-      background: var(--grad1); padding: 3px;
-      display: flex; align-items: center; justify-content: center;
+    .about-grid { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; align-items: start; }
+    .about-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+    .avatar-box {
+      width: 172px; height: 172px; border-radius: 6px; overflow: hidden;
+      border: 2px solid var(--accent); background: var(--bg-card2);
+      display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
     }
-    .avatar-inner {
-      width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
-      background: var(--bg-card2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 4.5rem;
-    }
-    .avatar-inner img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-    }
-    .about-contact-list { display: flex; flex-direction: column; gap: 0.6rem; width: 100%; }
-    .about-contact-list a {
-      display: flex; align-items: center; gap: 0.6rem;
-      color: var(--text-muted); text-decoration: none; font-size: 0.85rem;
-      padding: 0.5rem 1rem; border-radius: 8px;
-      border: 1px solid var(--border); background: var(--bg-card2);
-      transition: all 0.2s;
-    }
-    .about-contact-list a:hover { color: var(--accent); border-color: var(--accent); }
-    .about-contact-list .contact-btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.7rem 1.4rem; border-radius: 10px;
-      font-size: 0.88rem; font-weight: 600; text-decoration: none;
-      background: transparent; color: var(--text);
-      border: 1px solid var(--border);
-      transition: all 0.25s; cursor: pointer;
-    }
-    .about-contact-list .contact-btn:hover {
-      border-color: var(--accent); color: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0,212,255,0.15);
-    }
-    .about-contact-list .contact-location {
-      display: flex; align-items: center; gap: 0.6rem;
-      color: var(--text-muted); font-size: 0.85rem;
-      padding: 0.5rem 1rem;
-    }
-    .about-contact-list i { color: var(--accent); width: 18px; text-align: center; }
-
-    .about-text h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--accent); }
-    .about-text p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.25rem; }
-    .location-chip {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; color: var(--text-muted);
-    }
-
-    /* ===== CORE STACK HIGHLIGHT ===== */
-    #core-stack { background: var(--bg); padding: 50px 2rem; }
-    .stack-bar {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .stack-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 0.6rem 1.1rem;
-      font-size: 0.82rem; font-weight: 600; color: var(--text);
-      transition: all 0.25s;
-    }
-    .stack-item:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,212,255,0.12); }
-    .stack-item img { width: 22px; height: 22px; }
-    .stack-item i { font-size: 1.1rem; width: 22px; text-align: center; }
-    .stack-section-label {
-      text-align: center; margin-bottom: 1.5rem;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
-      color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
-    }
-
-    /* ===== WORK AUTH BANNER ===== */
-    .work-auth {
-      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-      background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);
-      border-radius: 10px; padding: 0.6rem 1.25rem;
-      font-size: 0.82rem; color: #34d399; max-width: 600px; margin: 1.5rem auto 0;
-    }
-    .work-auth i { font-size: 0.9rem; }
-
-    /* ===== EXPERIENCE ===== */
-    #experience {
-      position: relative;
-      background: linear-gradient(180deg, var(--bg) 0%, rgba(17,24,39,0.6) 50%, var(--bg) 100%);
-    }
-    #experience::before {
-      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 50% 30% at 10% 20%, rgba(0,212,255,0.05) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 30% at 90% 80%, rgba(124,58,237,0.04) 0%, transparent 60%);
-    }
-    #experience .container { position: relative; z-index: 1; }
-    .timeline { position: relative; padding-left: 2rem; }
-    .timeline::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-      width: 3px; background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3), transparent);
-      border-radius: 2px;
-    }
-    .timeline-item { position: relative; padding-bottom: 2.5rem; }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .timeline-dot {
-      position: absolute; left: -2.55rem; top: 0.35rem;
-      width: 16px; height: 16px; border-radius: 50%;
-      background: var(--accent); border: 3px solid var(--bg);
-      box-shadow: 0 0 16px rgba(0,212,255,0.7);
-    }
-    .exp-card {
-      background: linear-gradient(135deg, rgba(26,34,53,1) 0%, rgba(17,24,39,1) 100%);
-      border: 1px solid rgba(0,212,255,0.15);
-      border-radius: 14px; padding: 1.75rem; transition: all 0.3s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-    }
-    .exp-card:hover {
-      border-color: rgba(0,212,255,0.4);
-      box-shadow: 0 8px 32px rgba(0,212,255,0.1);
-      transform: translateY(-2px);
-    }
-    .exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
-    .exp-title { font-size: 1.1rem; font-weight: 700; color: #f1f5f9; }
-    .exp-badge {
-      display: inline-flex; align-items: center; gap: 0.3rem;
-      background: rgba(0,212,255,0.12); border: 1px solid rgba(0,212,255,0.3);
-      border-radius: 50px; padding: 0.25rem 0.8rem; font-size: 0.75rem; color: var(--accent);
-      white-space: nowrap; font-weight: 600;
-    }
-    .exp-badge.current { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: #34d399; }
-    .exp-badge.freelance { background: rgba(251,146,60,0.15); border-color: rgba(251,146,60,0.4); color: #fbbf24; }
-    .exp-company { font-size: 0.95rem; color: #38bdf8; font-weight: 700; margin-bottom: 0.25rem; }
-    .exp-period { font-size: 0.8rem; color: #94a3b8; margin-bottom: 1rem; font-family: 'JetBrains Mono', monospace; }
-    .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .exp-list li {
-      padding-left: 1.2rem; position: relative; font-size: 0.9rem; color: #cbd5e1; line-height: 1.7;
-    }
-    .exp-list li::before { content: '▸'; position: absolute; left: 0; color: #38bdf8; font-size: 0.75rem; top: 3px; }
-    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
-    .exp-tag {
-      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
-      border-radius: 6px; padding: 0.25rem 0.65rem; font-size: 0.72rem;
-      color: #93c5fd; font-family: 'JetBrains Mono', monospace;
-    }
-    .exp-profile-link {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      color: var(--accent); text-decoration: none; font-size: 0.8rem; font-weight: 600;
-      margin-top: 1rem; transition: gap 0.2s;
-    }
-    .exp-profile-link:hover { gap: 0.6rem; }
-
-    /* ===== SKILLS ===== */
-    #skills {
-      position: relative;
-      background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    }
-    #skills::before {
-      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 50% 35% at 80% 20%, rgba(124,58,237,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 45% 30% at 20% 80%, rgba(0,212,255,0.05) 0%, transparent 60%);
-    }
-    #skills .container { position: relative; z-index: 1; }
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-    .skill-category {
-      background: linear-gradient(135deg, rgba(26,34,53,1) 0%, rgba(17,24,39,1) 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px; padding: 1.5rem; transition: all 0.3s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-    }
-    .skill-category:hover {
-      border-color: rgba(0,212,255,0.3);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0,212,255,0.08);
-    }
-    .skill-cat-title {
-      display: flex; align-items: center; gap: 0.6rem;
-      font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; color: #f1f5f9;
-    }
-    .skill-cat-icon {
-      width: 36px; height: 36px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.95rem;
-    }
-    .icon-blue { background: rgba(0,212,255,0.2); color: #38bdf8; }
-    .icon-purple { background: rgba(124,58,237,0.2); color: #a78bfa; }
-    .icon-green { background: rgba(16,185,129,0.2); color: #34d399; }
-    .icon-orange { background: rgba(251,146,60,0.2); color: #fbbf24; }
-    .icon-red { background: rgba(248,113,113,0.2); color: #fb7185; }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill-tag {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px; padding: 0.35rem 0.75rem; font-size: 0.8rem;
-      color: #cbd5e1; font-family: 'JetBrains Mono', monospace;
-      transition: all 0.25s;
-    }
-    .skill-tag:hover {
-      color: #fff; border-color: rgba(0,212,255,0.4);
-      background: rgba(0,212,255,0.1);
-      box-shadow: 0 0 8px rgba(0,212,255,0.15);
-    }
-
-    /* ===== PROJECTS ===== */
-    /* ===== PROJECTS (FEATURED) ===== */
-    #projects {
-      position: relative;
-      background: var(--bg-card);
-      border-top: 1px solid rgba(0,212,255,0.15);
-      border-bottom: 1px solid rgba(0,212,255,0.15);
-    }
-    #projects::before {
-      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 60% 40% at 30% 0%, rgba(0,212,255,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 70% 100%, rgba(124,58,237,0.06) 0%, transparent 60%);
-    }
-    #projects .container { position: relative; z-index: 1; }
-    #projects .section-header { margin-bottom: 2rem; }
-    #projects .section-title { font-size: clamp(2rem, 4.5vw, 3rem); }
-    .projects-count {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25);
-      border-radius: 50px; padding: 0.3rem 0.85rem;
-      font-size: 0.8rem; color: var(--accent); font-weight: 600;
-      margin-top: 0.75rem;
-    }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.5rem; }
-    .project-card {
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.5rem;
-      display: flex; flex-direction: column; gap: 0.75rem;
-      transition: all 0.25s; text-decoration: none; color: inherit;
-    }
-    .project-card:hover {
-      border-color: rgba(0,212,255,0.35);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
-    }
-    .project-header { display: flex; align-items: center; justify-content: space-between; }
-    .project-icon { font-size: 1.5rem; }
-    .project-lang {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 50px; padding: 0.2rem 0.6rem;
-      font-size: 0.7rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
-    }
-    .project-name { font-size: 0.92rem; font-weight: 700; color: var(--text); line-height: 1.4; }
-    .project-desc { font-size: 0.82rem; color: var(--text-muted); flex: 1; }
-    .project-impact {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2);
-      border-radius: 6px; padding: 0.2rem 0.55rem;
-      font-size: 0.7rem; color: #34d399; font-weight: 600;
-    }
-    .project-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
-    .project-role {
-      font-size: 0.7rem; color: var(--text-muted); font-style: italic;
-    }
-    .project-badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-    .project-badge-sm {
-      background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15);
-      border-radius: 4px; padding: 0.15rem 0.45rem;
-      font-size: 0.65rem; color: #93c5fd; font-family: 'JetBrains Mono', monospace;
-    }
-    .project-link-icon { color: var(--text-muted); font-size: 0.8rem; transition: color 0.2s; }
-    .project-card:hover .project-link-icon { color: var(--accent); }
-
-    /* ===== CONTRIBUTIONS ===== */
-    #contributions { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .contrib-repo {
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.5rem; max-width: 800px; margin: 0 auto;
-    }
-    .contrib-repo-header {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem;
-      padding-bottom: 1rem; border-bottom: 1px solid var(--border);
-    }
-    .contrib-repo-name {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 1rem; font-weight: 700; color: var(--text);
+    .avatar-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .contact-list { display: flex; flex-direction: column; width: 100%; }
+    .contact-item {
+      display: flex; align-items: center; gap: 0.55rem; font-size: 0.75rem;
+      color: var(--text-muted); padding: 0.45rem 0; border-bottom: 1px solid var(--border);
       text-decoration: none; transition: color 0.2s;
     }
-    .contrib-repo-name:hover { color: var(--accent); }
-    .contrib-repo-name i { color: var(--text-muted); }
-    .contrib-repo-desc { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem; }
-    .contrib-badge {
-      background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25);
-      border-radius: 50px; padding: 0.25rem 0.75rem;
-      font-size: 0.75rem; color: var(--accent3); font-weight: 600; white-space: nowrap;
+    .contact-item:last-child { border-bottom: none; }
+    .contact-item:hover { color: var(--accent); }
+    .contact-item i { color: var(--accent); width: 15px; text-align: center; font-size: 0.82rem; }
+    .about-text h3 {
+      font-size: 0.68rem; font-weight: 700; color: var(--accent); letter-spacing: 2.5px;
+      text-transform: uppercase; margin-bottom: 0.7rem; font-family: var(--mono);
     }
-    .contrib-list { display: flex; flex-direction: column; gap: 0.5rem; }
-    .contrib-item {
-      display: flex; align-items: flex-start; gap: 0.75rem;
-      padding: 0.75rem; border-radius: 10px; text-decoration: none; color: inherit;
-      border: 1px solid transparent; transition: all 0.2s;
+    .about-text p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.88; margin-bottom: 1.2rem; }
+    .about-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem; }
+    .about-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--bg-card2); border: 1px solid var(--border2);
+      border-radius: 3px; padding: 0.28rem 0.65rem; font-size: 0.75rem; color: var(--text-muted);
     }
-    .contrib-item:hover { background: rgba(0,212,255,0.04); border-color: var(--border); }
-    .contrib-pr-icon { color: var(--accent3); font-size: 0.9rem; margin-top: 2px; flex-shrink: 0; }
-    .contrib-pr-title { font-size: 0.875rem; font-weight: 600; color: var(--text); }
-    .contrib-pr-desc { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
-    .contrib-pr-num {
-      margin-left: auto; font-size: 0.72rem; color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace; flex-shrink: 0;
+    .about-chip i { color: var(--accent3); font-size: 0.8rem; }
+
+    /* ══════════════════════════════════════════════════
+       TECH STACK STRIP
+    ══════════════════════════════════════════════════ */
+    #core-stack { background: var(--bg); border-bottom: 1px solid var(--border); padding: 32px 2rem; }
+    .stack-eyebrow {
+      text-align: center; margin-bottom: 1rem;
+      font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted);
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .stack-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; max-width: 1060px; margin: 0 auto; }
+    .stack-chip {
+      display: flex; align-items: center; gap: 0.38rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 3px; padding: 0.4rem 0.8rem;
+      font-size: 0.75rem; font-weight: 500; color: var(--text-muted); transition: all 0.2s;
+    }
+    .stack-chip:hover { color: var(--text); border-color: rgba(26,117,232,0.45); }
+    .stack-chip i { font-size: 0.9rem; width: 16px; text-align: center; }
+    .eligibility-row {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      margin-top: 1.25rem; font-size: 0.75rem; color: var(--accent3); font-family: var(--mono);
+    }
+    .eligibility-row::before, .eligibility-row::after {
+      content: ''; flex: 1; max-width: 100px; height: 1px; background: rgba(0,179,125,0.18);
     }
 
-    /* ===== EDUCATION ===== */
-    #education { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-    .edu-card {
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.5rem;
+    /* ══════════════════════════════════════════════════
+       EXPERIENCE
+    ══════════════════════════════════════════════════ */
+    #experience { background: var(--bg); }
+    .timeline { position: relative; padding-left: 2.25rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 5px; top: 10px; bottom: 0;
+      width: 1px; background: var(--border2);
     }
-    .edu-badge {
-      display: inline-block; background: rgba(124,58,237,0.12);
-      border: 1px solid rgba(124,58,237,0.25); border-radius: 50px;
-      padding: 0.2rem 0.75rem; font-size: 0.72rem; color: var(--accent2); margin-bottom: 0.75rem;
+    .timeline-item { position: relative; padding-bottom: 1.75rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .t-marker {
+      position: absolute; left: -2.25rem; top: 7px;
+      width: 12px; height: 12px; border: 2px solid var(--accent);
+      border-radius: 2px; background: var(--bg);
     }
-    .edu-degree { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
-    .edu-institution { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 0.2rem; }
-    .edu-period { font-size: 0.78rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.85rem; }
-    .edu-courses { font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
-    .edu-courses strong { color: var(--text-muted); display: block; margin-bottom: 0.3rem; }
-
-    /* ===== CERTIFICATIONS ===== */
-    .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
-    .cert-card {
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.25rem;
-      display: flex; align-items: flex-start; gap: 1rem;
-      transition: all 0.25s;
-      text-decoration: none; color: inherit; cursor: pointer;
+    .t-marker.filled { background: var(--accent); }
+    .t-marker.amber { border-color: var(--accent2); }
+    .t-marker.amber.filled { background: var(--accent2); }
+    .exp-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 5px 5px 0; padding: 1.4rem; transition: border-color 0.2s;
     }
-    .cert-card:hover {
-      border-color: rgba(16,185,129,0.35);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    }
-    .cert-icon {
-      width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
-      background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.2);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent3); font-size: 1.1rem;
-    }
-    .cert-name { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.2rem; }
-    .cert-issuer { font-size: 0.78rem; color: var(--accent3); margin-bottom: 0.1rem; }
-    .cert-year { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.4rem; }
-    .cert-verify {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      color: var(--accent); font-size: 0.75rem; font-weight: 600;
-      transition: gap 0.2s;
-    }
-    .cert-card:hover .cert-verify { gap: 0.6rem; }
-
-    /* ===== TESTIMONIALS ===== */
-    #testimonials { background: var(--bg); }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-    .testimonial-card {
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.75rem; position: relative;
-      transition: all 0.25s;
-    }
-    .testimonial-card:hover {
-      border-color: rgba(0,212,255,0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    }
-    .testimonial-quote {
-      font-size: 0.9rem; color: var(--text-muted); line-height: 1.8;
-      font-style: italic; margin-bottom: 1.25rem;
-    }
-    .testimonial-quote::before {
-      content: '\201C'; font-size: 2.5rem; color: var(--accent);
-      line-height: 0; vertical-align: -0.6rem; margin-right: 0.2rem;
-      font-family: Georgia, serif;
-    }
-    .testimonial-author {
-      display: flex; align-items: center; gap: 0.75rem;
-      border-top: 1px solid var(--border); padding-top: 1rem;
-    }
-    .testimonial-avatar {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--grad1); display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; font-weight: 700; color: #fff;
-    }
-    .testimonial-name { font-size: 0.85rem; font-weight: 700; color: var(--text); }
-    .testimonial-role { font-size: 0.75rem; color: var(--text-muted); }
-    .testimonial-source {
+    .exp-card.amber { border-left-color: var(--accent2); }
+    .exp-card:hover { border-color: var(--border2); border-left-color: inherit; }
+    .exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.35rem; }
+    .exp-title { font-size: 0.97rem; font-weight: 700; color: var(--text); }
+    .exp-badge {
       display: inline-flex; align-items: center; gap: 0.3rem;
-      font-size: 0.7rem; color: var(--accent); margin-top: 0.15rem;
+      font-size: 0.67rem; font-weight: 600; padding: 0.18rem 0.55rem;
+      border-radius: 3px; border: 1px solid; white-space: nowrap;
     }
-
-    /* ===== PUBLICATION ===== */
-    .pub-card {
-      background: var(--bg-card2); border: 1px solid rgba(124,58,237,0.3);
-      border-radius: 14px; padding: 2rem;
-      display: flex; gap: 1.5rem; align-items: flex-start;
-      max-width: 800px; margin: 0 auto;
-    }
-    .pub-icon {
-      width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
-      background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent2); font-size: 1.4rem;
-    }
-    .pub-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; line-height: 1.4; }
-    .pub-venue { font-size: 0.82rem; color: var(--accent2); margin-bottom: 0.75rem; }
-    .pub-link {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      color: var(--accent); text-decoration: none; font-size: 0.82rem; font-weight: 600;
-      transition: gap 0.2s;
-    }
-    .pub-link:hover { gap: 0.6rem; }
-
-    /* ===== ACTIVITIES & LANGUAGES ===== */
-    #activities { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .act-lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .misc-card {
-      background: var(--bg-card2); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;
-    }
-    .misc-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
-    .misc-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; color: var(--text-muted); }
-    .misc-item:last-child { border-bottom: none; }
-    .lang-level {
-      margin-left: auto; font-size: 0.72rem; font-family: 'JetBrains Mono', monospace;
-      background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2);
-      border-radius: 50px; padding: 0.15rem 0.5rem; color: var(--accent);
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: var(--bg-card); border-top: 1px solid var(--border);
-      padding: 3rem 2rem;
-    }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
-    }
-    .footer-logo { font-size: 1.2rem; font-weight: 800; background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .footer-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
-    .footer-socials { display: flex; gap: 0.75rem; }
-    .social-btn {
-      width: 40px; height: 40px; border-radius: 10px;
+    .exp-badge.current { color: var(--accent3); border-color: rgba(0,179,125,0.28); background: rgba(0,179,125,0.07); }
+    .exp-badge.freelance { color: var(--accent2); border-color: rgba(224,123,26,0.28); background: rgba(224,123,26,0.07); }
+    .exp-badge.research { color: var(--accent); border-color: rgba(26,117,232,0.28); background: rgba(26,117,232,0.07); }
+    .exp-company { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 0.18rem; }
+    .exp-period { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.85rem; font-family: var(--mono); }
+    .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .exp-list li { padding-left: 1rem; position: relative; font-size: 0.855rem; color: var(--text-muted); line-height: 1.72; }
+    .exp-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 3px; }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.8rem; }
+    .exp-tag {
       background: var(--bg-card2); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted); text-decoration: none; font-size: 1rem;
-      transition: all 0.2s;
+      border-radius: 2px; padding: 0.18rem 0.5rem; font-size: 0.68rem;
+      color: var(--text-muted); font-family: var(--mono);
     }
-    .social-btn:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
-    .footer-copy { font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); max-width: 1100px; margin-left: auto; margin-right: auto; }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; }
-      .about-avatar-wrap { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-      .act-lang-grid { grid-template-columns: 1fr; }
-      .nav-links:not(.open) { display: none; }
-      section { padding: 60px 1.25rem; }
-      .stack-bar { gap: 0.75rem; }
-      .stack-item { padding: 0.5rem 0.85rem; font-size: 0.75rem; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .pub-card { flex-direction: column; }
-      .hero-stats { gap: 1.5rem; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .edu-grid { grid-template-columns: 1fr; }
-      .certs-grid { grid-template-columns: 1fr; }
+    .exp-link {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      color: var(--accent); text-decoration: none; font-size: 0.75rem; font-weight: 600;
+      margin-top: 0.8rem; transition: gap 0.2s;
     }
-    @media (max-width: 480px) {
-      .hero-stats { gap: 1.5rem; }
-      .pub-card { flex-direction: column; }
-      .hero-btns { flex-direction: column; align-items: center; }
-      .btn { width: 100%; justify-content: center; }
+    .exp-link:hover { gap: 0.55rem; }
+
+    /* ══════════════════════════════════════════════════
+       SKILLS
+    ══════════════════════════════════════════════════ */
+    #skills { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)); gap: 1.1rem; }
+    .skill-cat { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 5px; padding: 1.2rem; transition: border-color 0.2s; }
+    .skill-cat:hover { border-color: var(--border2); }
+    .skill-cat-head {
+      display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.8rem;
+      padding-bottom: 0.7rem; border-bottom: 1px solid var(--border);
     }
-  </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <span class="nav-logo">Collins Masimba</span>
-  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><i class="fas fa-bars"></i></button>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects" class="nav-highlight">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contributions">Contributions</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#certifications">Certs</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#publication">Research</a></li>
-    <li><a href="Collins_Masimba_CV.pdf" download class="nav-highlight" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.25);color:#10b981;"><i class="fas fa-download" style="margin-right:0.3rem"></i>CV</a></li>
-    <li>
-      <div class="lang-switch" id="lang-toggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="de">DE</button>
-      </div>
-    </li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span></span>
-      Open to Embedded AI · Embedded Systems· PLC Programming Roles 
-    </div>
-    <h1>Hi, I'm <span class="name">Collins Masimba</span></h1>
-    <p class="hero-subtitle">Embedded AI &amp; Automation Engineer</p>
-    <div class="hero-tags">
-      <span class="tag">TinyML</span>
-      <span class="tag">STM32</span>
-      <span class="tag">ROS2</span>
-      <span class="tag">Siemens TIA Portal</span>
-      <span class="tag">MATLAB/Simulink</span>
-      <span class="tag">FreeRTOS</span>
-      <span class="tag">EtherCAT</span>
-      <span class="tag">Python · C/C++</span>
-    </div>
-    <div class="hero-btns">
-      <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i>View Projects</a>
-      <a href="#experience" class="btn btn-outline"><i class="fas fa-briefcase"></i>Experience</a>
-      <a href="https://www.linkedin.com/in/collinsmasimba/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i>LinkedIn</a>
-      <a href="https://github.com/Masimba249" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i>GitHub</a>
-      <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="btn btn-outline"><i class="fas fa-briefcase"></i>Freelancer</a>
-      <a href="Collins_Masimba_CV.pdf" download class="btn btn-download"><i class="fas fa-download"></i>Download CV</a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-val">13+</div><div class="stat-label">Years Freelancing</div></div>
-      <div class="stat"><div class="stat-val">2+</div><div class="stat-label">Years Industry</div></div>
-      <div class="stat"><div class="stat-val">20+</div><div class="stat-label">GitHub Repos</div></div>
-      <div class="stat"><div class="stat-val">1</div><div class="stat-label">IEEE Publication</div></div>
-      <div class="stat"><div class="stat-val">20%</div><div class="stat-label">Precision Improved</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-avatar-wrap">
-        <div class="avatar-ring">
-          <div class="avatar-inner">
-            <!-- ✅ PROFILE PICTURE — Save your photo as profile.jpg in the same folder -->
-            <img src="profile.jpg" alt="Collins Masimba" />
-          </div>
-        </div>
-        <div class="about-contact-list">
-          <a href="mailto:Masimba249@gmail.com"><i class="fas fa-envelope"></i>Masimba249@gmail.com</a>
-          <a href="tel:+4915213937719"><i class="fas fa-phone"></i>+49 152 13937719</a>
-          <a href="https://www.linkedin.com/in/collinsmasimba/" target="_blank" class="contact-btn"><i class="fab fa-linkedin"></i>LinkedIn</a>
-          <a href="https://github.com/Masimba249" target="_blank" class="contact-btn"><i class="fab fa-github"></i>GitHub</a>
-          <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="contact-btn"><i class="fas fa-briefcase"></i>Freelancer</a>
-          <span class="contact-location"><i class="fas fa-map-marker-alt"></i>Böblingen, Germany (71034)</span>
-        </div>
-      </div>
-      <div class="about-text">
-        <h3>Professional Summary</h3>
-        <p>
-          Automation and Robotics Engineer with 13+ years of freelance expertise and 2+ years of industry
-          experience focused on microcontroller-based motion control and servo drive firmware. At
-          <strong style="color:var(--text)">Synapticon GmbH</strong> in Stuttgart, developed and debugged
-          PID/FOC algorithms for motion control firmware, resolved complex EtherCAT/PROFINET integration
-          issues in Siemens TIA Portal, implemented secure FoE firmware updates, and optimized
-          torque/position feedback loops via HIL simulations.
-        </p>
-        <p>
-          As a long-standing freelancer on <strong style="color:var(--text)">Freelancer.com</strong>,
-          delivered 13+ years of MATLAB and ML solutions for industrial robots, deep learning, signal
-          processing, and autonomous systems. Developed ROS2 packages for Safe Motion Module (SMM) drives
-          in testing and validation. In research at Kazakh-British Technical University, enhanced KUKA
-          manipulator precision through Deep-Q learning integrated with embedded control systems.
-          Proficient in C/C++, RTOS, and cross-team firmware validation.
-        </p>
-        <span class="location-chip"><i class="fas fa-map-marker-alt" style="color:var(--accent)"></i> Böblingen, Germany</span>
-        <span class="location-chip" style="margin-left:0.5rem"><i class="fas fa-shield-halved" style="color:var(--accent3)"></i> GDPR-Aware Development</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CORE TECH STACK -->
-<section id="core-stack">
-  <div class="stack-section-label">Core Technologies</div>
-  <div class="stack-bar">
-    <div class="stack-item"><i class="fab fa-python" style="color:#3776AB"></i> Python</div>
-    <div class="stack-item"><i class="fas fa-code" style="color:#00599C"></i> C / C++</div>
-    <div class="stack-item"><i class="fas fa-square-root-variable" style="color:#EF6C00"></i> MATLAB</div>
-    <div class="stack-item"><i class="fas fa-robot" style="color:#22D3EE"></i> ROS2</div>
-    <div class="stack-item"><i class="fas fa-microchip" style="color:#10b981"></i> STM32 / FreeRTOS</div>
-    <div class="stack-item"><i class="fas fa-industry" style="color:#a78bfa"></i> Siemens TIA Portal</div>
-    <div class="stack-item"><i class="fas fa-cogs" style="color:#f59e0b"></i> TwinCAT / EtherCAT</div>
-    <div class="stack-item"><i class="fab fa-docker" style="color:#2496ED"></i> Docker</div>
-    <div class="stack-item"><i class="fas fa-code-branch" style="color:#E44332"></i> Jenkins / CI-CD</div>
-    <div class="stack-item"><i class="fab fa-git-alt" style="color:#F05032"></i> Git</div>
-    <div class="stack-item"><i class="fas fa-brain" style="color:#7c3aed"></i> TinyML / Edge AI</div>
-    <div class="stack-item"><i class="fas fa-eye" style="color:#38bdf8"></i> OpenCV / YOLOv8</div>
-    <div class="stack-item"><i class="fab fa-linux" style="color:#FCC624"></i> Linux / Ubuntu</div>
-  </div>
-  <div class="work-auth">
-    <i class="fas fa-check-circle"></i>
-    Based in Germany · EU Blue Card Eligible · Open to opportunities across Germany &amp; Europe
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Career</span>
-      <h2 class="section-title">Professional <span class="highlight">Experience</span></h2>
-    </div>
-    <div class="timeline">
-
-      <!-- Synapticon -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="exp-card">
-          <div class="exp-header">
-            <span class="exp-title">Robotics Engineer Internship</span>
-            <span class="exp-badge current"><i class="fas fa-circle" style="font-size:0.5rem"></i> Current</span>
-          </div>
-          <div class="exp-company">Synapticon GmbH — Schönaich, Germany</div>
-          <div class="exp-period">June 2025 – Present</div>
-          <ul class="exp-list">
-            <li>Developed Python, Bash and pytest scripts for automated testing of motion control firmware (PID and Field-Oriented Control) using RestAPI framework.</li>
-            <li>Developed ROS2 packages in C++ and Python for testing the control of SMM (Safe Motion Module) drives for Positron Humanoid and PMSMs for the integros.</li>
-            <li>Reduced integration cycle times by 20% by scaling test coverage and optimising test execution in TwinCAT for Synapticon Arm Robots.</li>
-            <li>Designed and implemented test suite for Bumpless transfer in robot control motion in TwinCAT using Structured Text (ST) for PMSMs.</li>
-            <li>Debugged complex firmware defects in Motor Control Behavior for stability and torque response using JTAG.</li>
-            <li>Built and managed CI/CD pipelines using Jenkins, Docker, and GitHub to automate build, test, and deployment phases.</li>
-            <li>Investigated and fixed critical build/integration failures involving real-time fieldbus communication (EtherCAT master/slave) and PROFINET integration.</li>
-            <li>Collaborated with mechatronics teams to integrate HIL simulations (MATLAB/Simulink) and bench testing for actuator validation based on the V-model.</li>
-            <li>Improved torque and position feedback validation by correlating HIL models with bench measurements and automating acceptance criteria.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- KBTU Research -->
-      <div class="timeline-item">
-        <div class="timeline-dot" style="background:var(--accent2); box-shadow: 0 0 12px rgba(124,58,237,0.6);"></div>
-        <div class="exp-card">
-          <div class="exp-header">
-            <span class="exp-title">Robotics Research Assistant</span>
-            <span class="exp-badge">Oct 2023 – Jun 2025</span>
-          </div>
-          <div class="exp-company">Kazakh-British Technical University — Almaty, Kazakhstan</div>
-          <div class="exp-period">October 2023 – June 2025</div>
-          <ul class="exp-list">
-            <li>Designed Modicon M221 PLC + SCADA system for water treatment plant, cutting energy use 3.5% and achieving 98% uptime via optimised pump logic.</li>
-            <li>Developed OpenCV motion planning algorithm in ROS2 for autonomous robot, boosting efficiency 5.56% (from 0.90 to 0.95) and improving motion precision and safety.</li>
-            <li>Developed a hierarchical diffusion-based framework for trajectory planning in mobile robots using SLAM in ROS2.</li>
-            <li>Implemented Siemens S7-1200 PLC + TIA Portal HMI for conveyor automation, raising throughput 10% and reducing fault detection time by 4 seconds.</li>
-            <li>Investigated DQN-EKF fusion for robust state estimation and decision-making in uncertain robotic environments using RL and Extended Kalman Filter.</li>
-            <li>Applied Deep Q-Learning to KUKA manipulators, improving end-effector precision 20% (from 0.25 mm to 0.20 mm) with adaptive policies integrated into Siemens TIA Portal.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Freelancer.com — ML Expert -->
-      <div class="timeline-item">
-        <div class="timeline-dot" style="background:#fb923c; box-shadow: 0 0 12px rgba(251,146,60,0.6);"></div>
-        <div class="exp-card">
-          <div class="exp-header">
-            <span class="exp-title">Machine Learning Expert for Autonomous Robots</span>
-            <span class="exp-badge freelance"><i class="fas fa-globe" style="font-size:0.5rem"></i> Freelance</span>
-          </div>
-          <div class="exp-company">Freelancer.com — Remote (Almaty, Kazakhstan)</div>
-          <div class="exp-period">November 2022 – Present · 3 yrs 6 mos</div>
-          <ul class="exp-list">
-            <li>Design and implement PLC-based control systems for arm robots in industrial processes, leading to improved efficiency and reduced downtime.</li>
-            <li>Provided technical expertise and guidance to other engineers through video conferencing and online training, fostering a collaborative and knowledge-sharing work environment when implementing YOLOv8 in autonomous robots.</li>
-            <li>Collaborate with cross-functional teams to define automation requirements and deliver integrated solutions.</li>
-            <li>Determined the position accuracy of KUKA arm robot using Machine Learning.</li>
-            <li>Perform PID tuning and optimization to enhance control system performance.</li>
-          </ul>
-          <div class="exp-tags">
-            <span class="exp-tag">Python</span>
-            <span class="exp-tag">YOLOv8</span>
-            <span class="exp-tag">Drones</span>
-            <span class="exp-tag">PLC</span>
-            <span class="exp-tag">PID Tuning</span>
-            <span class="exp-tag">KUKA Robots</span>
-            <span class="exp-tag">Machine Learning</span>
-          </div>
-          <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="exp-profile-link">
-            <i class="fas fa-external-link-alt"></i> View Freelancer Profile
-          </a>
-        </div>
-      </div>
-
-      <!-- Freelancer.com — MATLAB Expert -->
-      <div class="timeline-item">
-        <div class="timeline-dot" style="background:#fb923c; box-shadow: 0 0 12px rgba(251,146,60,0.6);"></div>
-        <div class="exp-card">
-          <div class="exp-header">
-            <span class="exp-title">MATLAB Expert for Industrial Robots</span>
-            <span class="exp-badge freelance"><i class="fas fa-globe" style="font-size:0.5rem"></i> Freelance · 13+ yrs</span>
-          </div>
-          <div class="exp-company">Freelancer.com — Remote (Almaty, Kazakhstan)</div>
-          <div class="exp-period">February 2013 – Present · 13 yrs 3 mos</div>
-          <ul class="exp-list">
-            <li>Worked on Deep Learning projects in MATLAB spanning CNN, ANN, RNN, LSTM, SVM, Reinforcement Learning, KNN, Random Forest, Decision Tree, PyTorch, TensorFlow, Keras, and TF-Agents.</li>
-            <li>Handled projects in signal processing, signal compression, DCT, FFT, wavelet transform, optimization (GA, PSO, ACO), image processing, PID, Fuzzy control, numerical simulation, CFD, FEM, FDTD, and electromagnetic simulation.</li>
-            <li>Designed, developed, and implemented machine learning models and algorithms using Python and SQL.</li>
-            <li>Collaborated with data scientists, software engineers, data analysts, account managers, and product managers to deliver high-quality solutions in autonomous robotics.</li>
-            <li>Conducted experiments, performed statistical analysis, and evaluated model performance to enhance accuracy and speed.</li>
-            <li>Conducted extensive research in Natural Language Processing (NLP) and Computer Vision, resulting in the development of innovative algorithms for sentiment analysis and image recognition for voice-controlled robots in MATLAB.</li>
-          </ul>
-          <div class="exp-tags">
-            <span class="exp-tag">MATLAB</span>
-            <span class="exp-tag">Deep Learning</span>
-            <span class="exp-tag">CNN</span>
-            <span class="exp-tag">NLP</span>
-            <span class="exp-tag">Computer Vision</span>
-            <span class="exp-tag">FEA</span>
-            <span class="exp-tag">Signal Processing</span>
-            <span class="exp-tag">CFD</span>
-            <span class="exp-tag">Optimization</span>
-          </div>
-          <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="exp-profile-link">
-            <i class="fas fa-external-link-alt"></i> View Freelancer Portfolio
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Tech Stack</span>
-      <h2 class="section-title">Skills &amp; <span class="highlight">Tools</span></h2>
-    </div>
-    <div class="skills-grid">
-
-      <div class="skill-category">
-        <div class="skill-cat-title">
-          <div class="skill-cat-icon icon-blue"><i class="fas fa-code"></i></div>
-          Programming Languages
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">C</span>
-          <span class="skill-tag">C++</span>
-          <span class="skill-tag">MATLAB</span>
-          <span class="skill-tag">Pytest</span>
-          <span class="skill-tag">Bash</span>
-          <span class="skill-tag">SQL</span>
-          <span class="skill-tag">Verilog</span>
-          <span class="skill-tag">Structured Text</span>
-          <span class="skill-tag">Ladder Logic</span>
-          <span class="skill-tag">SCL</span>
-        </div>
-      </div>
-
-      <div class="skill-category">
-        <div class="skill-cat-title">
-          <div class="skill-cat-icon icon-purple"><i class="fas fa-robot"></i></div>
-          Robotics &amp; Automation
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">ROS2</span>
-          <span class="skill-tag">SLAM Toolbox</span>
-          <span class="skill-tag">Nav2 MPPI</span>
-          <span class="skill-tag">Gazebo</span>
-          <span class="skill-tag">RViz</span>
-          <span class="skill-tag">MuJoCo</span>
-          <span class="skill-tag">Siemens TIA Portal</span>
-          <span class="skill-tag">TwinCAT</span>
-          <span class="skill-tag">SCADA/DCS</span>
-          <span class="skill-tag">HMI Design</span>
-          <span class="skill-tag">Visual Components</span>
-          <span class="skill-tag">KUKA Robots</span>
-        </div>
-      </div>
-
-      <div class="skill-category">
-        <div class="skill-cat-title">
-          <div class="skill-cat-icon icon-green"><i class="fas fa-microchip"></i></div>
-          Embedded &amp; Hardware
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">STM32</span>
-          <span class="skill-tag">FreeRTOS</span>
-          <span class="skill-tag">ARM Cortex-M</span>
-          <span class="skill-tag">Raspberry Pi</span>
-          <span class="skill-tag">JTAG Debug</span>
-          <span class="skill-tag">EtherCAT</span>
-          <span class="skill-tag">PROFINET</span>
-          <span class="skill-tag">Altium Designer</span>
-          <span class="skill-tag">FoE Protocol</span>
-        </div>
-      </div>
-
-      <div class="skill-category">
-        <div class="skill-cat-title">
-          <div class="skill-cat-icon icon-orange"><i class="fas fa-brain"></i></div>
-          AI / ML &amp; Vision
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">TFLite Micro</span>
-          <span class="skill-tag">Edge Impulse</span>
-          <span class="skill-tag">TinyML</span>
-          <span class="skill-tag">OpenCV</span>
-          <span class="skill-tag">YOLOv8</span>
-          <span class="skill-tag">CNN</span>
-          <span class="skill-tag">RNN / LSTM</span>
-          <span class="skill-tag">DQN / RL</span>
-          <span class="skill-tag">EKF</span>
-          <span class="skill-tag">NLP</span>
-          <span class="skill-tag">PyTorch</span>
-          <span class="skill-tag">TensorFlow</span>
-          <span class="skill-tag">Keras</span>
-          <span class="skill-tag">Scikit-learn</span>
-        </div>
-      </div>
-
-      <div class="skill-category">
-        <div class="skill-cat-title">
-          <div class="skill-cat-icon icon-red"><i class="fas fa-tools"></i></div>
-          DevOps &amp; Tooling
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Git / GitHub</span>
-          <span class="skill-tag">Jenkins</span>
-          <span class="skill-tag">Docker</span>
-          <span class="skill-tag">Podman</span>
-          <span class="skill-tag">Linux / Ubuntu</span>
-          <span class="skill-tag">RestAPI</span>
-          <span class="skill-tag">MES Interfaces</span>
-          <span class="skill-tag">MATLAB/Simulink</span>
-          <span class="skill-tag">HIL Simulation</span>
-        </div>
-      </div>
-
-      <div class="skill-category">
-        <div class="skill-cat-title">
-          <div class="skill-cat-icon icon-blue"><i class="fas fa-users"></i></div>
-          Soft Skills
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Team Collaboration</span>
-          <span class="skill-tag">Problem Solving</span>
-          <span class="skill-tag">Self-Motivated</span>
-          <span class="skill-tag">Customer Support</span>
-          <span class="skill-tag">Technical Writing</span>
-          <span class="skill-tag">Cross-functional</span>
-          <span class="skill-tag">Online Training</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Portfolio · GitHub</span>
-      <h2 class="section-title">Featured <span class="highlight">Project Portfolio</span></h2>
-      <p class="section-desc">A curated set of projects spanning embedded AI, robotics, automation, and power systems.</p>
-      <div class="projects-header-actions">
-        <div class="projects-count"><i class="fas fa-folder-open"></i> 12 Projects · Open Source</div>
-        <button class="btn-portfolio" id="download-portfolio" onclick="generatePortfolioPDF()">
-          <i class="fas fa-file-pdf"></i> Download Portfolio PDF
-        </button>
-      </div>
-    </div>
-    <div class="projects-grid">
-
-      <a href="https://github.com/Masimba249/AI-Powered-Predictive-Sensor-Node" target="_blank" class="project-card" data-detail="Designed and implemented an edge AI sensor node on STM32 microcontroller for predictive maintenance in industrial environments. The system uses TinyML (TensorFlow Lite Micro) running on FreeRTOS to perform real-time anomaly detection on sensor data streams (temperature, vibration, pressure). Implemented MQTT-based telemetry for cloud reporting and alert generation. Achieves sub-10ms inference latency enabling immediate fault response. The firmware architecture follows a modular FreeRTOS task design with separate threads for sensor acquisition, ML inference, and MQTT communication." data-detail-de="Entwurf und Implementierung eines Edge-AI-Sensorknotens auf STM32-Mikrocontroller für vorausschauende Wartung in industriellen Umgebungen. Das System nutzt TinyML (TensorFlow Lite Micro) auf FreeRTOS zur Echtzeit-Anomalieerkennung in Sensordatenströmen (Temperatur, Vibration, Druck). MQTT-basierte Telemetrie für Cloud-Berichterstellung und Alarmgenerierung implementiert. Erreicht eine Inferenzlatenz unter 10ms für sofortige Fehlerreaktion. Die Firmware-Architektur folgt einem modularen FreeRTOS-Task-Design mit separaten Threads für Sensorerfassung, ML-Inferenz und MQTT-Kommunikation.">
-        <div class="project-header"><span class="project-icon">🔋</span><span class="project-lang">C</span></div>
-        <div class="project-name">AI-Powered Predictive Sensor Node</div>
-        <div class="project-desc">Edge AI anomaly detection on STM32 using TinyML + FreeRTOS + MQTT. Detects sensor drift and predicts failures before they occur.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> Real-time inference &lt;10ms</span>
-          <span class="project-role">Solo developer</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">STM32</span><span class="project-badge-sm">TinyML</span><span class="project-badge-sm">FreeRTOS</span><span class="project-badge-sm">MQTT</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/SLAM-Navigation-in-ROS2-navigation" target="_blank" class="project-card" data-detail="Built a complete autonomous navigation stack for a mobile robot using ROS2 Humble. Integrated SLAM Toolbox for real-time map generation, Nav2 with MPPI (Model Predictive Path Integral) controller for trajectory planning, and Gazebo for physics-based simulation. The robot autonomously maps unknown environments, localises itself using AMCL, and navigates to goal positions while avoiding static and dynamic obstacles. Achieved a 5.56% improvement in navigation efficiency (from 0.90 to 0.95 success rate) by tuning costmap parameters and MPPI controller weights. Includes launch files, custom URDF, and sensor integration (LiDAR + IMU)." data-detail-de="Aufbau eines vollständigen autonomen Navigations-Stacks für einen mobilen Roboter mit ROS2 Humble. Integration von SLAM Toolbox zur Echtzeit-Kartenerstellung, Nav2 mit MPPI-Controller (Model Predictive Path Integral) zur Trajektorienplanung und Gazebo für physikbasierte Simulation. Der Roboter kartiert selbstständig unbekannte Umgebungen, lokalisiert sich mittels AMCL und navigiert zu Zielpositionen unter Vermeidung statischer und dynamischer Hindernisse. 5,56% Verbesserung der Navigationseffizienz (von 0,90 auf 0,95 Erfolgsrate) durch Optimierung der Costmap-Parameter und MPPI-Controller-Gewichte. Enthält Launch-Dateien, benutzerdefiniertes URDF und Sensorintegration (LiDAR + IMU).">
-        <div class="project-header"><span class="project-icon">🗺️</span><span class="project-lang">Python</span></div>
-        <div class="project-name">SLAM Navigation in ROS2</div>
-        <div class="project-desc">Autonomous mobile robot with SLAM Toolbox, Nav2 MPPI Controller &amp; Gazebo simulation. Full autonomous navigation pipeline.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> 5.56% efficiency gain</span>
-          <span class="project-role">Lead developer</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">ROS2</span><span class="project-badge-sm">SLAM</span><span class="project-badge-sm">Nav2</span><span class="project-badge-sm">Gazebo</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="project-card" data-detail="IEEE-published research project proposing a hybrid approach combining Extended Kalman Filter (EKF) for robust state estimation with a Deep Q-Network (DQN) for autonomous stabilisation of quadcopter UAVs. Addresses the challenge of maintaining stable flight in GPS-denied and turbulent environments where traditional PID controllers fail. The EKF fuses noisy IMU and barometer data to produce accurate attitude estimates, while the DQN agent learns optimal corrective thrust commands through trial-and-error in a MATLAB/Simulink simulation environment. Demonstrated significant reduction in roll/pitch drift compared to baseline PID, validated across multiple wind disturbance scenarios. Published at IEEE Conference 2026." data-detail-de="IEEE-veröffentlichtes Forschungsprojekt mit einem hybriden Ansatz: Extended Kalman Filter (EKF) für robuste Zustandsschätzung kombiniert mit Deep Q-Network (DQN) zur autonomen Stabilisierung von Quadcopter-UAVs. Adressiert die Herausforderung stabilen Flugs in GPS-freien und turbulenten Umgebungen, in denen herkömmliche PID-Regler versagen. Der EKF fusioniert verrauschte IMU- und Barometerdaten zu präzisen Lageinschätzungen, während der DQN-Agent optimale Schubkorrekturbefehle durch Trial-and-Error in MATLAB/Simulink erlernt. Signifikante Reduktion der Roll-/Nickabweichung gegenüber Basis-PID, validiert über mehrere Windstörungsszenarien. Veröffentlicht auf der IEEE-Konferenz 2026.">
-        <div class="project-header"><span class="project-icon">🚁</span><span class="project-lang">MATLAB</span></div>
-        <div class="project-name">Hybrid EKF-DQN Quadcopter Stabilization</div>
-        <div class="project-desc"><strong style="color:var(--accent2)">IEEE Published</strong> — Hybrid EKF-DQN model for real-time UAV stabilization. Significant drift reduction vs baseline PID.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-trophy"></i> IEEE Published 2026</span>
-          <span class="project-role">Primary researcher</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">EKF</span><span class="project-badge-sm">DQN</span><span class="project-badge-sm">Simulink</span><span class="project-badge-sm">RL</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/Fuzzy-PID-in-Temperature-Control-in-MatLAB-and-TIA-Portal" target="_blank" class="project-card" data-detail="Developed an industrial-grade hybrid Fuzzy-PID temperature controller for HVAC systems. The Fuzzy Logic layer dynamically adjusts PID gains (Kp, Ki, Kd) based on error magnitude and rate of change, enabling superior transient response and reduced overshoot compared to conventional PID. Designed and simulated the control system in MATLAB/Simulink, then deployed the validated controller on Siemens S7-1200 PLC via TIA Portal with HMI visualisation for operator monitoring. The project demonstrates the full control engineering workflow: plant modelling, controller design, simulation, and PLC deployment for industrial temperature regulation." data-detail-de="Entwicklung eines industrietauglichen hybriden Fuzzy-PID-Temperaturreglers für HLK-Anlagen. Die Fuzzy-Logic-Schicht passt die PID-Verstärkungen (Kp, Ki, Kd) dynamisch an Fehlergröße und Änderungsrate an und ermöglicht besseres Übergangsverhalten und reduziertes Überschwingen gegenüber konventionellem PID. Entwurf und Simulation des Regelsystems in MATLAB/Simulink, anschließend Deployment des validierten Reglers auf Siemens S7-1200 SPS über TIA Portal mit HMI-Visualisierung zur Bedienerüberwachung. Das Projekt demonstriert den vollständigen regelungstechnischen Workflow: Streckenmodellierung, Reglerentwurf, Simulation und SPS-Deployment für industrielle Temperaturregelung.">
-        <div class="project-header"><span class="project-icon">🌡️</span><span class="project-lang">MATLAB</span></div>
-        <div class="project-name">Fuzzy-PID Temperature Control</div>
-        <div class="project-desc">Industrial HVAC temperature automation using Fuzzy-PID hybrid controller in MATLAB &amp; deployed on Siemens TIA Portal.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> Industrial-grade control</span>
-          <span class="project-role">Full implementation</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">Fuzzy Logic</span><span class="project-badge-sm">PID</span><span class="project-badge-sm">TIA Portal</span><span class="project-badge-sm">MATLAB</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/Multirobot-Adaptive-Control-with-Reinforcement-Learning" target="_blank" class="project-card" data-detail="Implemented a Reinforcement Learning-based adaptive control framework for coordinating multiple robot arms in collaborative industrial tasks. Each robot agent uses a policy-gradient RL algorithm to learn optimal joint trajectories and task allocation strategies, adapting in real-time to varying workpiece geometries and dynamic task requirements. The multi-agent system handles collision avoidance, workspace sharing, and synchronised handoffs between robots. Developed and validated entirely in MATLAB with Robotics Toolbox, using custom reward functions penalising collisions and rewarding task completion speed and energy efficiency." data-detail-de="Implementierung eines auf Reinforcement Learning basierenden adaptiven Regelungsframeworks zur Koordination mehrerer Roboterarme bei kollaborativen Industrieaufgaben. Jeder Roboter-Agent nutzt einen Policy-Gradient-RL-Algorithmus zum Erlernen optimaler Gelenkbahnen und Aufgabenverteilungsstrategien, mit Echtzeitanpassung an variierende Werkstückgeometrien und dynamische Aufgabenanforderungen. Das Multi-Agenten-System behandelt Kollisionsvermeidung, Arbeitsraumteilung und synchronisierte Übergaben zwischen Robotern. Vollständig in MATLAB mit Robotics Toolbox entwickelt und validiert, mit benutzerdefinierten Belohnungsfunktionen für Kollisionsvermeidung und Optimierung von Aufgabengeschwindigkeit und Energieeffizienz.">
-        <div class="project-header"><span class="project-icon">🤝</span><span class="project-lang">MATLAB</span></div>
-        <div class="project-name">Multi-Robot Adaptive RL Control</div>
-        <div class="project-desc">Multi-robot adaptive control using Reinforcement Learning for coordinated task execution in industrial settings.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> Multi-agent coordination</span>
-          <span class="project-role">Lead developer</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">RL</span><span class="project-badge-sm">MATLAB</span><span class="project-badge-sm">Multi-Robot</span><span class="project-badge-sm">Adaptive</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/Implementation-of-AI-in-Fault-Detection" target="_blank" class="project-card" data-detail="Developed a CNN-based fault classification system for 3-phase power transmission lines. The model processes voltage and current waveform data to detect and classify fault types (single line-to-ground, line-to-line, double line-to-ground, and three-phase faults) in real-time. Implemented data preprocessing pipeline including signal windowing, normalisation, and feature extraction. Trained and evaluated multiple architectures in MATLAB Deep Learning Toolbox, achieving high classification accuracy across all fault categories. The system is designed for integration into SCADA environments for real-time grid protection and monitoring." data-detail-de="Entwicklung eines CNN-basierten Fehlerklassifizierungssystems für 3-Phasen-Hochspannungsleitungen. Das Modell verarbeitet Spannungs- und Stromwellenformdaten zur Echtzeit-Erkennung und Klassifizierung von Fehlertypen (Einphasen-Erdschluss, Leiter-Leiter, Doppel-Erdschluss und Dreiphasenfehler). Implementierung einer Datenvorverarbeitungspipeline mit Signalfensterung, Normalisierung und Merkmalsextraktion. Training und Evaluation mehrerer Architekturen in MATLAB Deep Learning Toolbox mit hoher Klassifizierungsgenauigkeit über alle Fehlerkategorien. Das System ist für die Integration in SCADA-Umgebungen zur Echtzeit-Netzüberwachung und -schutz konzipiert.">
-        <div class="project-header"><span class="project-icon">⚡</span><span class="project-lang">MATLAB</span></div>
-        <div class="project-name">AI Fault Detection — Power Systems</div>
-        <div class="project-desc">CNN-based AI fault detection on 3-phase power systems achieving high classification accuracy for real-time grid monitoring.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> High accuracy classification</span>
-          <span class="project-role">Solo developer</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">CNN</span><span class="project-badge-sm">MATLAB</span><span class="project-badge-sm">Power Systems</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/AI-Enabled-NICU-Monitor-Design" target="_blank" class="project-card" data-detail="Designed the complete hardware platform for an AI-enabled Neonatal Intensive Care Unit (NICU) patient monitor. Created multi-layer PCB schematics in Altium Designer integrating sensors for heart rate (ECG), blood oxygen saturation (SpO2), and body temperature. Designed a custom 2D/3D enclosure optimised for bedside mounting and medical safety standards. The system supports edge AI inference for early anomaly detection in neonatal vitals, with low-power wireless connectivity for nurse station alerts. Includes full BOM, Gerber files, and mechanical drawings." data-detail-de="Entwurf der vollständigen Hardwareplattform für einen KI-gestützten Patientenmonitor für neonatale Intensivstationen (NICU). Erstellung mehrlagiger Leiterplattenschaltpläne in Altium Designer mit Integration von Sensoren für Herzfrequenz (EKG), Blutsauerstoffsättigung (SpO2) und Körpertemperatur. Entwurf eines maßgeschneiderten 2D/3D-Gehäuses, optimiert für Bettseitige Montage und medizinische Sicherheitsstandards. Das System unterstützt Edge-AI-Inferenz zur Früherkennung von Anomalien bei Neugeborenen-Vitalwerten mit energiesparender Funkverbindung für Schwesternstationsalarme. Enthält vollständige Stückliste, Gerber-Dateien und mechanische Zeichnungen.">
-        <div class="project-header"><span class="project-icon">🏥</span><span class="project-lang">HTML</span></div>
-        <div class="project-name">AI-Enabled NICU Monitor Design</div>
-        <div class="project-desc">Complete hardware design: Altium schematic &amp; 2D/3D enclosure for an AI-enabled NICU monitor tracking HR, SpO₂, and Temp.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> Full HW design pipeline</span>
-          <span class="project-role">Hardware designer</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">Altium</span><span class="project-badge-sm">PCB</span><span class="project-badge-sm">Edge AI</span><span class="project-badge-sm">Medical</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/Motion-Planning-of-a-Trotbot-in-ROS-and-Python" target="_blank" class="project-card" data-detail="Developed a complete motion planning and control system for a TrotBot walking robot using ROS and Python. Implemented PID-based joint controllers for each leg actuator to achieve stable locomotion gaits. The system includes forward/inverse kinematics, gait generation algorithms, and real-time joint trajectory tracking. Sensor feedback from encoders and IMU is used for closed-loop balance control. Tested in Gazebo simulation with RViz visualisation of joint states and TF frames." data-detail-de="Entwicklung eines vollständigen Bewegungsplanungs- und Steuerungssystems für einen TrotBot-Laufroboter in ROS und Python. Implementierung PID-basierter Gelenkregler für jeden Beinaktuator zur Erzielung stabiler Fortbewegungsgangarten. Das System umfasst Vorwärts-/Inverskinematik, Gangartengenerierungsalgorithmen und Echtzeit-Gelenkbahnverfolgung. Sensorrückkopplung von Encodern und IMU wird für die Gleichgewichtsregelung im geschlossenen Regelkreis genutzt. Getestet in Gazebo-Simulation mit RViz-Visualisierung von Gelenkzuständen und TF-Frames.">
-        <div class="project-header"><span class="project-icon">🐢</span><span class="project-lang">Python</span></div>
-        <div class="project-name">TrotBot Motion Planning — ROS</div>
-        <div class="project-desc">Motion planning and gait control using PID controllers for a walking TrotBot robot in ROS &amp; Python with Gazebo simulation.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> Full kinematics pipeline</span>
-          <span class="project-role">Solo developer</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">ROS</span><span class="project-badge-sm">Python</span><span class="project-badge-sm">PID</span><span class="project-badge-sm">Gazebo</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/Complementary-Pulse-Generator-Timer-System" target="_blank" class="project-card" data-detail="Developed a real-time embedded system for complementary pulse generation and precision timing on a microcontroller. Features a 4x4 keypad interface for user input of pulse parameters (frequency, duty cycle, dead-time) and a graphical LCD display for real-time waveform visualisation. The complementary outputs with configurable dead-time insertion are designed for driving H-bridge inverters in radio transmitter applications. Implemented using timer/counter peripherals with interrupt-driven precision, achieving jitter-free pulse output at frequencies up to 100 kHz." data-detail-de="Entwicklung eines Echtzeit-Embedded-Systems zur komplementären Pulserzeugung und Präzisionszeitmessung auf einem Mikrocontroller. Enthält ein 4x4-Tastenfeld zur Benutzereingabe von Pulsparametern (Frequenz, Tastverhältnis, Totzeit) und ein grafisches LCD-Display zur Echtzeit-Wellenformvisualisierung. Die komplementären Ausgänge mit konfigurierbarer Totzeiteinstellung sind für den Antrieb von H-Brücken-Wechselrichtern in Funksender-Anwendungen konzipiert. Implementiert mit Timer/Counter-Peripherie und interruptgesteuerter Präzision, jitterfreie Pulsausgabe bei Frequenzen bis 100 kHz.">
-        <div class="project-header"><span class="project-icon">⏱️</span><span class="project-lang">C</span></div>
-        <div class="project-name">Complementary Pulse Generator</div>
-        <div class="project-desc">Real-time microcontroller system for precision complementary pulse generation with keypad input and graphical LCD display.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> Up to 100 kHz output</span>
-          <span class="project-role">Embedded developer</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">C</span><span class="project-badge-sm">Timers</span><span class="project-badge-sm">LCD</span><span class="project-badge-sm">Keypad</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/Automatic-Vessel-Protection-System-in-AVP" target="_blank" class="project-card" data-detail="Formal verification project modelling an Automatic Vessel Protection (AVP) system in Promela and verifying safety properties using the SPIN model checker. The AVP system monitors vessel parameters (pressure, temperature, flow rate) and triggers protective shutdowns when unsafe conditions are detected. Modelled concurrent sensor monitoring processes, alarm logic, and actuator control with proper mutual exclusion. Verified liveness (system eventually responds) and safety (no unsafe state reached) properties using Linear Temporal Logic (LTL) assertions. Demonstrates formal methods applied to industrial safety-critical systems." data-detail-de="Formales Verifikationsprojekt zur Modellierung eines automatischen Behälterschutzsystems (AVP) in Promela und Verifikation von Sicherheitseigenschaften mit dem SPIN Model Checker. Das AVP-System überwacht Behälterparameter (Druck, Temperatur, Durchflussrate) und löst Schutzabschaltungen bei unsicheren Bedingungen aus. Modellierung nebenläufiger Sensorüberwachungsprozesse, Alarmlogik und Aktorsteuerung mit korrektem gegenseitigem Ausschluss. Verifikation von Lebendigkeits- (System reagiert schließlich) und Sicherheitseigenschaften (kein unsicherer Zustand erreichbar) mittels Linear Temporal Logic (LTL) Zusicherungen. Demonstriert formale Methoden für sicherheitskritische industrielle Systeme.">
-        <div class="project-header"><span class="project-icon">🛡️</span><span class="project-lang">Promela</span></div>
-        <div class="project-name">Automatic Vessel Protection System</div>
-        <div class="project-desc">Formal verification of an industrial vessel protection system using Promela/SPIN model checking with LTL safety assertions.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> Safety-critical verified</span>
-          <span class="project-role">Formal methods engineer</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">Promela</span><span class="project-badge-sm">SPIN</span><span class="project-badge-sm">LTL</span><span class="project-badge-sm">Formal Methods</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/Heart_Disease_Prediction_using_Machine_Learning" target="_blank" class="project-card" data-detail="Built a machine learning pipeline for predicting heart disease from patient clinical data using the UCI Heart Disease dataset. Implemented and compared multiple classifiers including Logistic Regression, Random Forest, SVM, KNN, and Decision Tree in Python (Scikit-learn). Performed feature engineering, correlation analysis, and hyperparameter tuning via GridSearchCV. Evaluated models using accuracy, precision, recall, F1-score, and ROC-AUC metrics. Includes Jupyter Notebook with full EDA, visualisations (Matplotlib/Seaborn), and a comparative analysis of classifier performance." data-detail-de="Aufbau einer Machine-Learning-Pipeline zur Vorhersage von Herzerkrankungen aus klinischen Patientendaten mit dem UCI Heart Disease Datensatz. Implementierung und Vergleich mehrerer Klassifikatoren: Logistische Regression, Random Forest, SVM, KNN und Entscheidungsbaum in Python (Scikit-learn). Feature Engineering, Korrelationsanalyse und Hyperparameter-Tuning mittels GridSearchCV. Bewertung der Modelle anhand von Accuracy, Precision, Recall, F1-Score und ROC-AUC-Metriken. Enthält Jupyter Notebook mit vollständiger explorativer Datenanalyse, Visualisierungen (Matplotlib/Seaborn) und vergleichender Analyse der Klassifikatorleistung.">
-        <div class="project-header"><span class="project-icon">❤️</span><span class="project-lang">Jupyter</span></div>
-        <div class="project-name">Heart Disease Prediction — ML</div>
-        <div class="project-desc">Heart disease prediction pipeline comparing multiple ML classifiers with full EDA and hyperparameter tuning in Python.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> 5 classifiers compared</span>
-          <span class="project-role">Data scientist</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">Scikit-learn</span><span class="project-badge-sm">Pandas</span><span class="project-badge-sm">Seaborn</span><span class="project-badge-sm">GridSearchCV</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-      <a href="https://github.com/Masimba249/Quantus-Prime-Solutions" target="_blank" class="project-card" data-detail="Collection of FPGA and digital logic design solutions implemented in Verilog for Intel Quartus Prime. Covers combinational and sequential logic circuits including ALUs, multiplexers, state machines (FSMs), counters, and memory controllers. Each module includes testbenches with automated verification, timing constraint files, and pin assignment configurations for FPGA deployment. Demonstrates proficiency in hardware description languages, synthesis, simulation (ModelSim), and FPGA development workflows for embedded digital systems." data-detail-de="Sammlung von FPGA- und Digitallogik-Designlösungen in Verilog für Intel Quartus Prime. Umfasst kombinatorische und sequentielle Logikschaltungen einschließlich ALUs, Multiplexer, Zustandsautomaten (FSMs), Zähler und Speichercontroller. Jedes Modul enthält Testbenches mit automatisierter Verifikation, Timing-Constraint-Dateien und Pin-Zuweisungskonfigurationen für FPGA-Deployment. Demonstriert Kompetenz in Hardwarebeschreibungssprachen, Synthese, Simulation (ModelSim) und FPGA-Entwicklungsworkflows für eingebettete digitale Systeme.">
-        <div class="project-header"><span class="project-icon">🔌</span><span class="project-lang">Verilog</span></div>
-        <div class="project-name">Quantus Prime Solutions</div>
-        <div class="project-desc">FPGA/Verilog digital logic solutions for Intel Quartus Prime — ALUs, FSMs, memory controllers with testbenches.</div>
-        <div class="project-meta">
-          <span class="project-impact"><i class="fas fa-bolt"></i> Full synthesis pipeline</span>
-          <span class="project-role">FPGA developer</span>
-        </div>
-        <div class="project-badges">
-          <span class="project-badge-sm">Verilog</span><span class="project-badge-sm">Quartus</span><span class="project-badge-sm">ModelSim</span><span class="project-badge-sm">FPGA</span>
-        </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
-      </a>
-
-    </div>
-
-    <!-- Auto-loaded repos -->
-    <div style="margin-top:2.5rem;">
-      <h3 style="font-size:1rem;font-weight:700;color:var(--text-muted);margin-bottom:1.25rem;text-align:center;">
-        <i class="fas fa-sync-alt" style="color:var(--accent);margin-right:0.4rem;"></i> More from GitHub <span style="font-size:0.75rem;opacity:0.6;">(auto-updated)</span>
-      </h3>
-      <div id="auto-projects" class="projects-grid"></div>
-      <p id="auto-projects-empty" style="text-align:center;color:var(--text-muted);font-size:0.85rem;display:none;">
-        All repositories are featured above.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- OPEN SOURCE CONTRIBUTIONS -->
-<section id="contributions">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Open Source</span>
-      <h2 class="section-title">External <span class="highlight">Contributions</span></h2>
-      <p class="section-desc">Pull requests and contributions to repositories I don't own.</p>
-    </div>
-
-    <!-- rassulz/multirobot_painting_control_system -->
-    <div class="contrib-repo">
-      <div class="contrib-repo-header">
-        <div>
-          <a href="https://github.com/rassulz/multirobot_painting_control_system" target="_blank" class="contrib-repo-name">
-            <i class="fab fa-github"></i> rassulz / multirobot_painting_control_system
-          </a>
-          <div class="contrib-repo-desc">Multi-robot painting control system — BSc thesis project (KBTU)</div>
-        </div>
-        <span class="contrib-badge">5 Pull Requests</span>
-      </div>
-      <div class="contrib-list">
-        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/5" target="_blank" class="contrib-item">
-          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
-          <div>
-            <div class="contrib-pr-title">Add MATLAB KUKA control files and waypoints</div>
-            <div class="contrib-pr-desc">Full implementation of D-H Algorithm for the KUKA Robot Controller</div>
-          </div>
-          <span class="contrib-pr-num">#5</span>
-        </a>
-        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/4" target="_blank" class="contrib-item">
-          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
-          <div>
-            <div class="contrib-pr-title">KUKA Integration ReadMe &amp; MATLAB networking config</div>
-            <div class="contrib-pr-desc">Added step-by-step guide for KUKA integration with MATLAB and networking configuration files</div>
-          </div>
-          <span class="contrib-pr-num">#4</span>
-        </a>
-        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/3" target="_blank" class="contrib-item">
-          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
-          <div>
-            <div class="contrib-pr-title">Add PLC Implementation &amp; Hardware description</div>
-            <div class="contrib-pr-desc">PLC implementation folder and hardware description for Almat PLC and Ayans hardware</div>
-          </div>
-          <span class="contrib-pr-num">#3</span>
-        </a>
-        <a href="https://github.com/rassulz/multirobot_painting_control_system/pull/2" target="_blank" class="contrib-item">
-          <span class="contrib-pr-icon"><i class="fas fa-code-pull-request"></i></span>
-          <div>
-            <div class="contrib-pr-title">Add README and initial project structure</div>
-            <div class="contrib-pr-desc">Established project documentation and folder structure</div>
-          </div>
-          <span class="contrib-pr-num">#2</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- Auto-loaded contributions -->
-    <div id="auto-contribs" style="margin-top:1.5rem;"></div>
-  </div>
-</section>
-
-<section id="education">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Academia</span>
-      <h2 class="section-title">Education &amp; <span class="highlight">Background</span></h2>
-    </div>
-    <div class="edu-grid">
-      <div class="edu-card">
-        <div class="edu-badge">Bachelor of Science</div>
-        <div class="edu-degree">BSc Automation and Control Engineering</div>
-        <div class="edu-institution">Kazakh-British Technical University (KBTU)</div>
-        <div class="edu-period">Sep 2022 – Jan 2026 · Almaty, Kazakhstan</div>
-        <div class="edu-courses">
-          <strong>Relevant Coursework:</strong>
-          Modelling &amp; Control of Robotic Manipulators · Control Theory &amp; Application ·
-          Scientific Programming with MATLAB · Advanced Engineering Mathematics ·
-          Mobile Robots · Network Mobile Robot Systems · Process Control Lab ·
-          Automated Driving · 3D Computer Vision · Statistics for Researchers ·
-          Application of Robots · Siemens PLC: TIA Portal ·
-          Machine Vision &amp; Image Processing · Automation and Intelligent Systems ·
-          Embedded Systems using Raspberry Pi &amp; Jetson
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section id="certifications">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Coursera · Verified</span>
-      <h2 class="section-title">Certifications &amp; <span class="highlight">Courses</span></h2>
-      <p class="section-desc">Professional certifications verified on Coursera covering embedded systems, robotics, and engineering fundamentals.</p>
-    </div>
-    <div class="certs-grid">
-
-      <a href="https://www.coursera.org/account/accomplishments/verify/6UQLC2393U58" target="_blank" class="cert-card">
-        <div class="cert-icon"><i class="fas fa-microchip"></i></div>
-        <div>
-          <div class="cert-name">Microcontroller Theory &amp; Applications</div>
-          <div class="cert-issuer">University of California, Irvine (Coursera)</div>
-          <div class="cert-year">2024</div>
-          <span class="cert-verify">View Certificate <i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a href="https://www.coursera.org/account/accomplishments/verify/45ZAHYELUPYV" target="_blank" class="cert-card">
-        <div class="cert-icon"><i class="fas fa-robot"></i></div>
-        <div>
-          <div class="cert-name">Robotics Specialization</div>
-          <div class="cert-issuer">University of Pennsylvania (Coursera)</div>
-          <div class="cert-year">2024</div>
-          <span class="cert-verify">View Certificate <i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a href="https://www.coursera.org/account/accomplishments/verify/45ZAHYELUPYV" target="_blank" class="cert-card">
-        <div class="cert-icon"><i class="fas fa-brain"></i></div>
-        <div>
-          <div class="cert-name">Machine Learning &amp; Deep Learning</div>
-          <div class="cert-issuer">DeepLearning.AI / Coursera</div>
-          <div class="cert-year">2023</div>
-          <span class="cert-verify">View Certificate <i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a href="https://www.coursera.org/account/accomplishments/certificate/2SWCE4TXBXMG" target="_blank" class="cert-card">
-        <div class="cert-icon"><i class="fas fa-industry"></i></div>
-        <div>
-          <div class="cert-name">Siemens PLC: TIA Portal Programming</div>
-          <div class="cert-issuer">Siemens / Online Certification</div>
-          <div class="cert-year">2023</div>
-          <span class="cert-verify">View Certificate <i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a href="https://www.coursera.org/account/accomplishments/certificate/BRH54TK6E6YE" target="_blank" class="cert-card">
-        <div class="cert-icon"><i class="fas fa-car"></i></div>
-        <div>
-          <div class="cert-name">Self-Driving Cars Specialization</div>
-          <div class="cert-issuer">University of Toronto (Coursera)</div>
-          <div class="cert-year">2024</div>
-          <span class="cert-verify">View Certificate <i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a href="https://www.coursera.org/account/accomplishments/verify/6UQLC2393U58" target="_blank" class="cert-card">
-        <div class="cert-icon"><i class="fas fa-code"></i></div>
-        <div>
-          <div class="cert-name">Python for Everybody Specialization</div>
-          <div class="cert-issuer">University of Michigan (Coursera)</div>
-          <div class="cert-year">2023</div>
-          <span class="cert-verify">View Certificate <i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a href="https://www.coursera.org/account/accomplishments/verify/6UQLC2393U58" target="_blank" class="cert-card">
-        <div class="cert-icon"><i class="fas fa-project-diagram"></i></div>
-        <div>
-          <div class="cert-name">Control of Mobile Robots</div>
-          <div class="cert-issuer">Georgia Tech (Coursera)</div>
-          <div class="cert-year">2023</div>
-          <span class="cert-verify">View Certificate <i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a href="https://www.coursera.org/account/accomplishments/verify/6UQLC2393U58" target="_blank" class="cert-card">
-        <div class="cert-icon"><i class="fas fa-cogs"></i></div>
-        <div>
-          <div class="cert-name">Modern Robotics Specialization</div>
-          <div class="cert-issuer">Northwestern University (Coursera)</div>
-          <div class="cert-year">2024</div>
-          <span class="cert-verify">View Certificate <i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS & REFERENCES -->
-<section id="testimonials">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Feedback</span>
-      <h2 class="section-title">Testimonials &amp; <span class="highlight">References</span></h2>
-      <p class="section-desc">What colleagues and clients say about working with me.</p>
-    </div>
-    <div class="testimonials-grid">
-
-      <div class="testimonial-card">
-        <div class="testimonial-quote">
-          Collins consistently delivered high-quality MATLAB solutions for our robotics projects. His deep understanding of control systems and machine learning made him our go-to expert for complex automation challenges.
-        </div>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">C</div>
-          <div>
-            <div class="testimonial-name">Client Review</div>
-            <div class="testimonial-role">Freelancer.com · Robotics &amp; ML Project</div>
-            <div class="testimonial-source"><i class="fas fa-star" style="color:#fbbf24"></i> 5-Star Rating</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial-card">
-        <div class="testimonial-quote">
-          Excellent work on the PLC implementation and KUKA robot integration. Delivered ahead of schedule with thorough documentation. Very strong technical skills in industrial automation.
-        </div>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">P</div>
-          <div>
-            <div class="testimonial-name">Project Collaborator</div>
-            <div class="testimonial-role">KBTU · Multi-Robot Thesis Project</div>
-            <div class="testimonial-source"><i class="fas fa-handshake" style="color:var(--accent3)"></i> Academic Collaboration</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial-card">
-        <div class="testimonial-quote">
-          Strong debugging skills and systematic approach to firmware validation. Collins brought real value to our motion control testing pipeline with his ROS2 and CI/CD contributions.
-        </div>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">S</div>
-          <div>
-            <div class="testimonial-name">Engineering Team</div>
-            <div class="testimonial-role">Synapticon GmbH · Motion Control Firmware</div>
-            <div class="testimonial-source"><i class="fas fa-building" style="color:var(--accent)"></i> Industry Reference</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- PUBLICATION -->
-<section id="publication">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Research</span>
-      <h2 class="section-title">Publication &amp; <span class="highlight">Research</span></h2>
-    </div>
-    <div class="pub-card">
-      <div class="pub-icon"><i class="fas fa-file-alt"></i></div>
-      <div>
-        <div class="pub-title">"Hybrid EKF-DQN Model for Real-time Stabilization and Drift Reduction of a Quadcopter UAV"</div>
-        <div class="pub-venue">📰 IEEE Conference, 2026</div>
-        <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.7">
-          Proposes a hybrid approach combining Extended Kalman Filter (EKF) with Deep Q-Network (DQN)
-          for robust real-time state estimation and autonomous stabilisation of quadcopter UAVs in
-          GPS-denied and turbulent environments. Achieved significant reduction in attitude drift
-          compared to baseline PID controllers.
-        </p>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
-          <span class="tag">Quadcopter UAV</span>
-          <span class="tag">EKF</span>
-          <span class="tag">DQN</span>
-          <span class="tag">MATLAB/Simulink</span>
-          <span class="tag">Reinforcement Learning</span>
-        </div>
-        <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="pub-link">
-          View Code &amp; Paper <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Research Thesis -->
-    <div class="pub-card" style="margin-top:2rem;border-color:rgba(16,185,129,0.3);">
-      <div class="pub-icon" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3);color:var(--accent3);">
-        <i class="fas fa-graduation-cap"></i>
-      </div>
-      <div>
-        <div class="pub-title">Research Thesis: Multi-Robot Painting Control System</div>
-        <div class="pub-venue" style="color:var(--accent3);">🎓 BSc Thesis Project — Kazakh-British Technical University, 2026</div>
-        <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.7">
-          Developed a Reinforcement Learning-based adaptive control framework for coordinating multiple
-          robot arms in an industrial painting application. RL agents learn optimal joint trajectories
-          and real-time task allocation policies, enabling collaborative robots to adapt to varying
-          surface geometries and painting conditions. The system integrates MATLAB for RL training
-          and simulation with PLC-based coordination for real-time execution, hardware interfacing,
-          and wrist movement diagnostics.
-        </p>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
-          <span class="tag">MATLAB</span>
-          <span class="tag">PLC</span>
-          <span class="tag">Multi-Robot</span>
-          <span class="tag">Reinforcement Learning</span>
-          <span class="tag">Adaptive Control</span>
-          <span class="tag">Industrial Painting</span>
-          <span class="tag">Hardware Design</span>
-        </div>
-        <a href="https://github.com/rassulz/multirobot_painting_control_system" target="_blank" class="pub-link" style="color:var(--accent3);">
-          View Thesis Repository <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Research Projects -->
-    <div style="margin-top:2rem">
-      <h3 style="font-size:1rem;font-weight:700;color:var(--text-muted);margin-bottom:1.25rem;text-align:center;">Research Projects at KBTU</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;">
-        <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-muted);">
-          <div style="color:var(--accent);font-weight:600;margin-bottom:0.3rem;">💧 Water Treatment</div>
-          Water Treatment and Plant Automation — Modicon M221 PLC + SCADA
-        </div>
-        <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-muted);">
-          <div style="color:var(--accent);font-weight:600;margin-bottom:0.3rem;">🤖 Autonomous Motion</div>
-          Autonomous Robot Motion Planning — OpenCV + ROS2
-        </div>
-        <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-muted);">
-          <div style="color:var(--accent);font-weight:600;margin-bottom:0.3rem;">🦾 KUKA Manipulator</div>
-          KUKA Manipulator Adaptive Control — Deep Q-Learning
-        </div>
-        <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-muted);">
-          <div style="color:var(--accent);font-weight:600;margin-bottom:0.3rem;">🏭 Conveyor Belt</div>
-          Conveyor Belt Automation — Siemens S7-1200 + TIA Portal HMI
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ACTIVITIES & LANGUAGES -->
-<section id="activities">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">More About Me</span>
-      <h2 class="section-title">Activities &amp; <span class="highlight">Languages</span></h2>
-    </div>
-    <div class="act-lang-grid">
-      <div class="misc-card">
-        <div class="misc-title"><i class="fas fa-star" style="color:var(--accent)"></i> Activities</div>
-        <div class="misc-item">
-          <i class="fas fa-leaf" style="color:var(--accent3)"></i>
-          <span>KBTU Engineering Club — Eco-Shell 2024 (Energy-efficient vehicle competition)</span>
-        </div>
-        <div class="misc-item">
-          <i class="fas fa-graduation-cap" style="color:var(--accent)"></i>
-          <span>Active IEEE student member — contributed to UAV research publication (2026)</span>
-        </div>
-        <div class="misc-item">
-          <i class="fas fa-code-branch" style="color:var(--accent2)"></i>
-          <span>Open-source contributor — 20+ GitHub repositories in robotics &amp; embedded AI</span>
-        </div>
-        <div class="misc-item">
-          <i class="fas fa-briefcase" style="color:#fb923c"></i>
-          <span>13+ years freelancing on Freelancer.com — MATLAB, ML &amp; robotics projects</span>
-        </div>
-      </div>
-      <div class="misc-card">
-        <div class="misc-title"><i class="fas fa-language" style="color:var(--accent2)"></i> Languages</div>
-        <div class="misc-item">
-          <i class="fas fa-flag" style="color:var(--accent)"></i>
-          <span>English</span>
-          <span class="lang-level">C2 — Proficient</span>
-        </div>
-        <div class="misc-item">
-          <i class="fas fa-flag" style="color:#000"></i>
-          <span>German</span>
-          <span class="lang-level">B2 — Upper-Intermediate</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-logo">Collins Masimba</div>
-      <div class="footer-desc">Embedded AI · Automation · Robotics Engineer</div>
-    </div>
-    <div class="footer-socials">
-      <a href="mailto:Masimba249@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
-      <a href="https://www.linkedin.com/in/collinsmasimba/" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://github.com/Masimba249" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="social-btn" title="Freelancer"><i class="fas fa-briefcase"></i></a>
-    </div>
-  </div>
-  <div class="footer-copy">
-    © 2026 Collins Masimba. Built with ❤️ — Open to Embedded AI, Edge AI &amp; Embedded Systems opportunities.
-  </div>
-</footer>
-
-<!-- AUTO-LOAD GITHUB REPOS -->
-<script>
-(function() {
-  const GITHUB_USER = 'Masimba249';
-  const FEATURED = new Set([
-    'AI-Powered-Predictive-Sensor-Node',
-    'SLAM-Navigation-in-ROS2-navigation',
-    'Hybrid-EKF-DQN-Model-for-Real-time-Stabilization',
-    'Fuzzy-PID-in-Temperature-Control-in-MatLAB-and-TIA-Portal',
-    'Multirobot-Adaptive-Control-with-Reinforcement-Learning',
-    'Implementation-of-AI-in-Fault-Detection',
-    'AI-Enabled-NICU-Monitor-Design',
-    'Motion-Planning-of-a-Trotbot-in-ROS-and-Python',
-    'Complementary-Pulse-Generator-Timer-System',
-    'Automatic-Vessel-Protection-System-in-AVP',
-    'Heart_Disease_Prediction_using_Machine_Learning',
-    'Quantus-Prime-Solutions',
-    GITHUB_USER + '.github.io'
-  ]);
-
-  const langIcons = {
-    'Python':'🐍','C':'⚙️','C++':'⚙️','MATLAB':'📊','Jupyter Notebook':'📓',
-    'HTML':'🌐','Verilog':'🔌','JavaScript':'🟨','Shell':'🖥️','Promela':'🛡️'
-  };
-
-  function escapeHtml(str) {
-    var d = document.createElement('div');
-    d.textContent = str || '';
-    return d.innerHTML;
-  }
-
-  fetch('https://api.github.com/users/' + GITHUB_USER + '/repos?per_page=100&sort=updated')
-    .then(function(r) { return r.json(); })
-    .then(function(repos) {
-      var container = document.getElementById('auto-projects');
-      var emptyMsg = document.getElementById('auto-projects-empty');
-      var newRepos = repos.filter(function(r) {
-        return !r.fork && !FEATURED.has(r.name);
-      });
-
-      if (newRepos.length === 0) {
-        emptyMsg.style.display = 'block';
-        return;
-      }
-
-      var countEl = document.querySelector('.projects-count');
-      if (countEl) {
-        var total = FEATURED.size - 1 + newRepos.length;
-        countEl.innerHTML = '<i class="fas fa-folder-open"></i> ' + total + ' Projects \u00b7 Open Source';
-      }
-
-      newRepos.forEach(function(repo) {
-        var icon = langIcons[repo.language] || '📁';
-        var lang = escapeHtml(repo.language || 'N/A');
-        var name = escapeHtml(repo.name.replace(/-/g, ' ').replace(/_/g, ' '));
-        var desc = escapeHtml(repo.description || 'No description provided.');
-
-        var card = document.createElement('a');
-        card.href = repo.html_url;
-        card.target = '_blank';
-        card.className = 'project-card';
-        card.innerHTML =
-          '<div class="project-header"><span class="project-icon">' + icon + '</span><span class="project-lang">' + lang + '</span></div>' +
-          '<div class="project-name">' + name + '</div>' +
-          '<div class="project-desc">' + desc + '</div>' +
-          '<i class="fas fa-arrow-up-right-from-square project-link-icon"></i>';
-        container.appendChild(card);
-      });
-    })
-    .catch(function() {});
-})();
-</script>
-
-<!-- LANGUAGE TOGGLE EN/DE -->
-<script>
-(function() {
-  var currentLang = localStorage.getItem('portfolio-lang') || 'en';
-
-  // Translation map: CSS selector -> { property, en, de }
-  // property: 'text' = textContent, 'html' = innerHTML (for content with child elements)
-  var translations = [
-    // ─── NAV ───
-    { sel: '.nav-links a[href="#about"]', en: 'About', de: 'Über mich' },
-    { sel: '.nav-links a[href="#projects"]', en: 'Projects', de: 'Projekte' },
-    { sel: '.nav-links a[href="#experience"]', en: 'Experience', de: 'Erfahrung' },
-    { sel: '.nav-links a[href="#skills"]', en: 'Skills', de: 'Fähigkeiten' },
-    { sel: '.nav-links a[href="#contributions"]', en: 'Contributions', de: 'Beiträge' },
-    { sel: '.nav-links a[href="#education"]', en: 'Education', de: 'Ausbildung' },
-    { sel: '.nav-links a[href="#certifications"]', en: 'Certs', de: 'Zertifikate' },
-    { sel: '.nav-links a[href="#testimonials"]', en: 'Reviews', de: 'Bewertungen' },
-    { sel: '.nav-links a[href="#publication"]', en: 'Research', de: 'Forschung' },
-
-    // ─── HERO ───
-    { sel: '.hero-badge', p: 'html', en: '<span></span> Open to Embedded AI · Embedded Systems · PLC Programming Roles', de: '<span></span> Offen für Embedded AI · Embedded Systems · SPS-Programmierung' },
-    { sel: '.hero h1', p: 'html', en: 'Hi, I\'m <span class="name">Collins Masimba</span>', de: 'Hallo, ich bin <span class="name">Collins Masimba</span>' },
-    { sel: '.hero-subtitle', en: 'Embedded AI & Automation Engineer', de: 'Embedded AI & Automatisierungsingenieur' },
-    { sel: '.btn-primary', p: 'html', en: '<i class="fas fa-rocket"></i>View Projects', de: '<i class="fas fa-rocket"></i>Projekte ansehen' },
-    { sel: '.hero-btns .btn-outline:nth-child(2)', p: 'html', en: '<i class="fas fa-briefcase"></i>Experience', de: '<i class="fas fa-briefcase"></i>Erfahrung' },
-    { sel: '.btn-download', p: 'html', en: '<i class="fas fa-download"></i>Download CV', de: '<i class="fas fa-download"></i>Lebenslauf herunterladen' },
-
-    // Hero stats
-    { sel: '.hero-stats .stat:nth-child(1) .stat-label', en: 'Years Freelancing', de: 'Jahre Freelancing' },
-    { sel: '.hero-stats .stat:nth-child(2) .stat-label', en: 'Years Industry', de: 'Jahre Industrie' },
-    { sel: '.hero-stats .stat:nth-child(3) .stat-label', en: 'GitHub Repos', de: 'GitHub Repos' },
-    { sel: '.hero-stats .stat:nth-child(4) .stat-label', en: 'IEEE Publication', de: 'IEEE Publikation' },
-    { sel: '.hero-stats .stat:nth-child(5) .stat-label', en: 'Precision Improved', de: 'Präzision verbessert' },
-
-    // ─── ABOUT ───
-    { sel: '.about-text h3', en: 'Professional Summary', de: 'Berufsprofil' },
-    { sel: '.about-text p:nth-child(2)', p: 'html',
-      en: 'Automation and Robotics Engineer with 13+ years of freelance expertise and 2+ years of industry experience focused on microcontroller-based motion control and servo drive firmware. At <strong style="color:var(--text)">Synapticon GmbH</strong> in Stuttgart, developed and debugged PID/FOC algorithms for motion control firmware, resolved complex EtherCAT/PROFINET integration issues in Siemens TIA Portal, implemented secure FoE firmware updates, and optimized torque/position feedback loops via HIL simulations.',
-      de: 'Automatisierungs- und Robotikingenieur mit 13+ Jahren Freelance-Erfahrung und 2+ Jahren Industrieerfahrung im Bereich Mikrocontroller-basierter Bewegungssteuerung und Servoantriebsfirmware. Bei der <strong style="color:var(--text)">Synapticon GmbH</strong> in Stuttgart habe ich PID/FOC-Algorithmen für Bewegungssteuerungsfirmware entwickelt und debuggt, komplexe EtherCAT/PROFINET-Integrationsprobleme in Siemens TIA Portal gelöst, sichere FoE-Firmware-Updates implementiert und Drehmoment-/Positionsregelkreise mittels HIL-Simulationen optimiert.' },
-    { sel: '.about-text p:nth-child(3)', p: 'html',
-      en: 'As a long-standing freelancer on <strong style="color:var(--text)">Freelancer.com</strong>, delivered 13+ years of MATLAB and ML solutions for industrial robots, deep learning, signal processing, and autonomous systems. Developed ROS2 packages for Safe Motion Module (SMM) drives in testing and validation. In research at Kazakh-British Technical University, enhanced KUKA manipulator precision through Deep-Q learning integrated with embedded control systems. Proficient in C/C++, RTOS, and cross-team firmware validation.',
-      de: 'Als langjähriger Freelancer auf <strong style="color:var(--text)">Freelancer.com</strong> habe ich 13+ Jahre MATLAB- und ML-Lösungen für Industrieroboter, Deep Learning, Signalverarbeitung und autonome Systeme bereitgestellt. Ich entwickelte ROS2-Pakete für Safe Motion Module (SMM) Antriebe in Test und Validierung. In der Forschung an der Kazakh-British Technical University verbesserte ich die KUKA-Manipulator-Präzision durch Deep-Q-Learning, integriert in eingebettete Steuerungssysteme. Versiert in C/C++, RTOS und teamübergreifender Firmware-Validierung.' },
-
-    // ─── CORE STACK ───
-    { sel: '.stack-section-label', en: 'Core Technologies', de: 'Kerntechnologien' },
-    { sel: '.work-auth', p: 'html', en: '<i class="fas fa-check-circle"></i> Based in Germany · EU Blue Card Eligible · Open to opportunities across Germany & Europe', de: '<i class="fas fa-check-circle"></i> Wohnhaft in Deutschland · EU Blue Card berechtigt · Offen für Chancen in Deutschland & Europa' },
-
-    // ─── EXPERIENCE ───
-    { sel: '#experience .section-label', en: 'Career', de: 'Karriere' },
-    { sel: '#experience .section-title', p: 'html', en: 'Professional <span class="highlight">Experience</span>', de: 'Berufliche <span class="highlight">Erfahrung</span>' },
-
-    // Synapticon
-    { sel: '.timeline-item:nth-child(1) .exp-title', en: 'Robotics Engineer Internship', de: 'Praktikum als Robotikingenieur' },
-    { sel: '.timeline-item:nth-child(1) .exp-company', en: 'Synapticon GmbH — Schönaich, Germany', de: 'Synapticon GmbH — Schönaich, Deutschland' },
-
-    // KBTU
-    { sel: '.timeline-item:nth-child(2) .exp-title', en: 'Robotics Research Assistant', de: 'Wissenschaftlicher Mitarbeiter Robotik' },
-
-    // Freelancer ML
-    { sel: '.timeline-item:nth-child(3) .exp-title', en: 'Machine Learning Expert for Autonomous Robots', de: 'Machine-Learning-Experte für autonome Roboter' },
-    { sel: '.timeline-item:nth-child(3) .exp-profile-link', p: 'html', en: '<i class="fas fa-external-link-alt"></i> View Freelancer Profile', de: '<i class="fas fa-external-link-alt"></i> Freelancer-Profil ansehen' },
-
-    // Freelancer MATLAB
-    { sel: '.timeline-item:nth-child(4) .exp-title', en: 'MATLAB Expert for Industrial Robots', de: 'MATLAB-Experte für Industrieroboter' },
-    { sel: '.timeline-item:nth-child(4) .exp-profile-link', p: 'html', en: '<i class="fas fa-external-link-alt"></i> View Freelancer Portfolio', de: '<i class="fas fa-external-link-alt"></i> Freelancer-Portfolio ansehen' },
-
-    // ─── SKILLS ───
-    { sel: '#skills .section-label', en: 'Tech Stack', de: 'Technologie-Stack' },
-    { sel: '#skills .section-title', p: 'html', en: 'Skills & <span class="highlight">Tools</span>', de: 'Fähigkeiten & <span class="highlight">Werkzeuge</span>' },
-    { sel: '.skill-category:nth-child(1) .skill-cat-title', p: 'html', en: '<div class="skill-cat-icon icon-blue"><i class="fas fa-code"></i></div> Programming Languages', de: '<div class="skill-cat-icon icon-blue"><i class="fas fa-code"></i></div> Programmiersprachen' },
-    { sel: '.skill-category:nth-child(2) .skill-cat-title', p: 'html', en: '<div class="skill-cat-icon icon-purple"><i class="fas fa-robot"></i></div> Robotics & Automation', de: '<div class="skill-cat-icon icon-purple"><i class="fas fa-robot"></i></div> Robotik & Automatisierung' },
-    { sel: '.skill-category:nth-child(3) .skill-cat-title', p: 'html', en: '<div class="skill-cat-icon icon-green"><i class="fas fa-microchip"></i></div> Embedded & Hardware', de: '<div class="skill-cat-icon icon-green"><i class="fas fa-microchip"></i></div> Eingebettete Systeme & Hardware' },
-    { sel: '.skill-category:nth-child(4) .skill-cat-title', p: 'html', en: '<div class="skill-cat-icon icon-orange"><i class="fas fa-brain"></i></div> AI / ML & Vision', de: '<div class="skill-cat-icon icon-orange"><i class="fas fa-brain"></i></div> KI / ML & Bildverarbeitung' },
-    { sel: '.skill-category:nth-child(5) .skill-cat-title', p: 'html', en: '<div class="skill-cat-icon icon-red"><i class="fas fa-tools"></i></div> DevOps & Tooling', de: '<div class="skill-cat-icon icon-red"><i class="fas fa-tools"></i></div> DevOps & Werkzeuge' },
-    { sel: '.skill-category:nth-child(6) .skill-cat-title', p: 'html', en: '<div class="skill-cat-icon icon-blue"><i class="fas fa-users"></i></div> Soft Skills', de: '<div class="skill-cat-icon icon-blue"><i class="fas fa-users"></i></div> Sozialkompetenzen' },
-    // Soft skill tags
-    { sel: '.skill-category:nth-child(6) .skill-tag:nth-child(1)', en: 'Team Collaboration', de: 'Teamarbeit' },
-    { sel: '.skill-category:nth-child(6) .skill-tag:nth-child(2)', en: 'Problem Solving', de: 'Problemlösung' },
-    { sel: '.skill-category:nth-child(6) .skill-tag:nth-child(3)', en: 'Self-Motivated', de: 'Eigenmotiviert' },
-    { sel: '.skill-category:nth-child(6) .skill-tag:nth-child(4)', en: 'Customer Support', de: 'Kundensupport' },
-    { sel: '.skill-category:nth-child(6) .skill-tag:nth-child(5)', en: 'Technical Writing', de: 'Technische Dokumentation' },
-    { sel: '.skill-category:nth-child(6) .skill-tag:nth-child(6)', en: 'Cross-functional', de: 'Bereichsübergreifend' },
-    { sel: '.skill-category:nth-child(6) .skill-tag:nth-child(7)', en: 'Online Training', de: 'Online-Schulung' },
-
-    // ─── PROJECTS ───
-    { sel: '#projects .section-label', en: 'Portfolio · GitHub', de: 'Portfolio · GitHub' },
-    { sel: '#projects .section-title', p: 'html', en: 'Featured <span class="highlight">Project Portfolio</span>', de: 'Ausgewählte <span class="highlight">Projektauswahl</span>' },
-    { sel: '#projects .section-desc', en: 'A curated set of projects spanning embedded AI, robotics, automation, and power systems.', de: 'Eine kuratierte Sammlung von Projekten aus den Bereichen Embedded AI, Robotik, Automatisierung und Energiesysteme.' },
-    { sel: '#download-portfolio', p: 'html', en: '<i class="fas fa-file-pdf"></i> Download Portfolio PDF', de: '<i class="fas fa-file-pdf"></i> Portfolio PDF herunterladen' },
-    // Project roles
-    { sel: '.project-card:nth-child(1) .project-role', en: 'Solo developer', de: 'Alleinentwickler' },
-    { sel: '.project-card:nth-child(2) .project-role', en: 'Lead developer', de: 'Leitender Entwickler' },
-    { sel: '.project-card:nth-child(3) .project-role', en: 'Primary researcher', de: 'Hauptforscher' },
-    { sel: '.project-card:nth-child(4) .project-role', en: 'Full implementation', de: 'Vollständige Umsetzung' },
-    { sel: '.project-card:nth-child(5) .project-role', en: 'Lead developer', de: 'Leitender Entwickler' },
-    { sel: '.project-card:nth-child(6) .project-role', en: 'Solo developer', de: 'Alleinentwickler' },
-    { sel: '.project-card:nth-child(7) .project-role', en: 'Hardware designer', de: 'Hardware-Designer' },
-
-    // ─── CONTRIBUTIONS ───
-    { sel: '#contributions .section-label', en: 'Open Source', de: 'Open Source' },
-    { sel: '#contributions .section-title', p: 'html', en: 'External <span class="highlight">Contributions</span>', de: 'Externe <span class="highlight">Beiträge</span>' },
-    { sel: '#contributions .section-desc', en: 'Pull requests and contributions to repositories I don\'t own.', de: 'Pull Requests und Beiträge zu Repositorys anderer Entwickler.' },
-    { sel: '.contrib-badge', en: '5 Pull Requests', de: '5 Pull Requests' },
-
-    // ─── EDUCATION ───
-    { sel: '#education .section-label', en: 'Academia', de: 'Akademisch' },
-    { sel: '#education .section-title', p: 'html', en: 'Education & <span class="highlight">Background</span>', de: 'Ausbildung & <span class="highlight">Hintergrund</span>' },
-    { sel: '.edu-badge', en: 'Bachelor of Science', de: 'Bachelor of Science' },
-    { sel: '.edu-degree', en: 'BSc Automation and Control Engineering', de: 'BSc Automatisierungs- und Regelungstechnik' },
-    { sel: '.edu-period', en: 'Sep 2022 – Jan 2026 · Almaty, Kazakhstan', de: 'Sep 2022 – Jan 2026 · Almaty, Kasachstan' },
-    { sel: '.edu-courses strong', en: 'Relevant Coursework:', de: 'Relevante Studieninhalte:' },
-
-    // ─── CERTIFICATIONS ───
-    { sel: '#certifications .section-label', en: 'Coursera · Verified', de: 'Coursera · Verifiziert' },
-    { sel: '#certifications .section-title', p: 'html', en: 'Certifications & <span class="highlight">Courses</span>', de: 'Zertifizierungen & <span class="highlight">Kurse</span>' },
-    { sel: '#certifications .section-desc', en: 'Professional certifications verified on Coursera covering embedded systems, robotics, and engineering fundamentals.', de: 'Professionelle Zertifizierungen auf Coursera zu eingebetteten Systemen, Robotik und Ingenieurgrundlagen.' },
-
-    // ─── TESTIMONIALS ───
-    { sel: '#testimonials .section-label', en: 'Feedback', de: 'Feedback' },
-    { sel: '#testimonials .section-title', p: 'html', en: 'Testimonials & <span class="highlight">References</span>', de: 'Referenzen & <span class="highlight">Empfehlungen</span>' },
-    { sel: '#testimonials .section-desc', en: 'What colleagues and clients say about working with me.', de: 'Was Kollegen und Kunden über die Zusammenarbeit mit mir sagen.' },
-    { sel: '.testimonial-card:nth-child(1) .testimonial-quote', p: 'html', en: 'Collins consistently delivered high-quality MATLAB solutions for our robotics projects. His deep understanding of control systems and machine learning made him our go-to expert for complex automation challenges.', de: 'Collins hat durchgehend hochwertige MATLAB-Lösungen für unsere Robotikprojekte geliefert. Sein tiefes Verständnis von Steuerungssystemen und maschinellem Lernen machte ihn zu unserem bevorzugten Experten für komplexe Automatisierungsherausforderungen.' },
-    { sel: '.testimonial-card:nth-child(1) .testimonial-name', en: 'Client Review', de: 'Kundenbewertung' },
-    { sel: '.testimonial-card:nth-child(1) .testimonial-role', en: 'Freelancer.com · Robotics & ML Project', de: 'Freelancer.com · Robotik- & ML-Projekt' },
-    { sel: '.testimonial-card:nth-child(1) .testimonial-source', p: 'html', en: '<i class="fas fa-star" style="color:#fbbf24"></i> 5-Star Rating', de: '<i class="fas fa-star" style="color:#fbbf24"></i> 5-Sterne-Bewertung' },
-    { sel: '.testimonial-card:nth-child(2) .testimonial-quote', p: 'html', en: 'Excellent work on the PLC implementation and KUKA robot integration. Delivered ahead of schedule with thorough documentation. Very strong technical skills in industrial automation.', de: 'Hervorragende Arbeit bei der SPS-Implementierung und KUKA-Roboterintegration. Vorzeitig geliefert mit gründlicher Dokumentation. Sehr starke technische Fähigkeiten in der industriellen Automatisierung.' },
-    { sel: '.testimonial-card:nth-child(2) .testimonial-name', en: 'Project Collaborator', de: 'Projektpartner' },
-    { sel: '.testimonial-card:nth-child(2) .testimonial-role', en: 'KBTU · Multi-Robot Thesis Project', de: 'KBTU · Multi-Roboter Abschlussarbeit' },
-    { sel: '.testimonial-card:nth-child(2) .testimonial-source', p: 'html', en: '<i class="fas fa-handshake" style="color:var(--accent3)"></i> Academic Collaboration', de: '<i class="fas fa-handshake" style="color:var(--accent3)"></i> Akademische Zusammenarbeit' },
-    { sel: '.testimonial-card:nth-child(3) .testimonial-quote', p: 'html', en: 'Strong debugging skills and systematic approach to firmware validation. Collins brought real value to our motion control testing pipeline with his ROS2 and CI/CD contributions.', de: 'Starke Debugging-Fähigkeiten und systematischer Ansatz zur Firmware-Validierung. Collins brachte echten Mehrwert in unsere Bewegungssteuerungs-Testpipeline durch seine ROS2- und CI/CD-Beiträge.' },
-    { sel: '.testimonial-card:nth-child(3) .testimonial-name', en: 'Engineering Team', de: 'Ingenieurteam' },
-    { sel: '.testimonial-card:nth-child(3) .testimonial-role', en: 'Synapticon GmbH · Motion Control Firmware', de: 'Synapticon GmbH · Bewegungssteuerungsfirmware' },
-    { sel: '.testimonial-card:nth-child(3) .testimonial-source', p: 'html', en: '<i class="fas fa-building" style="color:var(--accent)"></i> Industry Reference', de: '<i class="fas fa-building" style="color:var(--accent)"></i> Industriereferenz' },
-
-    // ─── PUBLICATION ───
-    { sel: '#publication .section-label', en: 'Research', de: 'Forschung' },
-    { sel: '#publication .section-title', p: 'html', en: 'Publication & <span class="highlight">Research</span>', de: 'Publikation & <span class="highlight">Forschung</span>' },
-    { sel: '.pub-card:nth-child(2) .pub-link', p: 'html', en: 'View Code & Paper <i class="fas fa-arrow-right"></i>', de: 'Code & Paper ansehen <i class="fas fa-arrow-right"></i>' },
-    { sel: '.pub-card:nth-child(3) .pub-link', p: 'html', en: 'View Thesis Repository <i class="fas fa-arrow-right"></i>', de: 'Thesis-Repository ansehen <i class="fas fa-arrow-right"></i>' },
-
-    // ─── ACTIVITIES ───
-    { sel: '#activities .section-label', en: 'More About Me', de: 'Mehr über mich' },
-    { sel: '#activities .section-title', p: 'html', en: 'Activities & <span class="highlight">Languages</span>', de: 'Aktivitäten & <span class="highlight">Sprachen</span>' },
-    { sel: '.misc-card:nth-child(1) .misc-title', p: 'html', en: '<i class="fas fa-star" style="color:var(--accent)"></i> Activities', de: '<i class="fas fa-star" style="color:var(--accent)"></i> Aktivitäten' },
-    { sel: '.misc-card:nth-child(2) .misc-title', p: 'html', en: '<i class="fas fa-language" style="color:var(--accent2)"></i> Languages', de: '<i class="fas fa-language" style="color:var(--accent2)"></i> Sprachen' },
-
-    // ─── FOOTER ───
-    { sel: '.footer-desc', en: 'Embedded AI · Automation · Robotics Engineer', de: 'Embedded AI · Automatisierung · Robotikingenieur' },
-    { sel: '.footer-copy', p: 'html', en: '© 2026 Collins Masimba. Built with ❤️ — Open to Embedded AI, Edge AI & Embedded Systems opportunities.', de: '© 2026 Collins Masimba. Mit ❤️ erstellt — Offen für Embedded AI, Edge AI & Embedded Systems Möglichkeiten.' },
-  ];
-
-  // Cert "View Certificate" text (all 8 cards)
-  document.querySelectorAll('.cert-verify').forEach(function(el, i) {
-    translations.push({
-      _el: el,
-      en: 'View Certificate',
-      de: 'Zertifikat ansehen',
-      p: 'html',
-      _enHtml: 'View Certificate <i class="fas fa-arrow-right"></i>',
-      _deHtml: 'Zertifikat ansehen <i class="fas fa-arrow-right"></i>'
-    });
-  });
-
-  function applyLang(lang) {
-    translations.forEach(function(t) {
-      var el = t._el || document.querySelector(t.sel);
-      if (!el) return;
-      var text = lang === 'de' ? t.de : t.en;
-      if (t.p === 'html' || t._enHtml) {
-        if (t._enHtml) {
-          el.innerHTML = lang === 'de' ? t._deHtml : t._enHtml;
-        } else {
-          el.innerHTML = text;
-        }
-      } else {
-        el.textContent = text;
-      }
-    });
-
-    // Update html lang attribute
-    document.documentElement.lang = lang;
-
-    // Update toggle buttons
-    document.querySelectorAll('.lang-btn').forEach(function(btn) {
-      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-    });
-
-    localStorage.setItem('portfolio-lang', lang);
-    currentLang = lang;
-  }
-
-  // Click handler
-  document.getElementById('lang-toggle').addEventListener('click', function(e) {
-    var btn = e.target.closest('.lang-btn');
-    if (!btn) return;
-    var lang = btn.getAttribute('data-lang');
-    if (lang !== currentLang) {
-      applyLang(lang);
+    .skill-cat-icon { width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+    .ic-blue { background: rgba(26,117,232,0.14); color: var(--accent); }
+    .ic-amber { background: rgba(224,123,26,0.14); color: var(--accent2); }
+    .ic-green { background: rgba(0,179,125,0.14); color: var(--accent3); }
+    .ic-gray { background: rgba(122,143,168,0.14); color: var(--text-muted); }
+    .skill-cat-name { font-size: 0.8rem; font-weight: 700; color: var(--text); }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .skill-chip {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 2px; padding: 0.22rem 0.55rem; font-size: 0.72rem;
+      color: var(--text-muted); font-family: var(--mono); transition: all 0.2s;
     }
-  });
+    .skill-chip:hover { color: var(--text); border-color: rgba(26,117,232,0.38); }
 
-  // Apply saved language on load
-  if (currentLang === 'de') {
-    applyLang('de');
-  }
-})();
-</script>
-
-<!-- PORTFOLIO PDF GENERATOR -->
-<script>
-function loadJsPDF() {
-  return new Promise(function(resolve, reject) {
-    if (window.jspdf && window.jspdf.jsPDF) { resolve(); return; }
-    var urls = [
-      'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js',
-      'https://unpkg.com/jspdf@2.5.2/dist/jspdf.umd.min.js'
-    ];
-    function tryLoad(i) {
-      if (i >= urls.length) { reject(new Error('Could not load jsPDF library. Check your internet connection.')); return; }
-      var s = document.createElement('script');
-      s.src = urls[i];
-      s.onload = function() {
-        if (window.jspdf && window.jspdf.jsPDF) resolve();
-        else tryLoad(i + 1);
-      };
-      s.onerror = function() { tryLoad(i + 1); };
-      document.head.appendChild(s);
+    /* ══════════════════════════════════════════════════
+       PROJECTS
+    ══════════════════════════════════════════════════ */
+    #projects { background: var(--bg); }
+    .projects-toolbar { display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap; margin-top: 0.85rem; }
+    .proj-count-badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 3px; padding: 0.28rem 0.65rem;
+      font-size: 0.72rem; color: var(--text-muted); font-family: var(--mono);
     }
-    tryLoad(0);
-  });
-}
-
-function generatePortfolioPDF() {
-  var btn = document.getElementById('download-portfolio');
-  btn.classList.add('generating');
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading library...';
-
-  loadJsPDF().then(function() {
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
-
-      // ── Detect current language
-      var lang = localStorage.getItem('portfolio-lang') || 'en';
-      var isDE = lang === 'de';
-
-      // ── PDF text translations
-      var t = {
-        coverTitle1:    isDE ? 'PROJEKT'      : 'PROJECT',
-        coverTitle2:    isDE ? 'PORTFOLIO'     : 'PORTFOLIO',
-        subtitle:       isDE ? 'Embedded AI & Automatisierungsingenieur' : 'Embedded AI & Automation Engineer',
-        location:       isDE ? 'Wohnhaft in Deutschland  |  EU Blue Card berechtigt' : 'Based in Germany  |  EU Blue Card Eligible',
-        statProjects:   isDE ? 'Projekte'     : 'Projects',
-        statFreelance:  isDE ? 'Jahre Freelancing' : 'Yrs Freelancing',
-        statIndustry:   isDE ? 'Jahre Industrie'   : 'Yrs Industry',
-        statPaper:      isDE ? 'IEEE Paper'   : 'IEEE Paper',
-        coverNote:      isDE
-          ? 'Dieses Portfolio enth\u00e4lt {n} Open-Source-Projekte. Erstellt am '
-          : 'This portfolio contains {n} open-source projects. Generated on ',
-        sectionTitle:   isDE ? 'Projekte'     : 'Projects',
-        footerLine1:    isDE ? 'Dieses Portfolio wurde automatisch von masimba249.github.io generiert' : 'This portfolio was auto-generated from masimba249.github.io',
-        footerLine2:    isDE ? 'Alle Projekte sind Open Source und verf\u00fcgbar auf github.com/Masimba249' : 'All projects are open source and available on github.com/Masimba249',
-        footerContact:  'Kontakt: Masimba249@gmail.com  |  +49 152 13937719',
-        pageFooter:     isDE ? 'Collins Masimba \u2014 Projektportfolio' : 'Collins Masimba \u2014 Project Portfolio',
-        pageLabel:      isDE ? 'Seite' : 'Page',
-        filename:       isDE ? 'Collins_Masimba_Projektportfolio.pdf' : 'Collins_Masimba_Project_Portfolio.pdf',
-        dateLocale:     isDE ? 'de-DE' : 'en-GB'
-      };
-
-      var jsPDF = window.jspdf.jsPDF;
-      var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-      var W = 210, H = 297;
-      var margin = 18, y = 0;
-      var maxW = W - margin * 2;
-
-      // Colors
-      var accent = [0, 212, 255];
-      var purple = [124, 58, 237];
-      var dark = [10, 14, 26];
-      var cardBg = [26, 34, 53];
-      var white = [255, 255, 255];
-      var muted = [148, 163, 184];
-      var green = [16, 185, 129];
-
-      // ── Page background
-      function drawBg() {
-        doc.setFillColor(dark[0], dark[1], dark[2]);
-        doc.rect(0, 0, W, H, 'F');
-      }
-
-      function checkPage(needed) {
-        if (y + needed > H - 15) {
-          doc.addPage();
-          drawBg();
-          y = margin;
-        }
-      }
-
-      // ── Collect featured projects from DOM
-      var projects = [];
-      var featuredNames = new Set();
-      document.querySelectorAll('#projects > .container > .projects-grid .project-card').forEach(function(card) {
-        var name = (card.querySelector('.project-name') || {}).textContent || '';
-        var desc = (card.querySelector('.project-desc') || {}).textContent || '';
-        var detail = card.getAttribute(isDE ? 'data-detail-de' : 'data-detail') || card.getAttribute('data-detail') || '';
-        var lang = (card.querySelector('.project-lang') || {}).textContent || '';
-        var impact = (card.querySelector('.project-impact') || {}).textContent || '';
-        var role = (card.querySelector('.project-role') || {}).textContent || '';
-        var url = card.href || '';
-        var badges = [];
-        card.querySelectorAll('.project-badge-sm').forEach(function(b) { badges.push(b.textContent); });
-        projects.push({ name: name, desc: detail || desc, lang: lang, impact: impact, role: role, url: url, badges: badges });
-        // Track featured repo names to avoid duplicates
-        var repoName = url.split('/').pop();
-        if (repoName) featuredNames.add(repoName.toLowerCase());
-      });
-
-      // Also include auto-loaded projects already in DOM
-      document.querySelectorAll('#auto-projects .project-card').forEach(function(card) {
-        var name = (card.querySelector('.project-name') || {}).textContent || '';
-        var desc = (card.querySelector('.project-desc') || {}).textContent || '';
-        var detail = card.getAttribute(isDE ? 'data-detail-de' : 'data-detail') || card.getAttribute('data-detail') || '';
-        var lang = (card.querySelector('.project-lang') || {}).textContent || '';
-        var url = card.href || '';
-        projects.push({ name: name, desc: detail || desc, lang: lang, impact: '', role: '', url: url, badges: [] });
-        var repoName = url.split('/').pop();
-        if (repoName) featuredNames.add(repoName.toLowerCase());
-      });
-
-      // ── Fetch remaining repos from GitHub API if auto-projects section is empty
-      function fetchGitHubRepos() {
-        return fetch('https://api.github.com/users/Masimba249/repos?per_page=100&sort=updated')
-          .then(function(r) { return r.json(); })
-          .then(function(repos) {
-            repos.forEach(function(repo) {
-              if (repo.fork) return;
-              if (repo.name.toLowerCase() === 'masimba249.github.io') return;
-              if (featuredNames.has(repo.name.toLowerCase())) return;
-              var name = repo.name.replace(/-/g, ' ').replace(/_/g, ' ');
-              var desc = repo.description || 'No description provided.';
-              var lang = repo.language || 'N/A';
-              projects.push({ name: name, desc: desc, lang: lang, impact: '', role: '', url: repo.html_url, badges: [] });
-            });
-          })
-          .catch(function() { /* offline — use only DOM projects */ });
-      }
-
-      // Only fetch if auto-projects section has no cards (API hasn't loaded yet or failed)
-      var autoCards = document.querySelectorAll('#auto-projects .project-card');
-      var fetchPromise = autoCards.length === 0 ? fetchGitHubRepos() : Promise.resolve();
-
-      fetchPromise.then(function() {
-      try {
-
-      // ══════════════════════════════
-      // PAGE 1 — Cover
-      // ══════════════════════════════
-      drawBg();
-
-      // Accent line at top
-      doc.setFillColor(accent[0], accent[1], accent[2]);
-      doc.rect(0, 0, W, 3, 'F');
-
-      // Title area
-      y = 60;
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(32);
-      doc.setTextColor(white[0], white[1], white[2]);
-      doc.text(t.coverTitle1, margin, y);
-      y += 14;
-      doc.setTextColor(accent[0], accent[1], accent[2]);
-      doc.text(t.coverTitle2, margin, y);
-
-      // Divider
-      y += 10;
-      doc.setDrawColor(accent[0], accent[1], accent[2]);
-      doc.setLineWidth(0.8);
-      doc.line(margin, y, margin + 60, y);
-
-      // Author
-      y += 14;
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(16);
-      doc.setTextColor(white[0], white[1], white[2]);
-      doc.text('Collins Masimba', margin, y);
-
-      y += 8;
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(11);
-      doc.setTextColor(muted[0], muted[1], muted[2]);
-      doc.text(t.subtitle, margin, y);
-
-      y += 12;
-      doc.setFontSize(9);
-      doc.text('Masimba249@gmail.com  |  github.com/Masimba249  |  linkedin.com/in/collinsmasimba', margin, y);
-
-      y += 6;
-      doc.setTextColor(green[0], green[1], green[2]);
-      doc.text(t.location, margin, y);
-
-      // Stats box
-      y += 20;
-      doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
-      doc.roundedRect(margin, y, maxW, 22, 3, 3, 'F');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(10);
-      var stats = [
-        { val: projects.length + '', label: t.statProjects },
-        { val: '13+', label: t.statFreelance },
-        { val: '2+', label: t.statIndustry },
-        { val: '1', label: t.statPaper }
-      ];
-      var statW = maxW / stats.length;
-      stats.forEach(function(s, i) {
-        var sx = margin + (i * statW) + statW / 2;
-        doc.setTextColor(accent[0], accent[1], accent[2]);
-        doc.setFontSize(14);
-        doc.text(s.val, sx, y + 9, { align: 'center' });
-        doc.setTextColor(muted[0], muted[1], muted[2]);
-        doc.setFontSize(7);
-        doc.text(s.label, sx, y + 16, { align: 'center' });
-      });
-
-      // Project count note
-      y += 32;
-      doc.setFontSize(9);
-      doc.setTextColor(muted[0], muted[1], muted[2]);
-      doc.text(t.coverNote.replace('{n}', projects.length) + new Date().toLocaleDateString(t.dateLocale, { day: 'numeric', month: 'long', year: 'numeric' }) + '.', margin, y);
-
-      // Footer line
-      doc.setFillColor(accent[0], accent[1], accent[2]);
-      doc.rect(0, H - 3, W, 3, 'F');
-
-      // ══════════════════════════════
-      // PROJECT PAGES
-      // ══════════════════════════════
-      doc.addPage();
-      drawBg();
-      y = margin;
-
-      // Section title
-      doc.setFillColor(accent[0], accent[1], accent[2]);
-      doc.rect(margin, y, 4, 10, 'F');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(18);
-      doc.setTextColor(white[0], white[1], white[2]);
-      doc.text(t.sectionTitle, margin + 8, y + 8);
-      y += 18;
-
-      projects.forEach(function(proj, idx) {
-        // Calculate dynamic card height based on description length
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8.5);
-        var descLines = doc.splitTextToSize(proj.desc, maxW - 12);
-        var descLineCount = Math.min(descLines.length, 8);
-
-        var cardH = 18 + (descLineCount * 4);
-        if (proj.badges.length > 0) cardH += 7;
-        if (proj.impact || proj.role) cardH += 6;
-        cardH += 6; // url line
-        checkPage(cardH + 4);
-
-        // Card background
-        doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
-        doc.roundedRect(margin, y, maxW, cardH, 2, 2, 'F');
-
-        // Project number + name
-        var innerY = y + 7;
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(7);
-        doc.setTextColor(accent[0], accent[1], accent[2]);
-        doc.text(String(idx + 1).padStart(2, '0'), margin + 4, innerY);
-
-        doc.setFontSize(11);
-        doc.setTextColor(white[0], white[1], white[2]);
-        doc.text(proj.name, margin + 14, innerY);
-
-        // Language badge
-        if (proj.lang) {
-          var langW = doc.getTextWidth(proj.lang) + 6;
-          var langX = margin + maxW - langW - 4;
-          doc.setFillColor(dark[0], dark[1], dark[2]);
-          doc.roundedRect(langX, innerY - 4, langW, 6, 1, 1, 'F');
-          doc.setFont('helvetica', 'normal');
-          doc.setFontSize(6.5);
-          doc.setTextColor(muted[0], muted[1], muted[2]);
-          doc.text(proj.lang, langX + 3, innerY);
-        }
-
-        // Description
-        innerY += 7;
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8.5);
-        doc.setTextColor(muted[0], muted[1], muted[2]);
-        var lines = doc.splitTextToSize(proj.desc, maxW - 12);
-        var showLines = lines.slice(0, 8);
-        doc.text(showLines, margin + 4, innerY);
-        innerY += showLines.length * 4;
-
-        // Impact + Role
-        if (proj.impact || proj.role) {
-          innerY += 3;
-          if (proj.impact) {
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(7);
-            doc.setTextColor(green[0], green[1], green[2]);
-            doc.text('>> ' + proj.impact, margin + 4, innerY);
-          }
-          if (proj.role) {
-            var roleX = proj.impact ? margin + 4 + doc.getTextWidth('>> ' + proj.impact) + 8 : margin + 4;
-            doc.setFont('helvetica', 'italic');
-            doc.setFontSize(7);
-            doc.setTextColor(muted[0], muted[1], muted[2]);
-            doc.text(proj.role, roleX, innerY);
-          }
-          innerY += 4;
-        }
-
-        // Tech badges
-        if (proj.badges.length > 0) {
-          innerY += 1;
-          var bx = margin + 4;
-          proj.badges.forEach(function(badge) {
-            var bw = doc.getTextWidth(badge) * 0.7 + 6;
-            if (bx + bw > margin + maxW - 4) { bx = margin + 4; innerY += 5; }
-            doc.setFillColor(dark[0], dark[1], dark[2]);
-            doc.roundedRect(bx, innerY - 3, bw, 5, 1, 1, 'F');
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(6);
-            doc.setTextColor(accent[0], accent[1], accent[2]);
-            doc.text(badge, bx + 3, innerY);
-            bx += bw + 2;
-          });
-        }
-
-        // GitHub link
-        if (proj.url) {
-          doc.setFont('helvetica', 'normal');
-          doc.setFontSize(6);
-          doc.setTextColor(100, 116, 139);
-          doc.textWithLink(proj.url.replace('https://', ''), margin + 4, y + cardH - 3, { url: proj.url });
-        }
-
-        y += cardH + 4;
-      });
-
-      // ══════════════════════════════
-      // LAST PAGE — Footer
-      // ══════════════════════════════
-      checkPage(30);
-      y += 8;
-      doc.setDrawColor(accent[0], accent[1], accent[2]);
-      doc.setLineWidth(0.5);
-      doc.line(margin, y, margin + maxW, y);
-      y += 8;
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8);
-      doc.setTextColor(muted[0], muted[1], muted[2]);
-      doc.text(t.footerLine1, margin, y);
-      y += 5;
-      doc.text(t.footerLine2, margin, y);
-      y += 5;
-      doc.setTextColor(accent[0], accent[1], accent[2]);
-      doc.text(t.footerContact, margin, y);
-
-      // Page numbers
-      var pageCount = doc.internal.getNumberOfPages();
-      for (var i = 1; i <= pageCount; i++) {
-        doc.setPage(i);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(7);
-        doc.setTextColor(100, 116, 139);
-        doc.text(t.pageFooter, margin, H - 8);
-        doc.text(t.pageLabel + ' ' + i + ' / ' + pageCount, W - margin, H - 8, { align: 'right' });
-      }
-
-      doc.save(t.filename);
-    } catch(e) {
-      console.error('PDF generation failed:', e);
-      alert('PDF generation failed: ' + e.message);
+    .btn-pdf {
+      display: inline-flex; align-items: center; gap: 0.38rem;
+      background: transparent; color: var(--accent2);
+      border: 1px solid rgba(224,123,26,0.32); border-radius: 4px;
+      padding: 0.36rem 0.8rem; font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
     }
+    .btn-pdf:hover { background: rgba(224,123,26,0.07); border-color: var(--accent2); }
+    .btn-pdf.loading { opacity: 0.6; cursor: wait; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(315px, 1fr)); gap: 1.1rem; margin-top: 1.75rem; }
+    .project-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 5px; padding: 1.2rem;
+      display: flex; flex-direction: column; gap: 0.55rem;
+      transition: all 0.2s; text-decoration: none; color: inherit; position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: var(--accent); opacity: 0; transition: opacity 0.2s;
+    }
+    .project-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .project-card:hover::before { opacity: 1; }
+    .proj-head { display: flex; align-items: center; justify-content: space-between; }
+    .proj-icon { font-size: 1.2rem; }
+    .proj-lang {
+      font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted);
+      background: var(--bg-card2); border: 1px solid var(--border); border-radius: 2px; padding: 0.13rem 0.45rem;
+    }
+    .proj-name { font-size: 0.875rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+    .proj-desc { font-size: 0.775rem; color: var(--text-muted); flex: 1; line-height: 1.65; }
+    .proj-impact {
+      display: inline-flex; align-items: center; gap: 0.28rem;
+      font-size: 0.65rem; color: var(--accent3); font-weight: 600;
+      background: rgba(0,179,125,0.07); border: 1px solid rgba(0,179,125,0.17);
+      border-radius: 2px; padding: 0.12rem 0.4rem;
+    }
+    .proj-badges { display: flex; flex-wrap: wrap; gap: 0.28rem; }
+    .proj-badge {
+      font-family: var(--mono); font-size: 0.6rem; color: var(--accent);
+      background: rgba(26,117,232,0.07); border: 1px solid rgba(26,117,232,0.17);
+      border-radius: 2px; padding: 0.1rem 0.38rem;
+    }
+    .proj-role { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
+    .proj-arrow { color: var(--border2); font-size: 0.72rem; margin-left: auto; margin-top: auto; transition: color 0.2s; }
+    .project-card:hover .proj-arrow { color: var(--accent); }
 
-    btn.classList.remove('generating');
-    btn.innerHTML = '<i class="fas fa-file-pdf"></i> Download Portfolio PDF';
-  }); // end fetchPromise.then
-  }).catch(function(err) {
-    console.error(err);
-    alert(err.message || 'Could not load PDF library. Please check your internet connection and try again.');
-    btn.classList.remove('generating');
-    btn.innerHTML = '<i class="fas fa-file-pdf"></i> Download Portfolio PDF';
-  });
-}
-</script>
-
-</body>
-</html>
+    /* ══════════════════════════════════════════════════
+       CONTRIBUTIONS
+    ══════════════════════════════════════════════════ */
+    #contributions { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .contrib-box { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 5px; padding: 1.5rem; max-width: 760px; margin: 0 auto; }
+    .contrib-repo-head {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      padding-bottom: 1rem; margin-bottom: 1.1rem; border-bottom: 1px solid var(--border);
+    }
+    .contrib-repo-name { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.88rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .contrib-repo-name:hover { color: var(--accent); }
+    .contrib-repo-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .contrib-count { background: rgba(0,179,125,0.07); border: 1px solid rgba(0,179,125,0.18); border-radius: 3px; padding: 0.17rem 0.6rem; font-size: 0.7rem; color: var(--accent3); font-weight: 600; }
+    .contrib-list { display: flex; flex-direction: column; gap: 0.35rem; }
+    .contrib-item {
+      display: flex; align-items: flex-start; gap: 0
