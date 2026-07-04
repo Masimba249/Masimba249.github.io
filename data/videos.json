@@ -1,0 +1,77 @@
+[
+  {
+    "repo": "AI-Powered-Predictive-Sensor-Node",
+    "url": "https://github.com/Masimba249/AI-Powered-Predictive-Sensor-Node",
+    "displayName": "AI-Powered Predictive Sensor Node",
+    "video": null
+  },
+  {
+    "repo": "SLAM-Navigation-in-ROS2-navigation",
+    "url": "https://github.com/Masimba249/SLAM-Navigation-in-ROS2-navigation",
+    "displayName": "SLAM Navigation in ROS2",
+    "video": {
+      "type": "file",
+      "url": "https://raw.githubusercontent.com/Masimba249/SLAM-Navigation-in-ROS2-navigation/main/Video_Demo.webm"
+    }
+  },
+  {
+    "repo": "Hybrid-EKF-DQN-Model-for-Real-time-Stabilization",
+    "url": "https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization",
+    "displayName": "Hybrid EKF-DQN Quadcopter Stabilization",
+    "video": null
+  },
+  {
+    "repo": "Fuzzy-PID-in-Temperature-Control-in-MatLAB-and-TIA-Portal",
+    "url": "https://github.com/Masimba249/Fuzzy-PID-in-Temperature-Control-in-MatLAB-and-TIA-Portal",
+    "displayName": "Fuzzy-PID Temperature Control",
+    "video": null
+  },
+  {
+    "repo": "Multirobot-Adaptive-Control-with-Reinforcement-Learning",
+    "url": "https://github.com/Masimba249/Multirobot-Adaptive-Control-with-Reinforcement-Learning",
+    "displayName": "Multi-Robot Adaptive RL Control",
+    "video": null
+  },
+  {
+    "repo": "Implementation-of-AI-in-Fault-Detection",
+    "url": "https://github.com/Masimba249/Implementation-of-AI-in-Fault-Detection",
+    "displayName": "AI Fault Detection — Power Systems",
+    "video": null
+  },
+  {
+    "repo": "AI-Enabled-NICU-Monitor-Design",
+    "url": "https://github.com/Masimba249/AI-Enabled-NICU-Monitor-Design",
+    "displayName": "AI-Enabled NICU Monitor Design",
+    "video": null
+  },
+  {
+    "repo": "Motion-Planning-of-a-Trotbot-in-ROS-and-Python",
+    "url": "https://github.com/Masimba249/Motion-Planning-of-a-Trotbot-in-ROS-and-Python",
+    "displayName": "TrotBot Motion Planning — ROS",
+    "video": null
+  },
+  {
+    "repo": "Complementary-Pulse-Generator-Timer-System",
+    "url": "https://github.com/Masimba249/Complementary-Pulse-Generator-Timer-System",
+    "displayName": "Complementary Pulse Generator",
+    "video": null
+  },
+  {
+    "repo": "Automatic-Vessel-Protection-System-in-AVP",
+    "url": "https://github.com/Masimba249/Automatic-Vessel-Protection-System-in-AVP",
+    "displayName": "Automatic Vessel Protection System",
+    "video": null
+  },
+  {
+    "repo": "Heart_Disease_Prediction_using_Machine_Learning",
+    "url": "https://github.com/Masimba249/Heart_Disease_Prediction_using_Machine_Learning",
+    "displayName": "Heart Disease Prediction — ML",
+    "video": null
+  },
+  {
+    "repo": "Quantus-Prime-Solutions",
+    "url": "https://github.com/Masimba249/Quantus-Prime-Solutions",
+    "displayName": "Quantus Prime Solutions",
+    "video": null
+  }
+]

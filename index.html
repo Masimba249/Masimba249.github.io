@@ -1384,9 +1384,6 @@
     <p id="videos-empty" style="text-align:center;color:var(--text-muted);font-size:0.85rem;display:none;">
       No repositories with a demo video yet.
     </p>
-    <p id="videos-error" style="text-align:center;color:var(--text-muted);font-size:0.85rem;display:none;">
-      Couldn't check for demo videos right now (GitHub API is temporarily unavailable or rate-limited). Please try again later.
-    </p>
   </div>
 </section>
 
@@ -1796,60 +1793,15 @@
 <!-- AUTO-LOAD VIDEO SECTION -->
 <script>
 (function() {
-  const GITHUB_USER = 'Masimba249';
+  // Video links are resolved at build time by scripts/update-videos.mjs
+  // (run via .github/workflows/update-videos.yml) into data/videos.json.
+  // The page just renders that static file — no live GitHub API calls,
+  // so visitors never hit the 60 req/hour unauthenticated rate limit.
 
   function escapeHtml(str) {
     var d = document.createElement('div');
     d.textContent = str || '';
     return d.innerHTML;
-  }
-
-  function safeUrl(url, base) {
-    try {
-      var u = new URL(url, base || location.href);
-      if (u.protocol !== 'http:' && u.protocol !== 'https:') return null;
-      return u.href;
-    } catch (e) { return null; }
-  }
-
-  // README links sometimes point at the GitHub "blob" viewer page rather than
-  // the raw file — that's an HTML page, not a playable video, so redirect it.
-  function githubBlobToRaw(url) {
-    var m = url.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)$/i);
-    if (!m) return url;
-    return 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + m[3] + '/' + m[4];
-  }
-
-  // Scope detection to the "## ... Demo ..." heading (any level, any emoji/prefix)
-  // through the next heading of the same or shallower level, so unrelated
-  // links elsewhere in the README aren't mistaken for the demo video.
-  function extractDemoSection(readme) {
-    if (!readme) return null;
-    var headingRe = /^(#{1,6})[ \t]*.*demo.*$/gim;
-    var match = headingRe.exec(readme);
-    if (!match) return null;
-    var level = match[1].length;
-    var rest = readme.slice(headingRe.lastIndex);
-    var nextHeadingRe = new RegExp('^#{1,' + level + '}[ \\t]', 'm');
-    var nextMatch = nextHeadingRe.exec(rest);
-    return nextMatch ? rest.slice(0, nextMatch.index) : rest;
-  }
-
-  // Returns an unresolved reference: 'ref' may be a relative path and needs
-  // resolving against the repo's raw-content base before it's usable.
-  function findVideoRef(section) {
-    if (!section) return null;
-    var yt = section.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{6,})/i);
-    if (yt) return { type: 'youtube', id: yt[1] };
-    var vm = section.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
-    if (vm) return { type: 'vimeo', id: vm[1] };
-    var vs = section.match(/<video[^>]*\ssrc=["']([^"']+)["']/i);
-    if (vs) return { type: 'file', ref: vs[1] };
-    var direct = section.match(/https?:\/\/[^\s")>\]]+\.(?:mp4|webm|mov)(?:\?[^\s")>\]]*)?/i);
-    if (direct) return { type: 'file', ref: direct[0] };
-    var md = section.match(/\]\(([^)\s]+\.(?:mp4|webm|mov)(?:\?[^)\s]*)?)\)/i);
-    if (md) return { type: 'file', ref: md[1] };
-    return null;
   }
 
   function mimeForExt(url) {
@@ -1898,99 +1850,57 @@
 
   function placeholderHtml(kind) {
     if (kind === 'error') {
-      return '<div class="video-placeholder"><i class="fas fa-triangle-exclamation"></i><span>Couldn\'t check for a demo video right now</span></div>';
+      return '<div class="video-placeholder"><i class="fas fa-triangle-exclamation"></i><span>Couldn\'t load video status right now</span></div>';
     }
     return '<div class="video-placeholder"><i class="fas fa-clock"></i><span>Demo video not yet added</span></div>';
   }
 
-  function fetchReadme(repo) {
-    return fetch('https://api.github.com/repos/' + GITHUB_USER + '/' + repo + '/readme', {
-      headers: { Accept: 'application/vnd.github.v3.raw' }
-    })
-      .then(function(r) {
-        if (r.status === 404) return { readme: null, errored: false };
-        if (!r.ok) return { readme: null, errored: true };
-        return r.text().then(function(text) { return { readme: text, errored: false }; });
-      })
-      .catch(function() { return { readme: null, errored: true }; });
+  function buildCard(displayName, url, embedHtml) {
+    var card = document.createElement('div');
+    card.className = 'video-card';
+    card.innerHTML =
+      '<div class="video-embed">' + embedHtml + '</div>' +
+      '<div class="video-info">' +
+        '<span class="video-name">' + escapeHtml(displayName) + '</span>' +
+        '<a href="' + escapeHtml(url) + '" target="_blank" class="video-repo-link"><i class="fab fa-github"></i> View repository</a>' +
+      '</div>';
+    return card;
   }
-
-  function fetchDefaultBranch(repo) {
-    return fetch('https://api.github.com/repos/' + GITHUB_USER + '/' + repo)
-      .then(function(r) { if (!r.ok) throw new Error('bad status'); return r.json(); })
-      .then(function(data) { return data.default_branch || 'main'; });
-  }
-
-  function loadCard(project, embedEl) {
-    fetchReadme(project.repo).then(function(result) {
-      var ref = findVideoRef(extractDemoSection(result.readme));
-
-      if (!ref) {
-        embedEl.innerHTML = placeholderHtml(result.errored ? 'error' : 'pending');
-        return;
-      }
-      if (ref.type !== 'file') {
-        embedEl.innerHTML = videoEmbedHtml(ref);
-        return;
-      }
-
-      var converted = githubBlobToRaw(ref.ref);
-      var isAbsolute = /^https?:\/\//i.test(converted);
-
-      var resolve = isAbsolute
-        ? Promise.resolve(safeUrl(converted, null))
-        : fetchDefaultBranch(project.repo)
-            .catch(function() { return 'main'; })
-            .then(function(branch) {
-              var rawBase = 'https://raw.githubusercontent.com/' + GITHUB_USER + '/' + project.repo + '/' + branch + '/';
-              return safeUrl(converted, rawBase);
-            });
-
-      resolve.then(function(url) {
-        if (!url) { embedEl.innerHTML = placeholderHtml('pending'); return; }
-        var video = { type: 'file', url: url };
-        embedEl.innerHTML = videoEmbedHtml(video);
-        var videoEl = embedEl.querySelector('video');
-        if (videoEl) attachVideoMimeFallback(videoEl, url);
-      });
-    });
-  }
-
-  var projectLinks = Array.prototype.slice.call(
-    document.querySelectorAll('a.project-card[href*="github.com/' + GITHUB_USER + '/"]')
-  );
-
-  var projects = projectLinks.map(function(a) {
-    var url = a.getAttribute('href');
-    var m = url.match(/github\.com\/[^\/]+\/([^\/?#]+)/i);
-    var nameEl = a.querySelector('.project-name');
-    return {
-      repo: m ? m[1] : null,
-      url: url,
-      displayName: nameEl ? nameEl.textContent.trim() : (m ? m[1] : url)
-    };
-  }).filter(function(p) { return p.repo; });
 
   var container = document.getElementById('videos-grid');
   var emptyMsg = document.getElementById('videos-empty');
 
-  if (projects.length === 0) {
-    if (emptyMsg) emptyMsg.style.display = 'block';
-    return;
-  }
-
-  projects.forEach(function(project) {
-    var card = document.createElement('div');
-    card.className = 'video-card';
-    card.innerHTML =
-      '<div class="video-embed">' + placeholderHtml('pending') + '</div>' +
-      '<div class="video-info">' +
-        '<span class="video-name">' + escapeHtml(project.displayName) + '</span>' +
-        '<a href="' + escapeHtml(project.url) + '" target="_blank" class="video-repo-link"><i class="fab fa-github"></i> View repository</a>' +
-      '</div>';
-    container.appendChild(card);
-    loadCard(project, card.querySelector('.video-embed'));
-  });
+  fetch('data/videos.json', { cache: 'no-store' })
+    .then(function(r) { if (!r.ok) throw new Error('manifest fetch failed'); return r.json(); })
+    .then(function(projects) {
+      if (!projects || projects.length === 0) {
+        if (emptyMsg) emptyMsg.style.display = 'block';
+        return;
+      }
+      projects.forEach(function(project) {
+        var embedHtml = project.video ? videoEmbedHtml(project.video) : placeholderHtml('pending');
+        var card = buildCard(project.displayName, project.url, embedHtml);
+        container.appendChild(card);
+        if (project.video && project.video.type === 'file') {
+          var videoEl = card.querySelector('video');
+          if (videoEl) attachVideoMimeFallback(videoEl, project.video.url);
+        }
+      });
+    })
+    .catch(function() {
+      // Manifest missing/unreachable (e.g. before the workflow's first run) —
+      // fall back to one placeholder card per curated project from the DOM.
+      var projectLinks = Array.prototype.slice.call(document.querySelectorAll('a.project-card[href*="github.com/"]'));
+      if (projectLinks.length === 0) {
+        if (emptyMsg) emptyMsg.style.display = 'block';
+        return;
+      }
+      projectLinks.forEach(function(a) {
+        var nameEl = a.querySelector('.project-name');
+        var displayName = nameEl ? nameEl.textContent.trim() : a.getAttribute('href');
+        container.appendChild(buildCard(displayName, a.getAttribute('href'), placeholderHtml('error')));
+      });
+    });
 })();
 </script>
 
@@ -2102,7 +2012,6 @@
     { sel: '#videos .section-title', p: 'html', en: 'Project <span class="highlight">Videos</span>', de: 'Projekt<span class="highlight">videos</span>' },
     { sel: '#videos .section-desc', en: 'Demo videos automatically detected in repository READMEs — this section updates itself whenever a repo\'s README links a video.', de: 'Demovideos, die automatisch in den READMEs der Repositorys erkannt werden — dieser Abschnitt aktualisiert sich selbst, sobald ein README ein Video verlinkt.' },
     { sel: '#videos-empty', en: 'No repositories with a demo video yet.', de: 'Noch keine Repositorys mit Demovideo.' },
-    { sel: '#videos-error', en: 'Couldn\'t check for demo videos right now (GitHub API is temporarily unavailable or rate-limited). Please try again later.', de: 'Demovideos konnten gerade nicht geprüft werden (GitHub-API vorübergehend nicht verfügbar oder Limit erreicht). Bitte später erneut versuchen.' },
     { sel: '.contrib-badge', en: '5 Pull Requests', de: '5 Pull Requests' },
 
     // ─── EDUCATION ───
