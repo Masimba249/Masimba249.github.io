@@ -30,7 +30,10 @@
     "repo": "Multirobot-Adaptive-Control-with-Reinforcement-Learning",
     "url": "https://github.com/Masimba249/Multirobot-Adaptive-Control-with-Reinforcement-Learning",
     "displayName": "Multi-Robot Adaptive RL Control",
-    "video": null
+    "video": {
+      "type": "file",
+      "url": "https://raw.githubusercontent.com/Masimba249/Multirobot-Adaptive-Control-with-Reinforcement-Learning/main/Demo.mp4"
+    }
   },
   {
     "repo": "Implementation-of-AI-in-Fault-Detection",
