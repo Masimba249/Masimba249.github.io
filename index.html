@@ -547,6 +547,12 @@
       display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s; white-space: nowrap;
     }
     .video-repo-link:hover { color: var(--accent); }
+    .video-placeholder {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.4rem;
+      color: var(--text-muted); font-size: 0.8rem; text-align: center; padding: 1rem;
+    }
+    .video-placeholder i { font-size: 1.3rem; opacity: 0.6; }
 
     /* ===== EDUCATION ===== */
     #education { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -1791,7 +1797,6 @@
 <script>
 (function() {
   const GITHUB_USER = 'Masimba249';
-  const SELF_REPO = (GITHUB_USER + '.github.io').toLowerCase();
 
   function escapeHtml(str) {
     var d = document.createElement('div');
@@ -1799,25 +1804,86 @@
     return d.innerHTML;
   }
 
-  function safeUrl(url) {
+  function safeUrl(url, base) {
     try {
-      var u = new URL(url, location.href);
+      var u = new URL(url, base || location.href);
       if (u.protocol !== 'http:' && u.protocol !== 'https:') return null;
       return u.href;
     } catch (e) { return null; }
   }
 
-  function extractVideo(readme) {
+  // README links sometimes point at the GitHub "blob" viewer page rather than
+  // the raw file — that's an HTML page, not a playable video, so redirect it.
+  function githubBlobToRaw(url) {
+    var m = url.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)$/i);
+    if (!m) return url;
+    return 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + m[3] + '/' + m[4];
+  }
+
+  // Scope detection to the "## ... Demo ..." heading (any level, any emoji/prefix)
+  // through the next heading of the same or shallower level, so unrelated
+  // links elsewhere in the README aren't mistaken for the demo video.
+  function extractDemoSection(readme) {
     if (!readme) return null;
-    var yt = readme.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{6,})/i);
+    var headingRe = /^(#{1,6})[ \t]*.*demo.*$/gim;
+    var match = headingRe.exec(readme);
+    if (!match) return null;
+    var level = match[1].length;
+    var rest = readme.slice(headingRe.lastIndex);
+    var nextHeadingRe = new RegExp('^#{1,' + level + '}[ \\t]', 'm');
+    var nextMatch = nextHeadingRe.exec(rest);
+    return nextMatch ? rest.slice(0, nextMatch.index) : rest;
+  }
+
+  // Returns an unresolved reference: 'ref' may be a relative path and needs
+  // resolving against the repo's raw-content base before it's usable.
+  function findVideoRef(section) {
+    if (!section) return null;
+    var yt = section.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{6,})/i);
     if (yt) return { type: 'youtube', id: yt[1] };
-    var vm = readme.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+    var vm = section.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
     if (vm) return { type: 'vimeo', id: vm[1] };
-    var vs = readme.match(/<video[^>]*\ssrc=["']([^"']+)["']/i);
-    if (vs) { var u1 = safeUrl(vs[1]); if (u1) return { type: 'file', url: u1 }; }
-    var direct = readme.match(/https?:\/\/[^\s")>\]]+\.(?:mp4|webm|mov)(?:\?[^\s")>\]]*)?/i);
-    if (direct) { var u2 = safeUrl(direct[0]); if (u2) return { type: 'file', url: u2 }; }
+    var vs = section.match(/<video[^>]*\ssrc=["']([^"']+)["']/i);
+    if (vs) return { type: 'file', ref: vs[1] };
+    var direct = section.match(/https?:\/\/[^\s")>\]]+\.(?:mp4|webm|mov)(?:\?[^\s")>\]]*)?/i);
+    if (direct) return { type: 'file', ref: direct[0] };
+    var md = section.match(/\]\(([^)\s]+\.(?:mp4|webm|mov)(?:\?[^)\s]*)?)\)/i);
+    if (md) return { type: 'file', ref: md[1] };
     return null;
+  }
+
+  function mimeForExt(url) {
+    var ext = (url.split('?')[0].split('.').pop() || '').toLowerCase();
+    if (ext === 'mp4') return 'video/mp4';
+    if (ext === 'webm') return 'video/webm';
+    if (ext === 'mov') return 'video/quicktime';
+    return null;
+  }
+
+  // GitHub sometimes serves raw video files with the wrong Content-Type
+  // (e.g. audio/webm), which makes browsers refuse to show a video track.
+  // If the lazily-loaded <video> comes back with no dimensions, re-fetch
+  // the bytes and re-wrap them in a Blob with the correct MIME type.
+  function attachVideoMimeFallback(videoEl, originalUrl) {
+    var mime = mimeForExt(originalUrl);
+    if (!mime) return;
+    var fixed = false;
+    function tryFix() {
+      if (fixed) return;
+      fixed = true;
+      fetch(originalUrl)
+        .then(function(r) { return r.ok ? r.blob() : null; })
+        .then(function(blob) {
+          if (!blob) return;
+          videoEl.src = URL.createObjectURL(new Blob([blob], { type: mime }));
+          videoEl.load();
+        })
+        .catch(function() {});
+    }
+    videoEl.addEventListener('loadedmetadata', function() {
+      if (videoEl.videoWidth === 0 && videoEl.videoHeight === 0) tryFix();
+    });
+    videoEl.addEventListener('error', tryFix);
   }
 
   function videoEmbedHtml(video) {
@@ -1830,65 +1896,101 @@
     return '<video src="' + escapeHtml(video.url) + '" controls preload="metadata" playsinline></video>';
   }
 
-  fetch('https://api.github.com/users/' + GITHUB_USER + '/repos?per_page=100&sort=updated')
-    .then(function(r) {
-      if (!r.ok) throw new Error('repo list fetch failed: ' + r.status);
-      return r.json();
-    })
-    .then(function(repos) {
-      var candidates = (repos || []).filter(function(r) {
-        return !r.fork && r.name.toLowerCase() !== SELF_REPO;
-      });
+  function placeholderHtml(kind) {
+    if (kind === 'error') {
+      return '<div class="video-placeholder"><i class="fas fa-triangle-exclamation"></i><span>Couldn\'t check for a demo video right now</span></div>';
+    }
+    return '<div class="video-placeholder"><i class="fas fa-clock"></i><span>Demo video not yet added</span></div>';
+  }
 
-      return Promise.all(candidates.map(function(repo) {
-        return fetch('https://api.github.com/repos/' + GITHUB_USER + '/' + repo.name + '/readme', {
-          headers: { Accept: 'application/vnd.github.v3.raw' }
-        })
-          .then(function(r) {
-            if (r.status === 404) return { readme: null, errored: false };
-            if (!r.ok) return { readme: null, errored: true };
-            return r.text().then(function(text) { return { readme: text, errored: false }; });
-          })
-          .then(function(result) {
-            var video = extractVideo(result.readme);
-            return video ? { repo: repo, video: video } : { errored: result.errored };
-          })
-          .catch(function() { return { errored: true }; });
-      }));
+  function fetchReadme(repo) {
+    return fetch('https://api.github.com/repos/' + GITHUB_USER + '/' + repo + '/readme', {
+      headers: { Accept: 'application/vnd.github.v3.raw' }
     })
-    .then(function(results) {
-      var container = document.getElementById('videos-grid');
-      var emptyMsg = document.getElementById('videos-empty');
-      var errorMsg = document.getElementById('videos-error');
-      var found = (results || []).filter(function(r) { return r && r.video; });
-      var anyErrored = (results || []).some(function(r) { return r && r.errored; });
+      .then(function(r) {
+        if (r.status === 404) return { readme: null, errored: false };
+        if (!r.ok) return { readme: null, errored: true };
+        return r.text().then(function(text) { return { readme: text, errored: false }; });
+      })
+      .catch(function() { return { readme: null, errored: true }; });
+  }
 
-      if (found.length === 0) {
-        if (anyErrored) {
-          errorMsg.style.display = 'block';
-        } else {
-          emptyMsg.style.display = 'block';
-        }
+  function fetchDefaultBranch(repo) {
+    return fetch('https://api.github.com/repos/' + GITHUB_USER + '/' + repo)
+      .then(function(r) { if (!r.ok) throw new Error('bad status'); return r.json(); })
+      .then(function(data) { return data.default_branch || 'main'; });
+  }
+
+  function loadCard(project, embedEl) {
+    fetchReadme(project.repo).then(function(result) {
+      var ref = findVideoRef(extractDemoSection(result.readme));
+
+      if (!ref) {
+        embedEl.innerHTML = placeholderHtml(result.errored ? 'error' : 'pending');
+        return;
+      }
+      if (ref.type !== 'file') {
+        embedEl.innerHTML = videoEmbedHtml(ref);
         return;
       }
 
-      found.forEach(function(item) {
-        var name = escapeHtml(item.repo.name.replace(/-/g, ' ').replace(/_/g, ' '));
-        var card = document.createElement('div');
-        card.className = 'video-card';
-        card.innerHTML =
-          '<div class="video-embed">' + videoEmbedHtml(item.video) + '</div>' +
-          '<div class="video-info">' +
-            '<span class="video-name">' + name + '</span>' +
-            '<a href="' + escapeHtml(item.repo.html_url) + '" target="_blank" class="video-repo-link"><i class="fab fa-github"></i> View repository</a>' +
-          '</div>';
-        container.appendChild(card);
+      var converted = githubBlobToRaw(ref.ref);
+      var isAbsolute = /^https?:\/\//i.test(converted);
+
+      var resolve = isAbsolute
+        ? Promise.resolve(safeUrl(converted, null))
+        : fetchDefaultBranch(project.repo)
+            .catch(function() { return 'main'; })
+            .then(function(branch) {
+              var rawBase = 'https://raw.githubusercontent.com/' + GITHUB_USER + '/' + project.repo + '/' + branch + '/';
+              return safeUrl(converted, rawBase);
+            });
+
+      resolve.then(function(url) {
+        if (!url) { embedEl.innerHTML = placeholderHtml('pending'); return; }
+        var video = { type: 'file', url: url };
+        embedEl.innerHTML = videoEmbedHtml(video);
+        var videoEl = embedEl.querySelector('video');
+        if (videoEl) attachVideoMimeFallback(videoEl, url);
       });
-    })
-    .catch(function() {
-      var errorMsg = document.getElementById('videos-error');
-      if (errorMsg) errorMsg.style.display = 'block';
     });
+  }
+
+  var projectLinks = Array.prototype.slice.call(
+    document.querySelectorAll('a.project-card[href*="github.com/' + GITHUB_USER + '/"]')
+  );
+
+  var projects = projectLinks.map(function(a) {
+    var url = a.getAttribute('href');
+    var m = url.match(/github\.com\/[^\/]+\/([^\/?#]+)/i);
+    var nameEl = a.querySelector('.project-name');
+    return {
+      repo: m ? m[1] : null,
+      url: url,
+      displayName: nameEl ? nameEl.textContent.trim() : (m ? m[1] : url)
+    };
+  }).filter(function(p) { return p.repo; });
+
+  var container = document.getElementById('videos-grid');
+  var emptyMsg = document.getElementById('videos-empty');
+
+  if (projects.length === 0) {
+    if (emptyMsg) emptyMsg.style.display = 'block';
+    return;
+  }
+
+  projects.forEach(function(project) {
+    var card = document.createElement('div');
+    card.className = 'video-card';
+    card.innerHTML =
+      '<div class="video-embed">' + placeholderHtml('pending') + '</div>' +
+      '<div class="video-info">' +
+        '<span class="video-name">' + escapeHtml(project.displayName) + '</span>' +
+        '<a href="' + escapeHtml(project.url) + '" target="_blank" class="video-repo-link"><i class="fab fa-github"></i> View repository</a>' +
+      '</div>';
+    container.appendChild(card);
+    loadCard(project, card.querySelector('.video-embed'));
+  });
 })();
 </script>
 
