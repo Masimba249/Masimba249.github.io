@@ -48,10 +48,13 @@
     "video": null
   },
   {
-    "repo": "Motion-Planning-of-a-Trotbot-in-ROS-and-Python",
-    "url": "https://github.com/Masimba249/Motion-Planning-of-a-Trotbot-in-ROS-and-Python",
+    "repo": "Motion-Planning-of-a-Trotbot-in-ROS-and-Python2",
+    "url": "https://github.com/Masimba249/Motion-Planning-of-a-Trotbot-in-ROS-and-Python2",
     "displayName": "TrotBot Motion Planning — ROS",
-    "video": null
+    "video": {
+      "type": "file",
+      "url": "https://raw.githubusercontent.com/Masimba249/Motion-Planning-of-a-Trotbot-in-ROS-and-Python2/main/Demo.webm"
+    }
   },
   {
     "repo": "Complementary-Pulse-Generator-Timer-System",
