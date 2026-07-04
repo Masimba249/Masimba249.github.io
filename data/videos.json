@@ -57,7 +57,10 @@
     "repo": "Complementary-Pulse-Generator-Timer-System",
     "url": "https://github.com/Masimba249/Complementary-Pulse-Generator-Timer-System",
     "displayName": "Complementary Pulse Generator",
-    "video": null
+    "video": {
+      "type": "file",
+      "url": "https://raw.githubusercontent.com/Masimba249/Complementary-Pulse-Generator-Timer-System/main/Display2.mp4"
+    }
   },
   {
     "repo": "Automatic-Vessel-Protection-System-in-AVP",
