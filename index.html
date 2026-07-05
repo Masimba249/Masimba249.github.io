@@ -11,16 +11,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0a0e1a;
-      --bg-card:   #111827;
-      --bg-card2:  #1a2235;
-      --accent:    #3b82f6;
-      --accent2:   #475569;
+      --bg:        #060606;
+      --bg-card:   #0d0d0d;
+      --bg-card2:  #171717;
+      --accent:    #fbd214;
+      --accent2:   #6b7280;
       --accent3:   #10b981;
-      --text:      #e2e8f0;
-      --text-muted:#8892a4;
-      --border:    #1e2d45;
-      --shadow: 0 4px 24px rgba(0,0,0,0.25);
+      --text:      #f5f5f5;
+      --text-muted:#a3a3a3;
+      --border:    #262626;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
     }
 
     html { scroll-behavior: smooth; }
@@ -41,7 +41,7 @@
     /* ===== NAVBAR ===== */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(10,14,26,0.92);
+      background: rgba(0,0,0,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0 2rem;
@@ -61,10 +61,16 @@
     .nav-links a:hover { color: var(--accent); }
     .nav-links .nav-highlight {
       color: var(--accent); font-weight: 700;
-      background: rgba(59,130,246,0.1); padding: 0.3rem 0.75rem;
-      border-radius: 6px; border: 1px solid rgba(59,130,246,0.25);
+      background: rgba(251,210,20,0.1); padding: 0.3rem 0.75rem;
+      border-radius: 6px; border: 1px solid rgba(251,210,20,0.25);
     }
-    .nav-links .nav-highlight:hover { background: rgba(59,130,246,0.18); }
+    .nav-links .nav-highlight:hover { background: rgba(251,210,20,0.18); }
+    .nav-links .nav-cta {
+      background: var(--accent); color: #0a0a0a; border: none;
+      padding: 0.5rem 1.1rem; border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(251,210,20,0.25);
+    }
+    .nav-links .nav-cta:hover { background: #ffdf4d; color: #0a0a0a; transform: translateY(-1px); }
 
     /* Mobile hamburger */
     .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; padding: 0.5rem; }
@@ -72,7 +78,7 @@
       .nav-toggle { display: block; }
       .nav-links {
         display: none; flex-direction: column; position: absolute;
-        top: 64px; left: 0; right: 0; background: rgba(10,14,26,0.97);
+        top: 64px; left: 0; right: 0; background: rgba(0,0,0,0.97);
         border-bottom: 1px solid var(--border); padding: 1rem 2rem; gap: 1rem;
       }
       .nav-links.open { display: flex; }
@@ -121,32 +127,95 @@
     }
     .lang-btn:hover:not(.active) { color: var(--text); }
 
+    /* ===== CUSTOM CURSOR ===== */
+    @media (hover: hover) and (pointer: fine) {
+      * { cursor: none !important; }
+      .cursor-dot, .cursor-ring {
+        position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
+        border-radius: 50%; will-change: transform; opacity: 0; transition: opacity 0.2s;
+      }
+      .cursor-dot {
+        width: 8px; height: 8px; background: var(--accent);
+      }
+      .cursor-ring {
+        width: 34px; height: 34px; border: 1.5px solid rgba(251,210,20,0.5);
+        transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background 0.25s ease, opacity 0.2s;
+      }
+      .cursor-dot.visible, .cursor-ring.visible { opacity: 1; }
+      .cursor-ring.hover {
+        width: 54px; height: 54px; background: rgba(251,210,20,0.12); border-color: var(--accent);
+      }
+      .cursor-ring.active { background: rgba(251,210,20,0.28); }
+    }
+
     /* ===== HERO ===== */
     .hero {
       min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: flex-start;
       position: relative; overflow: hidden;
       padding: 100px 2rem 60px;
+    }
+    .hero-bg-image {
+      position: absolute; inset: 0; z-index: 0;
+      background-image: url('images/Home_page.webp');
+      background-size: cover; background-position: center;
     }
     .hero-bg {
       position: absolute; inset: 0; z-index: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 20% 40%, rgba(59,130,246,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 80% 60%, rgba(71,85,105,0.12) 0%, transparent 60%);
-    }
-    .hero-grid {
-      position: absolute; inset: 0; z-index: 0;
-      background-image:
-        linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+        linear-gradient(100deg, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.88) 32%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.4) 100%),
+        linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 22%, transparent 78%, rgba(0,0,0,0.5) 100%);
     }
     .hero-content {
-      position: relative; z-index: 1; text-align: center; max-width: 860px;
+      position: relative; z-index: 1; text-align: left; max-width: 700px;
+      width: 100%; margin: 0 auto 0 0; padding-left: clamp(0px, 4vw, 3rem);
+    }
+    .hero-gallery {
+      position: absolute; z-index: 1;
+      right: clamp(1rem, 3vw, 3rem); top: 50%; transform: translateY(-50%);
+      width: min(1400px, 58vw); height: min(1100px, 58vh);
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(251,210,20,0.3);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.55);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+    }
+    .hero-gallery img, .hero-gallery video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: contain; opacity: 0; transition: opacity 0.9s ease;
+    }
+    .hero-gallery img.active, .hero-gallery video.active { opacity: 1; }
+    .hero-gallery-dots {
+      position: absolute; left: 0; right: 0; bottom: 0.7rem; z-index: 2;
+      display: flex; justify-content: center; gap: 0.3rem;
+    }
+    .hero-gallery-dots span {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.35); transition: background 0.3s, transform 0.3s;
+    }
+    .hero-gallery-dots span.active { background: var(--accent); transform: scale(1.3); }
+    .hero-gallery-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; font-size: 0.9rem; cursor: pointer;
+      opacity: 0; transition: opacity 0.25s, background 0.2s, transform 0.2s;
+    }
+    .hero-gallery:hover .hero-gallery-nav { opacity: 1; }
+    .hero-gallery-nav:hover { background: var(--accent); color: #0a0a0a; transform: translateY(-50%) scale(1.08); }
+    .hero-gallery-nav.prev { left: 0.9rem; }
+    .hero-gallery-nav.next { right: 0.9rem; }
+    @media (hover: none) {
+      .hero-gallery-nav { opacity: 1; }
+    }
+    @media (max-width: 1500px) {
+      .hero-gallery { display: none; }
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25);
+      background: rgba(251,210,20,0.1); border: 1px solid rgba(251,210,20,0.3);
+      backdrop-filter: blur(6px);
       border-radius: 50px; padding: 0.4rem 1rem;
       font-size: 0.8rem; color: var(--accent); font-weight: 500;
       margin-bottom: 1.5rem;
@@ -155,27 +224,43 @@
     @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: clamp(2.25rem, 5.5vw, 4rem);
       font-weight: 800; line-height: 1.1;
-      letter-spacing: -1.5px; margin-bottom: 1rem;
+      letter-spacing: -1.5px; margin-bottom: 0.85rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
     }
     .hero h1 .name { color: var(--accent); }
 
+    .hero-role {
+      display: flex; align-items: center; flex-wrap: wrap;
+      font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+      font-weight: 600; color: var(--text);
+      margin-bottom: 1rem; min-height: 1.6em;
+    }
+    .hero-role .typed { color: var(--accent); margin-left: 0.4ch; }
+    .hero-cursor {
+      display: inline-block; width: 2px; height: 1.15em;
+      background: var(--accent); margin-left: 3px;
+      animation: blink 0.9s step-end infinite;
+    }
+    @keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+
     .hero-subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: var(--text-muted); margin-bottom: 0.75rem;
-      font-weight: 400;
+      font-size: clamp(0.92rem, 2vw, 1.05rem);
+      color: var(--text-muted); margin-bottom: 1.75rem;
+      font-weight: 400; max-width: 540px;
     }
     .hero-tags {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem;
+      display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 0.6rem;
       margin-bottom: 2.5rem;
     }
     .tag {
-      background: var(--bg-card2); border: 1px solid var(--border);
+      background: rgba(26,34,53,0.7); border: 1px solid var(--border);
+      backdrop-filter: blur(4px);
       border-radius: 50px; padding: 0.3rem 0.85rem;
       font-size: 0.78rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
     }
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: flex-start; flex-wrap: wrap; margin-bottom: 3rem; }
     .btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.75rem 1.75rem; border-radius: 10px;
@@ -184,21 +269,26 @@
     }
     .btn-primary {
       background: var(--accent); color: #fff;
-      box-shadow: 0 2px 10px rgba(59,130,246,0.25);
+      box-shadow: 0 2px 10px rgba(251,210,20,0.25);
     }
-    .btn-primary:hover { transform: translateY(-2px); background: #2f6fd8; box-shadow: 0 4px 16px rgba(59,130,246,0.3); }
+    .btn-primary:hover { transform: translateY(-2px); background: #d4af00; box-shadow: 0 4px 16px rgba(251,210,20,0.3); }
     .btn-outline {
-      background: transparent; color: var(--text);
+      background: rgba(17,24,39,0.5); color: var(--text);
       border: 1px solid var(--border);
+      backdrop-filter: blur(4px);
     }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
     .hero-stats {
-      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+      display: flex; justify-content: flex-start; gap: 2.5rem; flex-wrap: wrap;
     }
-    .stat { text-align: center; }
+    .stat { text-align: left; }
     .stat-val { font-size: 1.75rem; font-weight: 800; color: var(--accent); }
     .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+    @media (max-width: 640px) {
+      .hero-content { padding-left: 0; }
+    }
 
     /* ===== SECTION COMMON ===== */
     section { padding: 90px 2rem; }
@@ -311,7 +401,7 @@
     #experience::before {
       content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse 50% 30% at 10% 20%, rgba(59,130,246,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 30% at 10% 20%, rgba(251,210,20,0.05) 0%, transparent 60%),
         radial-gradient(ellipse 40% 30% at 90% 80%, rgba(71,85,105,0.04) 0%, transparent 60%);
     }
     #experience .container { position: relative; z-index: 1; }
@@ -335,32 +425,38 @@
       box-shadow: 0 2px 12px rgba(0,0,0,0.2);
     }
     .exp-card:hover {
-      border-color: rgba(59,130,246,0.4);
+      border-color: rgba(251,210,20,0.4);
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       transform: translateY(-2px);
     }
     .exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .exp-title-group { display: flex; align-items: center; gap: 0.75rem; }
+    .exp-logo {
+      width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+      background: #fff; padding: 5px; object-fit: contain;
+      border: 1px solid var(--border);
+    }
     .exp-title { font-size: 1.1rem; font-weight: 700; color: #f1f5f9; }
     .exp-badge {
       display: inline-flex; align-items: center; gap: 0.3rem;
-      background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.3);
+      background: rgba(251,210,20,0.12); border: 1px solid rgba(251,210,20,0.3);
       border-radius: 50px; padding: 0.25rem 0.8rem; font-size: 0.75rem; color: var(--accent);
       white-space: nowrap; font-weight: 600;
     }
     .exp-badge.current { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: #34d399; }
     .exp-badge.freelance { background: rgba(251,146,60,0.15); border-color: rgba(251,146,60,0.4); color: #fbbf24; }
-    .exp-company { font-size: 0.95rem; color: #38bdf8; font-weight: 700; margin-bottom: 0.25rem; }
+    .exp-company { font-size: 0.95rem; color: #f5d24d; font-weight: 700; margin-bottom: 0.25rem; }
     .exp-period { font-size: 0.8rem; color: #94a3b8; margin-bottom: 1rem; font-family: 'JetBrains Mono', monospace; }
     .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
     .exp-list li {
       padding-left: 1.2rem; position: relative; font-size: 0.9rem; color: #cbd5e1; line-height: 1.7;
     }
-    .exp-list li::before { content: '▸'; position: absolute; left: 0; color: #38bdf8; font-size: 0.75rem; top: 3px; }
+    .exp-list li::before { content: '▸'; position: absolute; left: 0; color: #f5d24d; font-size: 0.75rem; top: 3px; }
     .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
     .exp-tag {
-      background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2);
+      background: rgba(251,210,20,0.08); border: 1px solid rgba(251,210,20,0.2);
       border-radius: 6px; padding: 0.25rem 0.65rem; font-size: 0.72rem;
-      color: #93c5fd; font-family: 'JetBrains Mono', monospace;
+      color: #fbe28a; font-family: 'JetBrains Mono', monospace;
     }
     .exp-profile-link {
       display: inline-flex; align-items: center; gap: 0.4rem;
@@ -378,7 +474,7 @@
       content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background:
         radial-gradient(ellipse 50% 35% at 80% 20%, rgba(71,85,105,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 45% 30% at 20% 80%, rgba(59,130,246,0.05) 0%, transparent 60%);
+        radial-gradient(ellipse 45% 30% at 20% 80%, rgba(251,210,20,0.05) 0%, transparent 60%);
     }
     #skills .container { position: relative; z-index: 1; }
     .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
@@ -389,7 +485,7 @@
       box-shadow: 0 2px 12px rgba(0,0,0,0.2);
     }
     .skill-category:hover {
-      border-color: rgba(59,130,246,0.3);
+      border-color: rgba(251,210,20,0.3);
       transform: translateY(-3px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
@@ -415,8 +511,8 @@
       transition: all 0.25s;
     }
     .skill-tag:hover {
-      color: #fff; border-color: rgba(59,130,246,0.4);
-      background: rgba(59,130,246,0.1);
+      color: #fff; border-color: rgba(251,210,20,0.4);
+      background: rgba(251,210,20,0.1);
     }
 
     /* ===== PROJECTS ===== */
@@ -424,13 +520,13 @@
     #projects {
       position: relative;
       background: var(--bg-card);
-      border-top: 1px solid rgba(59,130,246,0.15);
-      border-bottom: 1px solid rgba(59,130,246,0.15);
+      border-top: 1px solid rgba(251,210,20,0.15);
+      border-bottom: 1px solid rgba(251,210,20,0.15);
     }
     #projects::before {
       content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse 60% 40% at 30% 0%, rgba(59,130,246,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 30% 0%, rgba(251,210,20,0.07) 0%, transparent 60%),
         radial-gradient(ellipse 50% 40% at 70% 100%, rgba(71,85,105,0.06) 0%, transparent 60%);
     }
     #projects .container { position: relative; z-index: 1; }
@@ -438,7 +534,7 @@
     #projects .section-title { font-size: clamp(2rem, 4.5vw, 3rem); }
     .projects-count {
       display: inline-flex; align-items: center; gap: 0.4rem;
-      background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25);
+      background: rgba(251,210,20,0.1); border: 1px solid rgba(251,210,20,0.25);
       border-radius: 50px; padding: 0.3rem 0.85rem;
       font-size: 0.8rem; color: var(--accent); font-weight: 600;
       margin-top: 0.75rem;
@@ -451,14 +547,14 @@
       transition: all 0.25s; text-decoration: none; color: inherit;
     }
     .project-card:hover {
-      border-color: rgba(59,130,246,0.35);
+      border-color: rgba(251,210,20,0.35);
       transform: translateY(-3px);
       box-shadow: 0 12px 36px rgba(0,0,0,0.3);
     }
     .project-header { display: flex; align-items: center; justify-content: space-between; }
     .project-icon {
       width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
-      background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.2);
+      background: rgba(251,210,20,0.12); border: 1px solid rgba(251,210,20,0.2);
       display: flex; align-items: center; justify-content: center;
       color: var(--accent); font-size: 1rem;
     }
@@ -481,12 +577,51 @@
     }
     .project-badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
     .project-badge-sm {
-      background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.15);
+      background: rgba(251,210,20,0.06); border: 1px solid rgba(251,210,20,0.15);
       border-radius: 4px; padding: 0.15rem 0.45rem;
-      font-size: 0.65rem; color: #93c5fd; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; color: #fbe28a; font-family: 'JetBrains Mono', monospace;
     }
     .project-link-icon { color: var(--text-muted); font-size: 0.8rem; transition: color 0.2s; }
     .project-card:hover .project-link-icon { color: var(--accent); }
+
+    /* ===== FEATURED PROJECTS (image-forward cards) ===== */
+    .featured-projects-grid .project-card {
+      position: relative; overflow: hidden; padding: 0; display: block;
+      border-radius: 1.75rem; aspect-ratio: 4 / 5;
+    }
+    .featured-projects-grid .project-card-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; transition: transform 0.5s ease;
+    }
+    .featured-projects-grid .project-card:hover .project-card-img { transform: scale(1.08); }
+    .featured-projects-grid .project-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 42%, rgba(0,0,0,0.05) 75%);
+    }
+    .featured-projects-grid .project-card-body {
+      position: absolute; inset: 0; z-index: 1;
+      padding: 1.5rem; display: flex; flex-direction: column; justify-content: flex-end; gap: 0.4rem;
+    }
+    .featured-projects-grid .project-lang {
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em;
+      color: var(--accent); font-family: 'JetBrains Mono', monospace;
+    }
+    .featured-projects-grid .project-name {
+      font-size: 1.2rem; font-weight: 800; color: #fff; line-height: 1.25;
+    }
+    .featured-projects-grid .project-link-icon {
+      position: absolute; top: 1.1rem; right: 1.1rem; z-index: 2;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 0.85rem;
+      opacity: 0; transition: opacity 0.25s, background 0.2s, color 0.2s;
+    }
+    .featured-projects-grid .project-card:hover .project-link-icon { opacity: 1; }
+    .featured-projects-grid .project-link-icon:hover { background: var(--accent); color: #0a0a0a; }
+    @media (hover: none) {
+      .featured-projects-grid .project-link-icon { opacity: 1; }
+    }
 
     /* ===== CONTRIBUTIONS ===== */
     #contributions { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -518,7 +653,7 @@
       padding: 0.75rem; border-radius: 10px; text-decoration: none; color: inherit;
       border: 1px solid transparent; transition: all 0.2s;
     }
-    .contrib-item:hover { background: rgba(59,130,246,0.04); border-color: var(--border); }
+    .contrib-item:hover { background: rgba(251,210,20,0.04); border-color: var(--border); }
     .contrib-pr-icon { color: var(--accent3); font-size: 0.9rem; margin-top: 2px; flex-shrink: 0; }
     .contrib-pr-title { font-size: 0.875rem; font-weight: 600; color: var(--text); }
     .contrib-pr-desc { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
@@ -611,7 +746,7 @@
       transition: all 0.25s;
     }
     .testimonial-card:hover {
-      border-color: rgba(59,130,246,0.3);
+      border-color: rgba(251,210,20,0.3);
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.25);
     }
@@ -674,7 +809,7 @@
     .misc-item:last-child { border-bottom: none; }
     .lang-level {
       margin-left: auto; font-size: 0.72rem; font-family: 'JetBrains Mono', monospace;
-      background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2);
+      background: rgba(251,210,20,0.1); border: 1px solid rgba(251,210,20,0.2);
       border-radius: 50px; padding: 0.15rem 0.5rem; color: var(--accent);
     }
 
@@ -726,6 +861,9 @@
 </head>
 <body>
 
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
 <!-- NAV -->
 <nav>
   <span class="nav-logo">Collins Masimba</span>
@@ -741,7 +879,7 @@
     <li><a href="#certifications">Certs</a></li>
     <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#publication">Research</a></li>
-    <li><a href="Collins_Masimba_CV.pdf" download class="nav-highlight" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.25);color:#10b981;"><i class="fas fa-download" style="margin-right:0.3rem"></i>CV</a></li>
+    <li><a href="Collins_Masimba_CV.pdf" download class="nav-highlight nav-cta"><i class="fas fa-download" style="margin-right:0.3rem"></i>CV</a></li>
     <li>
       <div class="lang-switch" id="lang-toggle">
         <button class="lang-btn active" data-lang="en">EN</button>
@@ -753,15 +891,16 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
+  <div class="hero-bg-image"></div>
   <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
   <div class="hero-content">
     <div class="hero-badge">
       <span></span>
       Open to Embedded AI · Embedded Systems · PLC Programming Roles
     </div>
     <h1>Hi, I'm <span class="name">Collins Masimba</span></h1>
-    <p class="hero-subtitle">Embedded AI &amp; Automation Engineer</p>
+    <p class="hero-role" id="hero-role"><span class="prefix">I'm a</span><span class="typed" id="hero-role-typed"></span><span class="hero-cursor"></span></p>
+    <p class="hero-subtitle">Building intelligent embedded systems and autonomous robots — from PLC ladder logic to deep reinforcement learning.</p>
     <div class="hero-tags">
       <span class="tag">TinyML</span>
       <span class="tag">STM32</span>
@@ -787,6 +926,13 @@
       <div class="stat"><div class="stat-val">1</div><div class="stat-label">IEEE Publication</div></div>
       <div class="stat"><div class="stat-val">20%</div><div class="stat-label">Precision Improved</div></div>
     </div>
+  </div>
+  <div class="hero-gallery" id="hero-gallery">
+    <img id="hero-gallery-img" alt="Behind the scenes" />
+    <video id="hero-gallery-video" muted loop playsinline></video>
+    <button class="hero-gallery-nav prev" id="hero-gallery-prev" aria-label="Previous image" type="button"><i class="fas fa-chevron-left"></i></button>
+    <button class="hero-gallery-nav next" id="hero-gallery-next" aria-label="Next image" type="button"><i class="fas fa-chevron-right"></i></button>
+    <div class="hero-gallery-dots" id="hero-gallery-dots"></div>
   </div>
 </section>
 
@@ -872,7 +1018,10 @@
         <div class="timeline-dot"></div>
         <div class="exp-card">
           <div class="exp-header">
-            <span class="exp-title">Robotics Engineer Internship</span>
+            <div class="exp-title-group">
+              <img class="exp-logo" src="images/synapticon.jpeg" alt="Synapticon GmbH logo" />
+              <span class="exp-title">Robotics Engineer Internship</span>
+            </div>
             <span class="exp-badge current"><i class="fas fa-circle" style="font-size:0.5rem"></i> Current</span>
           </div>
           <div class="exp-company">Synapticon GmbH — Schönaich, Germany</div>
@@ -896,7 +1045,10 @@
         <div class="timeline-dot" style="background:var(--accent2);"></div>
         <div class="exp-card">
           <div class="exp-header">
-            <span class="exp-title">Robotics Research Assistant</span>
+            <div class="exp-title-group">
+              <img class="exp-logo" src="images/kbtu.jpeg" alt="Kazakh-British Technical University logo" />
+              <span class="exp-title">Robotics Research Assistant</span>
+            </div>
             <span class="exp-badge">Oct 2023 – Jun 2025</span>
           </div>
           <div class="exp-company">Kazakh-British Technical University — Almaty, Kazakhstan</div>
@@ -917,7 +1069,10 @@
         <div class="timeline-dot" style="background:#fb923c;"></div>
         <div class="exp-card">
           <div class="exp-header">
-            <span class="exp-title">Machine Learning Expert for Autonomous Robots</span>
+            <div class="exp-title-group">
+              <img class="exp-logo" src="images/freelancer.png" alt="Freelancer.com logo" />
+              <span class="exp-title">Machine Learning Expert for Autonomous Robots</span>
+            </div>
             <span class="exp-badge freelance"><i class="fas fa-globe" style="font-size:0.5rem"></i> Freelance</span>
           </div>
           <div class="exp-company">Freelancer.com — Remote (Almaty, Kazakhstan)</div>
@@ -949,7 +1104,10 @@
         <div class="timeline-dot" style="background:#fb923c;"></div>
         <div class="exp-card">
           <div class="exp-header">
-            <span class="exp-title">MATLAB Expert for Industrial Robots</span>
+            <div class="exp-title-group">
+              <img class="exp-logo" src="images/freelancer.png" alt="Freelancer.com logo" />
+              <span class="exp-title">MATLAB Expert for Industrial Robots</span>
+            </div>
             <span class="exp-badge freelance"><i class="fas fa-globe" style="font-size:0.5rem"></i> Freelance · 13+ yrs</span>
           </div>
           <div class="exp-company">Freelancer.com — Remote (Almaty, Kazakhstan)</div>
@@ -1126,174 +1284,234 @@
         </button>
       </div>
     </div>
-    <div class="projects-grid">
+    <div class="projects-grid featured-projects-grid">
 
       <a href="https://github.com/Masimba249/AI-Powered-Predictive-Sensor-Node" target="_blank" class="project-card" data-detail="Designed and implemented an edge AI sensor node on STM32 microcontroller for predictive maintenance in industrial environments. The system uses TinyML (TensorFlow Lite Micro) running on FreeRTOS to perform real-time anomaly detection on sensor data streams (temperature, vibration, pressure). Implemented MQTT-based telemetry for cloud reporting and alert generation. Achieves sub-10ms inference latency enabling immediate fault response. The firmware architecture follows a modular FreeRTOS task design with separate threads for sensor acquisition, ML inference, and MQTT communication." data-detail-de="Entwurf und Implementierung eines Edge-AI-Sensorknotens auf STM32-Mikrocontroller für vorausschauende Wartung in industriellen Umgebungen. Das System nutzt TinyML (TensorFlow Lite Micro) auf FreeRTOS zur Echtzeit-Anomalieerkennung in Sensordatenströmen (Temperatur, Vibration, Druck). MQTT-basierte Telemetrie für Cloud-Berichterstellung und Alarmgenerierung implementiert. Erreicht eine Inferenzlatenz unter 10ms für sofortige Fehlerreaktion. Die Firmware-Architektur folgt einem modularen FreeRTOS-Task-Design mit separaten Threads für Sensorerfassung, ML-Inferenz und MQTT-Kommunikation.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-satellite-dish"></i></span><span class="project-lang">C</span></div>
-        <div class="project-name">AI-Powered Predictive Sensor Node</div>
-        <div class="project-desc">Edge AI anomaly detection on STM32 using TinyML + FreeRTOS + MQTT. Detects sensor drift and predicts failures before they occur.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-1.jpg" alt="AI-Powered Predictive Sensor Node" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">C</span>
+          <div class="project-name">AI-Powered Predictive Sensor Node</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-satellite-dish"></i></span></div>
+        <div class="project-desc" hidden>Edge AI anomaly detection on STM32 using TinyML + FreeRTOS + MQTT. Detects sensor drift and predicts failures before they occur.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> Real-time inference &lt;10ms</span>
           <span class="project-role">Solo developer</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">STM32</span><span class="project-badge-sm">TinyML</span><span class="project-badge-sm">FreeRTOS</span><span class="project-badge-sm">MQTT</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/SLAM-Navigation-in-ROS2-navigation" target="_blank" class="project-card" data-detail="Built a complete autonomous navigation stack for a mobile robot using ROS2 Humble. Integrated SLAM Toolbox for real-time map generation, Nav2 with MPPI (Model Predictive Path Integral) controller for trajectory planning, and Gazebo for physics-based simulation. The robot autonomously maps unknown environments, localises itself using AMCL, and navigates to goal positions while avoiding static and dynamic obstacles. Achieved a 5.56% improvement in navigation efficiency (from 0.90 to 0.95 success rate) by tuning costmap parameters and MPPI controller weights. Includes launch files, custom URDF, and sensor integration (LiDAR + IMU)." data-detail-de="Aufbau eines vollständigen autonomen Navigations-Stacks für einen mobilen Roboter mit ROS2 Humble. Integration von SLAM Toolbox zur Echtzeit-Kartenerstellung, Nav2 mit MPPI-Controller (Model Predictive Path Integral) zur Trajektorienplanung und Gazebo für physikbasierte Simulation. Der Roboter kartiert selbstständig unbekannte Umgebungen, lokalisiert sich mittels AMCL und navigiert zu Zielpositionen unter Vermeidung statischer und dynamischer Hindernisse. 5,56% Verbesserung der Navigationseffizienz (von 0,90 auf 0,95 Erfolgsrate) durch Optimierung der Costmap-Parameter und MPPI-Controller-Gewichte. Enthält Launch-Dateien, benutzerdefiniertes URDF und Sensorintegration (LiDAR + IMU).">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-route"></i></span><span class="project-lang">Python</span></div>
-        <div class="project-name">SLAM Navigation in ROS2</div>
-        <div class="project-desc">Autonomous mobile robot with SLAM Toolbox, Nav2 MPPI Controller &amp; Gazebo simulation. Full autonomous navigation pipeline.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-11.jpg" alt="SLAM Navigation in ROS2" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">Python</span>
+          <div class="project-name">SLAM Navigation in ROS2</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-route"></i></span></div>
+        <div class="project-desc" hidden>Autonomous mobile robot with SLAM Toolbox, Nav2 MPPI Controller &amp; Gazebo simulation. Full autonomous navigation pipeline.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> 5.56% efficiency gain</span>
           <span class="project-role">Lead developer</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">ROS2</span><span class="project-badge-sm">SLAM</span><span class="project-badge-sm">Nav2</span><span class="project-badge-sm">Gazebo</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="project-card" data-detail="IEEE-published research project proposing a hybrid approach combining Extended Kalman Filter (EKF) for robust state estimation with a Deep Q-Network (DQN) for autonomous stabilisation of quadcopter UAVs. Addresses the challenge of maintaining stable flight in GPS-denied and turbulent environments where traditional PID controllers fail. The EKF fuses noisy IMU and barometer data to produce accurate attitude estimates, while the DQN agent learns optimal corrective thrust commands through trial-and-error in a MATLAB/Simulink simulation environment. Demonstrated significant reduction in roll/pitch drift compared to baseline PID, validated across multiple wind disturbance scenarios. Published at IEEE Conference 2026." data-detail-de="IEEE-veröffentlichtes Forschungsprojekt mit einem hybriden Ansatz: Extended Kalman Filter (EKF) für robuste Zustandsschätzung kombiniert mit Deep Q-Network (DQN) zur autonomen Stabilisierung von Quadcopter-UAVs. Adressiert die Herausforderung stabilen Flugs in GPS-freien und turbulenten Umgebungen, in denen herkömmliche PID-Regler versagen. Der EKF fusioniert verrauschte IMU- und Barometerdaten zu präzisen Lageinschätzungen, während der DQN-Agent optimale Schubkorrekturbefehle durch Trial-and-Error in MATLAB/Simulink erlernt. Signifikante Reduktion der Roll-/Nickabweichung gegenüber Basis-PID, validiert über mehrere Windstörungsszenarien. Veröffentlicht auf der IEEE-Konferenz 2026.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-helicopter"></i></span><span class="project-lang">MATLAB</span></div>
-        <div class="project-name">Hybrid EKF-DQN Quadcopter Stabilization</div>
-        <div class="project-desc"><strong style="color:var(--accent2)">IEEE Published</strong> — Hybrid EKF-DQN model for real-time UAV stabilization. Significant drift reduction vs baseline PID.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-9.jpg" alt="Hybrid EKF-DQN Quadcopter Stabilization" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">MATLAB</span>
+          <div class="project-name">Hybrid EKF-DQN Quadcopter Stabilization</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-helicopter"></i></span></div>
+        <div class="project-desc" hidden><strong style="color:var(--accent2)">IEEE Published</strong> — Hybrid EKF-DQN model for real-time UAV stabilization. Significant drift reduction vs baseline PID.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-trophy"></i> IEEE Published 2026</span>
           <span class="project-role">Primary researcher</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">EKF</span><span class="project-badge-sm">DQN</span><span class="project-badge-sm">Simulink</span><span class="project-badge-sm">RL</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/Fuzzy-PID-in-Temperature-Control-in-MatLAB-and-TIA-Portal" target="_blank" class="project-card" data-detail="Developed an industrial-grade hybrid Fuzzy-PID temperature controller for HVAC systems. The Fuzzy Logic layer dynamically adjusts PID gains (Kp, Ki, Kd) based on error magnitude and rate of change, enabling superior transient response and reduced overshoot compared to conventional PID. Designed and simulated the control system in MATLAB/Simulink, then deployed the validated controller on Siemens S7-1200 PLC via TIA Portal with HMI visualisation for operator monitoring. The project demonstrates the full control engineering workflow: plant modelling, controller design, simulation, and PLC deployment for industrial temperature regulation." data-detail-de="Entwicklung eines industrietauglichen hybriden Fuzzy-PID-Temperaturreglers für HLK-Anlagen. Die Fuzzy-Logic-Schicht passt die PID-Verstärkungen (Kp, Ki, Kd) dynamisch an Fehlergröße und Änderungsrate an und ermöglicht besseres Übergangsverhalten und reduziertes Überschwingen gegenüber konventionellem PID. Entwurf und Simulation des Regelsystems in MATLAB/Simulink, anschließend Deployment des validierten Reglers auf Siemens S7-1200 SPS über TIA Portal mit HMI-Visualisierung zur Bedienerüberwachung. Das Projekt demonstriert den vollständigen regelungstechnischen Workflow: Streckenmodellierung, Reglerentwurf, Simulation und SPS-Deployment für industrielle Temperaturregelung.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-temperature-half"></i></span><span class="project-lang">MATLAB</span></div>
-        <div class="project-name">Fuzzy-PID Temperature Control</div>
-        <div class="project-desc">Industrial HVAC temperature automation using Fuzzy-PID hybrid controller in MATLAB &amp; deployed on Siemens TIA Portal.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-20.jpg" alt="Fuzzy-PID Temperature Control" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">MATLAB</span>
+          <div class="project-name">Fuzzy-PID Temperature Control</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-temperature-half"></i></span></div>
+        <div class="project-desc" hidden>Industrial HVAC temperature automation using Fuzzy-PID hybrid controller in MATLAB &amp; deployed on Siemens TIA Portal.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> Industrial-grade control</span>
           <span class="project-role">Full implementation</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">Fuzzy Logic</span><span class="project-badge-sm">PID</span><span class="project-badge-sm">TIA Portal</span><span class="project-badge-sm">MATLAB</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/Multirobot-Adaptive-Control-with-Reinforcement-Learning" target="_blank" class="project-card" data-detail="Implemented a Reinforcement Learning-based adaptive control framework for coordinating multiple robot arms in collaborative industrial tasks. Each robot agent uses a policy-gradient RL algorithm to learn optimal joint trajectories and task allocation strategies, adapting in real-time to varying workpiece geometries and dynamic task requirements. The multi-agent system handles collision avoidance, workspace sharing, and synchronised handoffs between robots. Developed and validated entirely in MATLAB with Robotics Toolbox, using custom reward functions penalising collisions and rewarding task completion speed and energy efficiency." data-detail-de="Implementierung eines auf Reinforcement Learning basierenden adaptiven Regelungsframeworks zur Koordination mehrerer Roboterarme bei kollaborativen Industrieaufgaben. Jeder Roboter-Agent nutzt einen Policy-Gradient-RL-Algorithmus zum Erlernen optimaler Gelenkbahnen und Aufgabenverteilungsstrategien, mit Echtzeitanpassung an variierende Werkstückgeometrien und dynamische Aufgabenanforderungen. Das Multi-Agenten-System behandelt Kollisionsvermeidung, Arbeitsraumteilung und synchronisierte Übergaben zwischen Robotern. Vollständig in MATLAB mit Robotics Toolbox entwickelt und validiert, mit benutzerdefinierten Belohnungsfunktionen für Kollisionsvermeidung und Optimierung von Aufgabengeschwindigkeit und Energieeffizienz.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-people-arrows"></i></span><span class="project-lang">MATLAB</span></div>
-        <div class="project-name">Multi-Robot Adaptive RL Control</div>
-        <div class="project-desc">Multi-robot adaptive control using Reinforcement Learning for coordinated task execution in industrial settings.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-12.jpg" alt="Multi-Robot Adaptive RL Control" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">MATLAB</span>
+          <div class="project-name">Multi-Robot Adaptive RL Control</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-people-arrows"></i></span></div>
+        <div class="project-desc" hidden>Multi-robot adaptive control using Reinforcement Learning for coordinated task execution in industrial settings.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> Multi-agent coordination</span>
           <span class="project-role">Lead developer</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">RL</span><span class="project-badge-sm">MATLAB</span><span class="project-badge-sm">Multi-Robot</span><span class="project-badge-sm">Adaptive</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/Implementation-of-AI-in-Fault-Detection" target="_blank" class="project-card" data-detail="Developed a CNN-based fault classification system for 3-phase power transmission lines. The model processes voltage and current waveform data to detect and classify fault types (single line-to-ground, line-to-line, double line-to-ground, and three-phase faults) in real-time. Implemented data preprocessing pipeline including signal windowing, normalisation, and feature extraction. Trained and evaluated multiple architectures in MATLAB Deep Learning Toolbox, achieving high classification accuracy across all fault categories. The system is designed for integration into SCADA environments for real-time grid protection and monitoring." data-detail-de="Entwicklung eines CNN-basierten Fehlerklassifizierungssystems für 3-Phasen-Hochspannungsleitungen. Das Modell verarbeitet Spannungs- und Stromwellenformdaten zur Echtzeit-Erkennung und Klassifizierung von Fehlertypen (Einphasen-Erdschluss, Leiter-Leiter, Doppel-Erdschluss und Dreiphasenfehler). Implementierung einer Datenvorverarbeitungspipeline mit Signalfensterung, Normalisierung und Merkmalsextraktion. Training und Evaluation mehrerer Architekturen in MATLAB Deep Learning Toolbox mit hoher Klassifizierungsgenauigkeit über alle Fehlerkategorien. Das System ist für die Integration in SCADA-Umgebungen zur Echtzeit-Netzüberwachung und -schutz konzipiert.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-bolt"></i></span><span class="project-lang">MATLAB</span></div>
-        <div class="project-name">AI Fault Detection — Power Systems</div>
-        <div class="project-desc">CNN-based AI fault detection on 3-phase power systems achieving high classification accuracy for real-time grid monitoring.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-2.jpg" alt="AI Fault Detection — Power Systems" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">MATLAB</span>
+          <div class="project-name">AI Fault Detection — Power Systems</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-bolt"></i></span></div>
+        <div class="project-desc" hidden>CNN-based AI fault detection on 3-phase power systems achieving high classification accuracy for real-time grid monitoring.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> High accuracy classification</span>
           <span class="project-role">Solo developer</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">CNN</span><span class="project-badge-sm">MATLAB</span><span class="project-badge-sm">Power Systems</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/AI-Enabled-NICU-Monitor-Design" target="_blank" class="project-card" data-detail="Designed the complete hardware platform for an AI-enabled Neonatal Intensive Care Unit (NICU) patient monitor. Created multi-layer PCB schematics in Altium Designer integrating sensors for heart rate (ECG), blood oxygen saturation (SpO2), and body temperature. Designed a custom 2D/3D enclosure optimised for bedside mounting and medical safety standards. The system supports edge AI inference for early anomaly detection in neonatal vitals, with low-power wireless connectivity for nurse station alerts. Includes full BOM, Gerber files, and mechanical drawings." data-detail-de="Entwurf der vollständigen Hardwareplattform für einen KI-gestützten Patientenmonitor für neonatale Intensivstationen (NICU). Erstellung mehrlagiger Leiterplattenschaltpläne in Altium Designer mit Integration von Sensoren für Herzfrequenz (EKG), Blutsauerstoffsättigung (SpO2) und Körpertemperatur. Entwurf eines maßgeschneiderten 2D/3D-Gehäuses, optimiert für Bettseitige Montage und medizinische Sicherheitsstandards. Das System unterstützt Edge-AI-Inferenz zur Früherkennung von Anomalien bei Neugeborenen-Vitalwerten mit energiesparender Funkverbindung für Schwesternstationsalarme. Enthält vollständige Stückliste, Gerber-Dateien und mechanische Zeichnungen.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-baby"></i></span><span class="project-lang">HTML</span></div>
-        <div class="project-name">AI-Enabled NICU Monitor Design</div>
-        <div class="project-desc">Complete hardware design: Altium schematic &amp; 2D/3D enclosure for an AI-enabled NICU monitor tracking HR, SpO₂, and Temp.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-8.jpg" alt="AI-Enabled NICU Monitor Design" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">HTML</span>
+          <div class="project-name">AI-Enabled NICU Monitor Design</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-baby"></i></span></div>
+        <div class="project-desc" hidden>Complete hardware design: Altium schematic &amp; 2D/3D enclosure for an AI-enabled NICU monitor tracking HR, SpO₂, and Temp.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> Full HW design pipeline</span>
           <span class="project-role">Hardware designer</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">Altium</span><span class="project-badge-sm">PCB</span><span class="project-badge-sm">Edge AI</span><span class="project-badge-sm">Medical</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/Motion-Planning-of-a-Trotbot-in-ROS-and-Python2" target="_blank" class="project-card" data-detail="Developed a complete motion planning and control system for a TrotBot walking robot using ROS and Python. Implemented PID-based joint controllers for each leg actuator to achieve stable locomotion gaits. The system includes forward/inverse kinematics, gait generation algorithms, and real-time joint trajectory tracking. Sensor feedback from encoders and IMU is used for closed-loop balance control. Tested in Gazebo simulation with RViz visualisation of joint states and TF frames." data-detail-de="Entwicklung eines vollständigen Bewegungsplanungs- und Steuerungssystems für einen TrotBot-Laufroboter in ROS und Python. Implementierung PID-basierter Gelenkregler für jeden Beinaktuator zur Erzielung stabiler Fortbewegungsgangarten. Das System umfasst Vorwärts-/Inverskinematik, Gangartengenerierungsalgorithmen und Echtzeit-Gelenkbahnverfolgung. Sensorrückkopplung von Encodern und IMU wird für die Gleichgewichtsregelung im geschlossenen Regelkreis genutzt. Getestet in Gazebo-Simulation mit RViz-Visualisierung von Gelenkzuständen und TF-Frames.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-shoe-prints"></i></span><span class="project-lang">Python</span></div>
-        <div class="project-name">TrotBot Motion Planning — ROS</div>
-        <div class="project-desc">Motion planning and gait control using PID controllers for a walking TrotBot robot in ROS &amp; Python with Gazebo simulation.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-15.jpg" alt="TrotBot Motion Planning — ROS" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">Python</span>
+          <div class="project-name">TrotBot Motion Planning — ROS</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-shoe-prints"></i></span></div>
+        <div class="project-desc" hidden>Motion planning and gait control using PID controllers for a walking TrotBot robot in ROS &amp; Python with Gazebo simulation.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> Full kinematics pipeline</span>
           <span class="project-role">Solo developer</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">ROS</span><span class="project-badge-sm">Python</span><span class="project-badge-sm">PID</span><span class="project-badge-sm">Gazebo</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/Complementary-Pulse-Generator-Timer-System" target="_blank" class="project-card" data-detail="Developed a real-time embedded system for complementary pulse generation and precision timing on a microcontroller. Features a 4x4 keypad interface for user input of pulse parameters (frequency, duty cycle, dead-time) and a graphical LCD display for real-time waveform visualisation. The complementary outputs with configurable dead-time insertion are designed for driving H-bridge inverters in radio transmitter applications. Implemented using timer/counter peripherals with interrupt-driven precision, achieving jitter-free pulse output at frequencies up to 100 kHz." data-detail-de="Entwicklung eines Echtzeit-Embedded-Systems zur komplementären Pulserzeugung und Präzisionszeitmessung auf einem Mikrocontroller. Enthält ein 4x4-Tastenfeld zur Benutzereingabe von Pulsparametern (Frequenz, Tastverhältnis, Totzeit) und ein grafisches LCD-Display zur Echtzeit-Wellenformvisualisierung. Die komplementären Ausgänge mit konfigurierbarer Totzeiteinstellung sind für den Antrieb von H-Brücken-Wechselrichtern in Funksender-Anwendungen konzipiert. Implementiert mit Timer/Counter-Peripherie und interruptgesteuerter Präzision, jitterfreie Pulsausgabe bei Frequenzen bis 100 kHz.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-wave-square"></i></span><span class="project-lang">C</span></div>
-        <div class="project-name">Complementary Pulse Generator</div>
-        <div class="project-desc">Real-time microcontroller system for precision complementary pulse generation with keypad input and graphical LCD display.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-7.jpg" alt="Complementary Pulse Generator" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">C</span>
+          <div class="project-name">Complementary Pulse Generator</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-wave-square"></i></span></div>
+        <div class="project-desc" hidden>Real-time microcontroller system for precision complementary pulse generation with keypad input and graphical LCD display.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> Up to 100 kHz output</span>
           <span class="project-role">Embedded developer</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">C</span><span class="project-badge-sm">Timers</span><span class="project-badge-sm">LCD</span><span class="project-badge-sm">Keypad</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/Automatic-Vessel-Protection-System-in-AVP" target="_blank" class="project-card" data-detail="Formal verification project modelling an Automatic Vessel Protection (AVP) system in Promela and verifying safety properties using the SPIN model checker. The AVP system monitors vessel parameters (pressure, temperature, flow rate) and triggers protective shutdowns when unsafe conditions are detected. Modelled concurrent sensor monitoring processes, alarm logic, and actuator control with proper mutual exclusion. Verified liveness (system eventually responds) and safety (no unsafe state reached) properties using Linear Temporal Logic (LTL) assertions. Demonstrates formal methods applied to industrial safety-critical systems." data-detail-de="Formales Verifikationsprojekt zur Modellierung eines automatischen Behälterschutzsystems (AVP) in Promela und Verifikation von Sicherheitseigenschaften mit dem SPIN Model Checker. Das AVP-System überwacht Behälterparameter (Druck, Temperatur, Durchflussrate) und löst Schutzabschaltungen bei unsicheren Bedingungen aus. Modellierung nebenläufiger Sensorüberwachungsprozesse, Alarmlogik und Aktorsteuerung mit korrektem gegenseitigem Ausschluss. Verifikation von Lebendigkeits- (System reagiert schließlich) und Sicherheitseigenschaften (kein unsicherer Zustand erreichbar) mittels Linear Temporal Logic (LTL) Zusicherungen. Demonstriert formale Methoden für sicherheitskritische industrielle Systeme.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-shield-halved"></i></span><span class="project-lang">Promela</span></div>
-        <div class="project-name">Automatic Vessel Protection System</div>
-        <div class="project-desc">Formal verification of an industrial vessel protection system using Promela/SPIN model checking with LTL safety assertions.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-14.jpg" alt="Automatic Vessel Protection System" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">Promela</span>
+          <div class="project-name">Automatic Vessel Protection System</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-shield-halved"></i></span></div>
+        <div class="project-desc" hidden>Formal verification of an industrial vessel protection system using Promela/SPIN model checking with LTL safety assertions.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> Safety-critical verified</span>
           <span class="project-role">Formal methods engineer</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">Promela</span><span class="project-badge-sm">SPIN</span><span class="project-badge-sm">LTL</span><span class="project-badge-sm">Formal Methods</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/Heart_Disease_Prediction_using_Machine_Learning" target="_blank" class="project-card" data-detail="Built a machine learning pipeline for predicting heart disease from patient clinical data using the UCI Heart Disease dataset. Implemented and compared multiple classifiers including Logistic Regression, Random Forest, SVM, KNN, and Decision Tree in Python (Scikit-learn). Performed feature engineering, correlation analysis, and hyperparameter tuning via GridSearchCV. Evaluated models using accuracy, precision, recall, F1-score, and ROC-AUC metrics. Includes Jupyter Notebook with full EDA, visualisations (Matplotlib/Seaborn), and a comparative analysis of classifier performance." data-detail-de="Aufbau einer Machine-Learning-Pipeline zur Vorhersage von Herzerkrankungen aus klinischen Patientendaten mit dem UCI Heart Disease Datensatz. Implementierung und Vergleich mehrerer Klassifikatoren: Logistische Regression, Random Forest, SVM, KNN und Entscheidungsbaum in Python (Scikit-learn). Feature Engineering, Korrelationsanalyse und Hyperparameter-Tuning mittels GridSearchCV. Bewertung der Modelle anhand von Accuracy, Precision, Recall, F1-Score und ROC-AUC-Metriken. Enthält Jupyter Notebook mit vollständiger explorativer Datenanalyse, Visualisierungen (Matplotlib/Seaborn) und vergleichender Analyse der Klassifikatorleistung.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-heart-pulse"></i></span><span class="project-lang">Jupyter</span></div>
-        <div class="project-name">Heart Disease Prediction — ML</div>
-        <div class="project-desc">Heart disease prediction pipeline comparing multiple ML classifiers with full EDA and hyperparameter tuning in Python.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-21.jpg" alt="Heart Disease Prediction — ML" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">Jupyter</span>
+          <div class="project-name">Heart Disease Prediction — ML</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-heart-pulse"></i></span></div>
+        <div class="project-desc" hidden>Heart disease prediction pipeline comparing multiple ML classifiers with full EDA and hyperparameter tuning in Python.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> 5 classifiers compared</span>
           <span class="project-role">Data scientist</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">Scikit-learn</span><span class="project-badge-sm">Pandas</span><span class="project-badge-sm">Seaborn</span><span class="project-badge-sm">GridSearchCV</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
       <a href="https://github.com/Masimba249/Quantus-Prime-Solutions" target="_blank" class="project-card" data-detail="Collection of FPGA and digital logic design solutions implemented in Verilog for Intel Quartus Prime. Covers combinational and sequential logic circuits including ALUs, multiplexers, state machines (FSMs), counters, and memory controllers. Each module includes testbenches with automated verification, timing constraint files, and pin assignment configurations for FPGA deployment. Demonstrates proficiency in hardware description languages, synthesis, simulation (ModelSim), and FPGA development workflows for embedded digital systems." data-detail-de="Sammlung von FPGA- und Digitallogik-Designlösungen in Verilog für Intel Quartus Prime. Umfasst kombinatorische und sequentielle Logikschaltungen einschließlich ALUs, Multiplexer, Zustandsautomaten (FSMs), Zähler und Speichercontroller. Jedes Modul enthält Testbenches mit automatisierter Verifikation, Timing-Constraint-Dateien und Pin-Zuweisungskonfigurationen für FPGA-Deployment. Demonstriert Kompetenz in Hardwarebeschreibungssprachen, Synthese, Simulation (ModelSim) und FPGA-Entwicklungsworkflows für eingebettete digitale Systeme.">
-        <div class="project-header"><span class="project-icon"><i class="fas fa-microchip"></i></span><span class="project-lang">Verilog</span></div>
-        <div class="project-name">Quantus Prime Solutions</div>
-        <div class="project-desc">FPGA/Verilog digital logic solutions for Intel Quartus Prime — ALUs, FSMs, memory controllers with testbenches.</div>
-        <div class="project-meta">
+        <img class="project-card-img" src="images/gallery/gallery-18.jpg" alt="Quantus Prime Solutions" loading="lazy" />
+        <div class="project-card-overlay"></div>
+        <div class="project-card-body">
+          <span class="project-lang">Verilog</span>
+          <div class="project-name">Quantus Prime Solutions</div>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
+        <div class="project-header" hidden><span class="project-icon"><i class="fas fa-microchip"></i></span></div>
+        <div class="project-desc" hidden>FPGA/Verilog digital logic solutions for Intel Quartus Prime — ALUs, FSMs, memory controllers with testbenches.</div>
+        <div class="project-meta" hidden>
           <span class="project-impact"><i class="fas fa-bolt"></i> Full synthesis pipeline</span>
           <span class="project-role">FPGA developer</span>
         </div>
-        <div class="project-badges">
+        <div class="project-badges" hidden>
           <span class="project-badge-sm">Verilog</span><span class="project-badge-sm">Quartus</span><span class="project-badge-sm">ModelSim</span><span class="project-badge-sm">FPGA</span>
         </div>
-        <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
       </a>
 
     </div>
@@ -1904,6 +2122,200 @@
 })();
 </script>
 
+<!-- HERO IMAGE GALLERY -->
+<script>
+(function() {
+  var TOTAL = 24;
+  var VIDEO_INDEX = 10;
+  var SLIDES = [];
+  for (var i = 1; i <= TOTAL; i++) {
+    if (i === VIDEO_INDEX) {
+      SLIDES.push({ type: 'video', src: 'images/gallery/gallery-' + i + '.mp4' });
+    } else {
+      SLIDES.push({ type: 'image', src: 'images/gallery/gallery-' + i + '.jpg' });
+    }
+  }
+
+  var imgEl = document.getElementById('hero-gallery-img');
+  var videoEl = document.getElementById('hero-gallery-video');
+  var dotsEl = document.getElementById('hero-gallery-dots');
+  var prevBtn = document.getElementById('hero-gallery-prev');
+  var nextBtn = document.getElementById('hero-gallery-next');
+  if (!imgEl || !videoEl) return;
+
+  SLIDES.forEach(function() {
+    var dot = document.createElement('span');
+    dotsEl.appendChild(dot);
+  });
+
+  var timer = null;
+  var currentIndex = 0;
+
+  function reveal(index, slide) {
+    Array.prototype.forEach.call(dotsEl.children, function(dot, i) {
+      dot.classList.toggle('active', i === index);
+    });
+
+    if (slide.type === 'video') {
+      videoEl.src = slide.src;
+      videoEl.currentTime = 0;
+      videoEl.play().catch(function() {});
+      videoEl.classList.add('active');
+    } else {
+      var next = new Image();
+      next.onload = function() {
+        imgEl.src = slide.src;
+        imgEl.classList.add('active');
+      };
+      next.src = slide.src;
+    }
+
+    clearTimeout(timer);
+    timer = setTimeout(function() { show((index + 1) % SLIDES.length); }, slide.type === 'video' ? 6000 : 5000);
+  }
+
+  function show(index) {
+    currentIndex = index;
+    var slide = SLIDES[index];
+    var isFirst = imgEl.classList.contains('active') === false && videoEl.classList.contains('active') === false;
+
+    // Fade out whichever is currently visible, then swap the source.
+    imgEl.classList.remove('active');
+    videoEl.classList.remove('active');
+    videoEl.removeAttribute('src');
+
+    clearTimeout(timer);
+    timer = setTimeout(function() { reveal(index, slide); }, isFirst ? 0 : 450);
+  }
+
+  function goTo(index) {
+    show((index + SLIDES.length) % SLIDES.length);
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', function() { goTo(currentIndex - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { goTo(currentIndex + 1); });
+
+  show(0);
+})();
+</script>
+
+<!-- CUSTOM CURSOR -->
+<script>
+(function() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  var dot = document.getElementById('cursor-dot');
+  var ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
+
+  var mouseX = -100, mouseY = -100;
+  var ringX = -100, ringY = -100;
+  var started = false;
+
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.transform = 'translate(' + mouseX + 'px,' + mouseY + 'px) translate(-50%,-50%)';
+    if (!started) {
+      started = true;
+      ringX = mouseX;
+      ringY = mouseY;
+      dot.classList.add('visible');
+      ring.classList.add('visible');
+    }
+  });
+
+  document.addEventListener('mouseleave', function() {
+    dot.classList.remove('visible');
+    ring.classList.remove('visible');
+  });
+  document.addEventListener('mouseenter', function() {
+    dot.classList.add('visible');
+    ring.classList.add('visible');
+  });
+
+  document.addEventListener('mousedown', function() { ring.classList.add('active'); });
+  document.addEventListener('mouseup', function() { ring.classList.remove('active'); });
+
+  var HOVER_SELECTOR = 'a, button, .lang-btn, input, textarea, select, [role="button"], .hero-gallery-nav';
+  document.addEventListener('mouseover', function(e) {
+    if (e.target.closest(HOVER_SELECTOR)) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', function(e) {
+    if (e.target.closest(HOVER_SELECTOR)) ring.classList.remove('hover');
+  });
+
+  function raf() {
+    ringX += (mouseX - ringX) * 0.16;
+    ringY += (mouseY - ringY) * 0.16;
+    ring.style.transform = 'translate(' + ringX + 'px,' + ringY + 'px) translate(-50%,-50%)';
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+})();
+</script>
+
+<!-- HERO ROLE TYPEWRITER -->
+<script>
+(function() {
+  var ROLES = {
+    en: { prefix: "I'm a", roles: ['Embedded AI Engineer', 'Automation Engineer', 'Robotics Engineer', 'PLC Programmer'] },
+    de: { prefix: 'Ich bin', roles: ['Embedded-KI-Ingenieur', 'Automatisierungsingenieur', 'Robotik-Ingenieur', 'SPS-Programmierer'] }
+  };
+  var prefixEl = document.querySelector('#hero-role .prefix');
+  var typedEl = document.getElementById('hero-role-typed');
+  if (!typedEl) return;
+
+  var timer = null;
+  var roleIndex = 0;
+  var charIndex = 0;
+  var deleting = false;
+
+  function tick() {
+    var lang = localStorage.getItem('portfolio-lang') || 'en';
+    var cfg = ROLES[lang] || ROLES.en;
+    var word = cfg.roles[roleIndex % cfg.roles.length];
+
+    if (!deleting) {
+      charIndex++;
+      typedEl.textContent = word.slice(0, charIndex);
+      if (charIndex === word.length) {
+        deleting = true;
+        timer = setTimeout(tick, 1600);
+        return;
+      }
+      timer = setTimeout(tick, 65);
+    } else {
+      charIndex--;
+      typedEl.textContent = word.slice(0, charIndex);
+      if (charIndex === 0) {
+        deleting = false;
+        roleIndex++;
+        timer = setTimeout(tick, 300);
+        return;
+      }
+      timer = setTimeout(tick, 35);
+    }
+  }
+
+  function restart() {
+    var lang = localStorage.getItem('portfolio-lang') || 'en';
+    var cfg = ROLES[lang] || ROLES.en;
+    if (prefixEl) prefixEl.textContent = cfg.prefix;
+    clearTimeout(timer);
+    charIndex = 0;
+    deleting = false;
+    typedEl.textContent = '';
+    timer = setTimeout(tick, 400);
+  }
+
+  restart();
+
+  var langToggle = document.getElementById('lang-toggle');
+  if (langToggle) langToggle.addEventListener('click', function() { setTimeout(restart, 0); });
+})();
+</script>
+
 <!-- LANGUAGE TOGGLE EN/DE -->
 <script>
 (function() {
@@ -1926,7 +2338,7 @@
     // ─── HERO ───
     { sel: '.hero-badge', p: 'html', en: '<span></span> Open to Embedded AI · Embedded Systems · PLC Programming Roles', de: '<span></span> Offen für Embedded AI · Embedded Systems · SPS-Programmierung' },
     { sel: '.hero h1', p: 'html', en: 'Hi, I\'m <span class="name">Collins Masimba</span>', de: 'Hallo, ich bin <span class="name">Collins Masimba</span>' },
-    { sel: '.hero-subtitle', en: 'Embedded AI & Automation Engineer', de: 'Embedded AI & Automatisierungsingenieur' },
+    { sel: '.hero-subtitle', en: 'Building intelligent embedded systems and autonomous robots — from PLC ladder logic to deep reinforcement learning.', de: 'Entwicklung intelligenter Embedded-Systeme und autonomer Roboter — von SPS-Kontaktplänen bis zu Deep Reinforcement Learning.' },
     { sel: '.btn-primary', p: 'html', en: '<i class="fas fa-rocket"></i>View Projects', de: '<i class="fas fa-rocket"></i>Projekte ansehen' },
     { sel: '.hero-btns .btn-outline:nth-child(2)', p: 'html', en: '<i class="fas fa-briefcase"></i>Experience', de: '<i class="fas fa-briefcase"></i>Erfahrung' },
     { sel: '.btn-download', p: 'html', en: '<i class="fas fa-download"></i>Download CV', de: '<i class="fas fa-download"></i>Lebenslauf herunterladen' },
