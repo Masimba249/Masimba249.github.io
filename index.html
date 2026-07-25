@@ -923,7 +923,7 @@
       <div class="stat"><div class="stat-val">13+</div><div class="stat-label">Years Freelancing</div></div>
       <div class="stat"><div class="stat-val">2+</div><div class="stat-label">Years Industry</div></div>
       <div class="stat"><div class="stat-val">20+</div><div class="stat-label">GitHub Repos</div></div>
-      <div class="stat"><div class="stat-val">1</div><div class="stat-label">IEEE Publication</div></div>
+      <div class="stat"><div class="stat-val">2</div><div class="stat-label">IEEE Publications</div></div>
       <div class="stat"><div class="stat-val">20%</div><div class="stat-label">Precision Improved</div></div>
     </div>
   </div>
@@ -1324,7 +1324,7 @@
         </div>
       </a>
 
-      <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="project-card" data-detail="IEEE-published research project proposing a hybrid approach combining Extended Kalman Filter (EKF) for robust state estimation with a Deep Q-Network (DQN) for autonomous stabilisation of quadcopter UAVs. Addresses the challenge of maintaining stable flight in GPS-denied and turbulent environments where traditional PID controllers fail. The EKF fuses noisy IMU and barometer data to produce accurate attitude estimates, while the DQN agent learns optimal corrective thrust commands through trial-and-error in a MATLAB/Simulink simulation environment. Demonstrated significant reduction in roll/pitch drift compared to baseline PID, validated across multiple wind disturbance scenarios. Published at IEEE Conference 2026." data-detail-de="IEEE-veröffentlichtes Forschungsprojekt mit einem hybriden Ansatz: Extended Kalman Filter (EKF) für robuste Zustandsschätzung kombiniert mit Deep Q-Network (DQN) zur autonomen Stabilisierung von Quadcopter-UAVs. Adressiert die Herausforderung stabilen Flugs in GPS-freien und turbulenten Umgebungen, in denen herkömmliche PID-Regler versagen. Der EKF fusioniert verrauschte IMU- und Barometerdaten zu präzisen Lageinschätzungen, während der DQN-Agent optimale Schubkorrekturbefehle durch Trial-and-Error in MATLAB/Simulink erlernt. Signifikante Reduktion der Roll-/Nickabweichung gegenüber Basis-PID, validiert über mehrere Windstörungsszenarien. Veröffentlicht auf der IEEE-Konferenz 2026.">
+      <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="project-card" data-detail="Research project (to be presented at IEEE IECON 2026) proposing a multi-layered hybrid approach combining Extended Kalman Filter (EKF) for robust state estimation with a Deep Q-Network (DQN) for autonomous stabilisation of quadcopter UAVs. Addresses the challenge of maintaining stable flight in GPS-denied and turbulent environments where traditional PID controllers fail. The EKF fuses noisy IMU and GPS data into a clean state estimate, while the DQN agent learns optimal stabilizing control actions through trial-and-error in a MATLAB/Simulink simulation environment. Benchmarked against a PID baseline under ideal, moderate (20 m/s), and strong (50 m/s) wind conditions, achieving position RMSE improvement from 2.4 m to 1.2 m and a policy that adapts as disturbance strength increases." data-detail-de="Forschungsprojekt (Präsentation auf der IEEE IECON 2026) mit einem mehrschichtigen hybriden Ansatz: Extended Kalman Filter (EKF) für robuste Zustandsschätzung kombiniert mit Deep Q-Network (DQN) zur autonomen Stabilisierung von Quadcopter-UAVs. Adressiert die Herausforderung stabilen Flugs in GPS-freien und turbulenten Umgebungen, in denen herkömmliche PID-Regler versagen. Der EKF fusioniert verrauschte IMU- und GPS-Daten zu einer präzisen Zustandsschätzung, während der DQN-Agent optimale Stabilisierungsaktionen durch Trial-and-Error in MATLAB/Simulink erlernt. Getestet gegen eine PID-Baseline unter idealen, moderaten (20 m/s) und starken (50 m/s) Windbedingungen, mit einer Verbesserung der Positions-RMSE von 2,4 m auf 1,2 m und einer Strategie, die sich mit zunehmender Störungsstärke anpasst.">
         <img class="project-card-img" src="images/gallery/gallery-9.jpg" alt="Hybrid EKF-DQN Quadcopter Stabilization" loading="lazy" />
         <div class="project-card-overlay"></div>
         <div class="project-card-body">
@@ -1333,9 +1333,9 @@
         </div>
         <i class="fas fa-arrow-up-right-from-square project-link-icon"></i>
         <div class="project-header" hidden><span class="project-icon"><i class="fas fa-helicopter"></i></span></div>
-        <div class="project-desc" hidden><strong style="color:var(--accent2)">IEEE Published</strong> — Hybrid EKF-DQN model for real-time UAV stabilization. Significant drift reduction vs baseline PID.</div>
+        <div class="project-desc" hidden><strong style="color:var(--accent2)">IEEE IECON 2026</strong> — Hybrid EKF-DQN model for real-time UAV stabilization. RMSE improves from 2.4 m to 1.2 m vs baseline PID.</div>
         <div class="project-meta" hidden>
-          <span class="project-impact"><i class="fas fa-trophy"></i> IEEE Published 2026</span>
+          <span class="project-impact"><i class="fas fa-trophy"></i> IEEE IECON 2026</span>
           <span class="project-role">Primary researcher</span>
         </div>
         <div class="project-badges" hidden>
@@ -1793,12 +1793,18 @@
       <div class="pub-icon"><i class="fas fa-file-alt"></i></div>
       <div>
         <div class="pub-title">"Hybrid EKF-DQN Model for Real-time Stabilization and Drift Reduction of a Quadcopter UAV"</div>
-        <div class="pub-venue"><i class="fas fa-file-lines"></i> IEEE Conference, 2026</div>
+        <div class="pub-venue"><i class="fas fa-file-lines"></i> IEEE IECON 2026 (Annual Conference of the IEEE Industrial Electronics Society)</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.9rem;line-height:1.6;">
+          Kuanysh Yessenzhanov, <strong style="color:var(--text)">Collins Masimba</strong>, Ilyas Muhammad, Muhammad Hassan Tanveer (Corresponding Author), Razvan Cristian Voicu
+          — Kazakh-British Technical University &amp; Kennesaw State University
+        </div>
         <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.7">
-          Proposes a hybrid approach combining Extended Kalman Filter (EKF) with Deep Q-Network (DQN)
-          for robust real-time state estimation and autonomous stabilisation of quadcopter UAVs in
-          GPS-denied and turbulent environments. Achieved significant reduction in attitude drift
-          compared to baseline PID controllers.
+          Proposes a multi-layered EKF-DQN model that fuses EKF-filtered IMU/GPS state estimates with a
+          Deep Q-Network controller, benchmarked against a conventional PID baseline for quadcopter
+          stabilization under ideal, moderate (20&nbsp;m/s), and strong (50&nbsp;m/s) wind conditions.
+          Across the wind-disturbance case studies, cumulative reward turns positive within 50 training
+          episodes and position RMSE improves from 2.4&nbsp;m to 1.2&nbsp;m, with the learned policy adapting
+          to disturbance strength in a way a fixed-gain PID cannot.
         </p>
         <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
           <span class="tag">Quadcopter UAV</span>
@@ -1806,9 +1812,47 @@
           <span class="tag">DQN</span>
           <span class="tag">MATLAB/Simulink</span>
           <span class="tag">Reinforcement Learning</span>
+          <span class="tag">GPS-Denied Navigation</span>
         </div>
         <a href="https://github.com/Masimba249/Hybrid-EKF-DQN-Model-for-Real-time-Stabilization" target="_blank" class="pub-link">
           View Code &amp; Paper <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- IEEE ICCA 2026 Paper -->
+    <div class="pub-card" style="margin-top:2rem;">
+      <div class="pub-icon"><i class="fas fa-file-alt"></i></div>
+      <div>
+        <div class="pub-title">"Distributed Control Framework of Multirobot System Using Automation and Control Applications"</div>
+        <div class="pub-venue"><i class="fas fa-file-lines"></i> IEEE ICCA 2026 (International Conference on Control and Automation) — Session WeAT4.7, 15:00&ndash;15:15</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.9rem;line-height:1.6;">
+          Rassul Zeinulla, Almat Abdimalik, Ayan Rakhmetkali, <strong style="color:var(--text)">Collins Masimba</strong>, Timur Samigulin
+          — Kazakh-British Technical University
+        </div>
+        <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.7">
+          Presents a combined PLC&ndash;MATLAB control architecture, organized into four software layers
+          (mission/task, motion planning, robot driver, communication), that coordinates two RoArm-M2-S
+          manipulators for synchronized spray painting and a KUKA KR10 R1100-2 for pick-and-place on a
+          conveyorized line. A SIMATIC S7-1500 PLC (CPU 1513F-1 PN) handles sequence control, interlocks,
+          and safety logic, while MATLAB performs trajectory planning and monitoring over OPC UA and
+          PROFINET, with operator supervision via a WinCC HMI. Wireshark traffic analysis confirmed a
+          stable 20&ndash;110 packet/s OPC UA link throughout testing, and real-time Cartesian, torque,
+          velocity, and current telemetry validated the KUKA's 190-waypoint pick-and-place trajectory
+          alongside synchronized dual-arm painting.
+        </p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+          <span class="tag">PLC</span>
+          <span class="tag">SIMATIC S7-1500</span>
+          <span class="tag">MATLAB/Simulink</span>
+          <span class="tag">OPC UA</span>
+          <span class="tag">PROFINET</span>
+          <span class="tag">WinCC HMI</span>
+          <span class="tag">Multi-Robot</span>
+          <span class="tag">Robotic Painting</span>
+        </div>
+        <a href="https://github.com/rassulz/multirobot_painting_control_system" target="_blank" class="pub-link">
+          View Research Repository <i class="fas fa-arrow-right"></i>
         </a>
       </div>
     </div>
@@ -2347,7 +2391,7 @@
     { sel: '.hero-stats .stat:nth-child(1) .stat-label', en: 'Years Freelancing', de: 'Jahre Freelancing' },
     { sel: '.hero-stats .stat:nth-child(2) .stat-label', en: 'Years Industry', de: 'Jahre Industrie' },
     { sel: '.hero-stats .stat:nth-child(3) .stat-label', en: 'GitHub Repos', de: 'GitHub Repos' },
-    { sel: '.hero-stats .stat:nth-child(4) .stat-label', en: 'IEEE Publication', de: 'IEEE Publikation' },
+    { sel: '.hero-stats .stat:nth-child(4) .stat-label', en: 'IEEE Publications', de: 'IEEE Publikationen' },
     { sel: '.hero-stats .stat:nth-child(5) .stat-label', en: 'Precision Improved', de: 'Präzision verbessert' },
 
     // ─── ABOUT ───
@@ -2460,7 +2504,8 @@
     { sel: '#publication .section-label', en: 'Research', de: 'Forschung' },
     { sel: '#publication .section-title', p: 'html', en: 'Publication & <span class="highlight">Research</span>', de: 'Publikation & <span class="highlight">Forschung</span>' },
     { sel: '.pub-card:nth-child(2) .pub-link', p: 'html', en: 'View Code & Paper <i class="fas fa-arrow-right"></i>', de: 'Code & Paper ansehen <i class="fas fa-arrow-right"></i>' },
-    { sel: '.pub-card:nth-child(3) .pub-link', p: 'html', en: 'View Thesis Repository <i class="fas fa-arrow-right"></i>', de: 'Thesis-Repository ansehen <i class="fas fa-arrow-right"></i>' },
+    { sel: '.pub-card:nth-child(3) .pub-link', p: 'html', en: 'View Research Repository <i class="fas fa-arrow-right"></i>', de: 'Forschungs-Repository ansehen <i class="fas fa-arrow-right"></i>' },
+    { sel: '.pub-card:nth-child(4) .pub-link', p: 'html', en: 'View Thesis Repository <i class="fas fa-arrow-right"></i>', de: 'Thesis-Repository ansehen <i class="fas fa-arrow-right"></i>' },
 
     // ─── ACTIVITIES ───
     { sel: '#activities .section-label', en: 'More About Me', de: 'Mehr über mich' },
