@@ -91,6 +91,14 @@
     }
     .btn-download:hover { transform: translateY(-2px); background: #0da271; box-shadow: 0 4px 16px rgba(16,185,129,0.3); }
 
+    /* Download Portfolio PDF button (hero) */
+    .btn-download-portfolio {
+      background: #3b82f6; color: #fff;
+      box-shadow: 0 2px 10px rgba(59,130,246,0.25);
+    }
+    .btn-download-portfolio:hover { transform: translateY(-2px); background: #2f6fd6; box-shadow: 0 4px 16px rgba(59,130,246,0.3); }
+    .btn-download-portfolio.generating { opacity: 0.7; cursor: wait; }
+
     /* Portfolio PDF button */
     .btn-portfolio {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -918,6 +926,7 @@
       <a href="https://github.com/Masimba249" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i>GitHub</a>
       <a href="https://www.freelancer.com/u/mcollinscalz" target="_blank" class="btn btn-outline"><i class="fas fa-briefcase"></i>Freelancer</a>
       <a href="Collins_Masimba_CV.pdf" download class="btn btn-download"><i class="fas fa-download"></i>Download CV</a>
+      <button type="button" class="btn btn-download-portfolio" id="hero-download-portfolio" onclick="generatePortfolioPDF('hero-download-portfolio')"><i class="fas fa-file-pdf"></i>Download Portfolio PDF</button>
     </div>
     <div class="hero-stats">
       <div class="stat"><div class="stat-val">13+</div><div class="stat-label">Years Freelancing</div></div>
@@ -2453,6 +2462,7 @@
     { sel: '#projects .section-title', p: 'html', en: 'Featured <span class="highlight">Project Portfolio</span>', de: 'Ausgewählte <span class="highlight">Projektauswahl</span>' },
     { sel: '#projects .section-desc', en: 'A curated set of projects spanning embedded AI, robotics, automation, and power systems.', de: 'Eine kuratierte Sammlung von Projekten aus den Bereichen Embedded AI, Robotik, Automatisierung und Energiesysteme.' },
     { sel: '#download-portfolio', p: 'html', en: '<i class="fas fa-file-pdf"></i> Download Portfolio PDF', de: '<i class="fas fa-file-pdf"></i> Portfolio PDF herunterladen' },
+    { sel: '#hero-download-portfolio', p: 'html', en: '<i class="fas fa-file-pdf"></i>Download Portfolio PDF', de: '<i class="fas fa-file-pdf"></i>Portfolio PDF herunterladen' },
     // Project roles
     { sel: '.project-card:nth-child(1) .project-role', en: 'Solo developer', de: 'Alleinentwickler' },
     { sel: '.project-card:nth-child(2) .project-role', en: 'Lead developer', de: 'Leitender Entwickler' },
@@ -2603,8 +2613,9 @@ function loadJsPDF() {
   });
 }
 
-function generatePortfolioPDF() {
-  var btn = document.getElementById('download-portfolio');
+function generatePortfolioPDF(buttonId) {
+  var btn = document.getElementById(buttonId || 'download-portfolio');
+  var originalLabel = btn.innerHTML;
   btn.classList.add('generating');
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading library...';
 
@@ -2617,24 +2628,31 @@ function generatePortfolioPDF() {
 
       // ── PDF text translations
       var t = {
-        coverTitle1:    isDE ? 'PROJEKT'      : 'PROJECT',
+        coverTitle1:    isDE ? 'VOLLST\u00c4NDIGES' : 'COMPLETE',
         coverTitle2:    isDE ? 'PORTFOLIO'     : 'PORTFOLIO',
         subtitle:       isDE ? 'Embedded AI & Automatisierungsingenieur' : 'Embedded AI & Automation Engineer',
         location:       isDE ? 'Wohnhaft in Deutschland  |  EU Blue Card berechtigt' : 'Based in Germany  |  EU Blue Card Eligible',
         statProjects:   isDE ? 'Projekte'     : 'Projects',
         statFreelance:  isDE ? 'Jahre Freelancing' : 'Yrs Freelancing',
         statIndustry:   isDE ? 'Jahre Industrie'   : 'Yrs Industry',
-        statPaper:      isDE ? 'IEEE Paper'   : 'IEEE Paper',
+        statPapers:     isDE ? 'IEEE Publikationen' : 'IEEE Publications',
+        statCerts:      isDE ? 'Zertifikate' : 'Certifications',
         coverNote:      isDE
-          ? 'Dieses Portfolio enth\u00e4lt {n} Open-Source-Projekte. Erstellt am '
-          : 'This portfolio contains {n} open-source projects. Generated on ',
+          ? 'Dieses Portfolio enth\u00e4lt {n} Open-Source-Projekte sowie Berufserfahrung, Ausbildung, Zertifizierungen und IEEE-Publikationen. Erstellt am '
+          : 'This portfolio contains {n} open-source projects, plus professional experience, education, certifications, and IEEE publications. Generated on ',
         sectionTitle:   isDE ? 'Projekte'     : 'Projects',
+        expTitle:       isDE ? 'Berufliche Erfahrung' : 'Professional Experience',
+        eduTitle:       isDE ? 'Ausbildung & Hintergrund' : 'Education & Background',
+        skillsTitle:    isDE ? 'F\u00e4higkeiten & Werkzeuge' : 'Skills & Tools',
+        certsTitle:     isDE ? 'Zertifizierungen & Kurse' : 'Certifications & Courses',
+        pubTitle:       isDE ? 'Publikation & Forschung' : 'Publication & Research',
+        courseworkLabel: isDE ? 'Relevante Studieninhalte:' : 'Relevant Coursework:',
         footerLine1:    isDE ? 'Zusammengestellt aus masimba249.github.io' : 'Compiled from masimba249.github.io',
         footerLine2:    isDE ? 'Alle Projekte sind Open Source und verf\u00fcgbar auf github.com/Masimba249' : 'All projects are open source and available on github.com/Masimba249',
         footerContact:  'Kontakt: Masimba249@gmail.com  |  +49 152 13937719',
-        pageFooter:     isDE ? 'Collins Masimba \u2014 Projektportfolio' : 'Collins Masimba \u2014 Project Portfolio',
+        pageFooter:     isDE ? 'Collins Masimba \u2014 Portfolio' : 'Collins Masimba \u2014 Portfolio',
         pageLabel:      isDE ? 'Seite' : 'Page',
-        filename:       isDE ? 'Collins_Masimba_Projektportfolio.pdf' : 'Collins_Masimba_Project_Portfolio.pdf',
+        filename:       isDE ? 'Collins_Masimba_Portfolio.pdf' : 'Collins_Masimba_Portfolio.pdf',
         dateLocale:     isDE ? 'de-DE' : 'en-GB'
       };
 
@@ -2666,6 +2684,48 @@ function generatePortfolioPDF() {
         }
       }
 
+      // ── Starts a section on a fresh page with an accent bar + title
+      function startSection(title) {
+        doc.addPage();
+        drawBg();
+        y = margin;
+        doc.setFillColor(accent[0], accent[1], accent[2]);
+        doc.rect(margin, y, 4, 10, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(18);
+        doc.setTextColor(white[0], white[1], white[2]);
+        doc.text(title, margin + 8, y + 8);
+        y += 18;
+      }
+
+      // ── Estimates how many wrapped rows a set of small tag chips will need
+      function estimateTagRows(tags) {
+        if (!tags || tags.length === 0) return 0;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(6);
+        var totalW = 0;
+        tags.forEach(function(tag) { totalW += doc.getTextWidth(tag) + 8; });
+        return Math.max(1, Math.ceil(totalW / (maxW - 4)));
+      }
+
+      // ── Draws wrapped small tag chips starting at (margin+4, startY); returns new y
+      function drawTagChips(tags, startY, chipTextColor) {
+        var bx = margin + 4;
+        var by = startY;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(6);
+        tags.forEach(function(tag) {
+          var bw = doc.getTextWidth(tag) + 6;
+          if (bx + bw > margin + maxW - 4) { bx = margin + 4; by += 5; }
+          doc.setFillColor(dark[0], dark[1], dark[2]);
+          doc.roundedRect(bx, by - 3, bw, 5, 1, 1, 'F');
+          doc.setTextColor(chipTextColor[0], chipTextColor[1], chipTextColor[2]);
+          doc.text(tag, bx + 3, by);
+          bx += bw + 2;
+        });
+        return by + 5;
+      }
+
       // ── Collect featured projects from DOM
       var projects = [];
       var featuredNames = new Set();
@@ -2695,6 +2755,71 @@ function generatePortfolioPDF() {
         projects.push({ name: name, desc: detail || desc, lang: lang, impact: '', role: '', url: url, badges: [] });
         var repoName = url.split('/').pop();
         if (repoName) featuredNames.add(repoName.toLowerCase());
+      });
+
+      // ── Collect experience from DOM
+      var experience = [];
+      document.querySelectorAll('#experience .timeline-item').forEach(function(item) {
+        var title = (item.querySelector('.exp-title') || {}).textContent || '';
+        var badge = (item.querySelector('.exp-badge') || {}).textContent || '';
+        var company = (item.querySelector('.exp-company') || {}).textContent || '';
+        var period = (item.querySelector('.exp-period') || {}).textContent || '';
+        var bullets = [];
+        item.querySelectorAll('.exp-list li').forEach(function(li) { bullets.push(li.textContent.trim()); });
+        var tags = [];
+        item.querySelectorAll('.exp-tags .exp-tag').forEach(function(tg) { tags.push(tg.textContent.trim()); });
+        experience.push({ title: title.trim(), badge: badge.trim(), company: company.trim(), period: period.trim(), bullets: bullets, tags: tags });
+      });
+
+      // ── Collect education from DOM
+      var education = [];
+      document.querySelectorAll('#education .edu-card').forEach(function(card) {
+        var badge = (card.querySelector('.edu-badge') || {}).textContent || '';
+        var degree = (card.querySelector('.edu-degree') || {}).textContent || '';
+        var institution = (card.querySelector('.edu-institution') || {}).textContent || '';
+        var period = (card.querySelector('.edu-period') || {}).textContent || '';
+        var coursesEl = card.querySelector('.edu-courses');
+        var courses = '';
+        if (coursesEl) {
+          var strongEl = coursesEl.querySelector('strong');
+          courses = coursesEl.textContent.replace(strongEl ? strongEl.textContent : '', '').replace(/\s+/g, ' ').trim();
+        }
+        education.push({ badge: badge.trim(), degree: degree.trim(), institution: institution.trim(), period: period.trim(), courses: courses });
+      });
+
+      // ── Collect skills from DOM
+      var skillCategories = [];
+      document.querySelectorAll('#skills .skill-category').forEach(function(cat) {
+        var title = (cat.querySelector('.skill-cat-title') || {}).textContent || '';
+        var tags = [];
+        cat.querySelectorAll('.skill-tag').forEach(function(tg) { tags.push(tg.textContent.trim()); });
+        skillCategories.push({ title: title.replace(/\s+/g, ' ').trim(), tags: tags });
+      });
+
+      // ── Collect certifications from DOM
+      var certifications = [];
+      document.querySelectorAll('#certifications .cert-card').forEach(function(card) {
+        var name = (card.querySelector('.cert-name') || {}).textContent || '';
+        var issuer = (card.querySelector('.cert-issuer') || {}).textContent || '';
+        var year = (card.querySelector('.cert-year') || {}).textContent || '';
+        certifications.push({ name: name.trim(), issuer: issuer.trim(), year: year.trim(), url: card.href || '' });
+      });
+
+      // ── Collect publications from DOM
+      var publications = [];
+      document.querySelectorAll('#publication .pub-card').forEach(function(card) {
+        var title = (card.querySelector('.pub-title') || {}).textContent || '';
+        var venueEl = card.querySelector('.pub-venue');
+        var venue = venueEl ? venueEl.textContent : '';
+        var byline = '';
+        var siblingEl = venueEl ? venueEl.nextElementSibling : null;
+        if (siblingEl && siblingEl.tagName === 'DIV') byline = siblingEl.textContent.replace(/\s+/g, ' ').trim();
+        var descEl = card.querySelector('p');
+        var desc = descEl ? descEl.textContent.replace(/\s+/g, ' ').trim() : '';
+        var tags = [];
+        card.querySelectorAll('.tag').forEach(function(tg) { tags.push(tg.textContent.trim()); });
+        var linkEl = card.querySelector('.pub-link');
+        publications.push({ title: title.trim(), venue: venue.trim(), byline: byline, desc: desc, tags: tags, url: linkEl ? linkEl.href : '', isThesis: !byline });
       });
 
       // ── Fetch remaining repos from GitHub API if auto-projects section is empty
@@ -2778,7 +2903,8 @@ function generatePortfolioPDF() {
         { val: projects.length + '', label: t.statProjects },
         { val: '13+', label: t.statFreelance },
         { val: '2+', label: t.statIndustry },
-        { val: '1', label: t.statPaper }
+        { val: '2', label: t.statPapers },
+        { val: certifications.length + '', label: t.statCerts }
       ];
       var statW = maxW / stats.length;
       stats.forEach(function(s, i) {
@@ -2802,20 +2928,275 @@ function generatePortfolioPDF() {
       doc.rect(0, H - 3, W, 3, 'F');
 
       // ══════════════════════════════
+      // EXPERIENCE PAGES
+      // ══════════════════════════════
+      startSection(t.expTitle);
+
+      experience.forEach(function(exp) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        var bulletLineCount = 0;
+        var bulletWrapped = exp.bullets.map(function(b) {
+          var lines = doc.splitTextToSize(b, maxW - 14);
+          bulletLineCount += lines.length;
+          return lines;
+        });
+        var tagRows = estimateTagRows(exp.tags);
+
+        var cardH = 8 + 5 + 5 + 3 + (bulletLineCount * 4) + (tagRows > 0 ? tagRows * 5 + 4 : 0) + 8;
+        checkPage(cardH + 4);
+
+        doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
+        doc.roundedRect(margin, y, maxW, cardH, 2, 2, 'F');
+
+        var innerY = y + 7;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
+        doc.setTextColor(white[0], white[1], white[2]);
+        doc.text(exp.title, margin + 4, innerY);
+
+        if (exp.badge) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6.5);
+          var badgeW = doc.getTextWidth(exp.badge) + 6;
+          var badgeX = margin + maxW - badgeW - 4;
+          doc.setFillColor(dark[0], dark[1], dark[2]);
+          doc.roundedRect(badgeX, innerY - 4, badgeW, 6, 1, 1, 'F');
+          doc.setTextColor(accent[0], accent[1], accent[2]);
+          doc.text(exp.badge, badgeX + 3, innerY);
+        }
+
+        innerY += 6;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(245, 210, 77);
+        doc.text(exp.company, margin + 4, innerY);
+
+        innerY += 5;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.5);
+        doc.setTextColor(muted[0], muted[1], muted[2]);
+        doc.text(exp.period, margin + 4, innerY);
+
+        innerY += 6;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(muted[0], muted[1], muted[2]);
+        bulletWrapped.forEach(function(lines) {
+          doc.text('•', margin + 4, innerY);
+          doc.text(lines, margin + 9, innerY);
+          innerY += lines.length * 4;
+        });
+
+        if (tagRows > 0) {
+          innerY += 2;
+          innerY = drawTagChips(exp.tags, innerY, accent);
+        }
+
+        y += cardH + 4;
+      });
+
+      // ══════════════════════════════
+      // EDUCATION PAGE
+      // ══════════════════════════════
+      startSection(t.eduTitle);
+
+      education.forEach(function(edu) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        var courseLines = edu.courses ? doc.splitTextToSize(edu.courses, maxW - 8) : [];
+
+        var cardH = 8 + 5 + 5 + 6 + (courseLines.length * 4) + 8;
+        checkPage(cardH + 4);
+
+        doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
+        doc.roundedRect(margin, y, maxW, cardH, 2, 2, 'F');
+
+        var innerY = y + 7;
+        if (edu.badge) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6.5);
+          var badgeW = doc.getTextWidth(edu.badge) + 6;
+          doc.setFillColor(dark[0], dark[1], dark[2]);
+          doc.roundedRect(margin + 4, innerY - 4, badgeW, 6, 1, 1, 'F');
+          doc.setTextColor(accent[0], accent[1], accent[2]);
+          doc.text(edu.badge, margin + 7, innerY);
+          innerY += 7;
+        }
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
+        doc.setTextColor(white[0], white[1], white[2]);
+        doc.text(edu.degree, margin + 4, innerY);
+
+        innerY += 6;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(245, 210, 77);
+        doc.text(edu.institution, margin + 4, innerY);
+
+        innerY += 5;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.5);
+        doc.setTextColor(muted[0], muted[1], muted[2]);
+        doc.text(edu.period, margin + 4, innerY);
+
+        if (courseLines.length > 0) {
+          innerY += 6;
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(7.5);
+          doc.setTextColor(muted[0], muted[1], muted[2]);
+          doc.text(t.courseworkLabel, margin + 4, innerY);
+          innerY += 4;
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7.5);
+          doc.text(courseLines, margin + 4, innerY);
+          innerY += courseLines.length * 4;
+        }
+
+        y += cardH + 4;
+      });
+
+      // ══════════════════════════════
+      // SKILLS PAGES
+      // ══════════════════════════════
+      startSection(t.skillsTitle);
+
+      skillCategories.forEach(function(cat) {
+        var tagRows = estimateTagRows(cat.tags);
+        var cardH = 10 + tagRows * 5 + 6;
+        checkPage(cardH + 4);
+
+        doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
+        doc.roundedRect(margin, y, maxW, cardH, 2, 2, 'F');
+
+        var innerY = y + 8;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10);
+        doc.setTextColor(accent[0], accent[1], accent[2]);
+        doc.text(cat.title, margin + 4, innerY);
+
+        innerY += 5;
+        drawTagChips(cat.tags, innerY, [203, 213, 225]);
+
+        y += cardH + 4;
+      });
+
+      // ══════════════════════════════
+      // CERTIFICATIONS PAGE
+      // ══════════════════════════════
+      startSection(t.certsTitle);
+
+      certifications.forEach(function(cert) {
+        var cardH = 18;
+        checkPage(cardH + 4);
+
+        doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
+        doc.roundedRect(margin, y, maxW, cardH, 2, 2, 'F');
+
+        var innerY = y + 7;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9.5);
+        doc.setTextColor(white[0], white[1], white[2]);
+        doc.text(cert.name, margin + 4, innerY);
+
+        if (cert.year) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6.5);
+          var yearW = doc.getTextWidth(cert.year) + 6;
+          var yearX = margin + maxW - yearW - 4;
+          doc.setFillColor(dark[0], dark[1], dark[2]);
+          doc.roundedRect(yearX, innerY - 4, yearW, 6, 1, 1, 'F');
+          doc.setTextColor(accent[0], accent[1], accent[2]);
+          doc.text(cert.year, yearX + 3, innerY);
+        }
+
+        innerY += 6;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(muted[0], muted[1], muted[2]);
+        doc.text(cert.issuer, margin + 4, innerY);
+
+        if (cert.url) {
+          innerY += 5;
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6);
+          doc.setTextColor(100, 116, 139);
+          doc.textWithLink(cert.url.replace('https://', ''), margin + 4, innerY, { url: cert.url });
+        }
+
+        y += cardH + 4;
+      });
+
+      // ══════════════════════════════
+      // PUBLICATIONS PAGES
+      // ══════════════════════════════
+      startSection(t.pubTitle);
+
+      publications.forEach(function(pub) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        var descLines = pub.desc ? doc.splitTextToSize(pub.desc, maxW - 8) : [];
+        var bylineLines = pub.byline ? doc.splitTextToSize(pub.byline, maxW - 8) : [];
+        var titleLines = doc.splitTextToSize(pub.title, maxW - 8);
+        var tagRows = estimateTagRows(pub.tags);
+        var accentColor = pub.isThesis ? green : accent;
+
+        var cardH = (titleLines.length * 6) + 6 + (bylineLines.length * 4) + 4 +
+          (descLines.length * 4) + 6 + (tagRows > 0 ? tagRows * 5 + 4 : 0) + (pub.url ? 6 : 0) + 6;
+        checkPage(cardH + 4);
+
+        doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
+        doc.roundedRect(margin, y, maxW, cardH, 2, 2, 'F');
+
+        var innerY = y + 7;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10.5);
+        doc.setTextColor(white[0], white[1], white[2]);
+        doc.text(titleLines, margin + 4, innerY);
+        innerY += titleLines.length * 6;
+
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.5);
+        doc.setTextColor(accentColor[0], accentColor[1], accentColor[2]);
+        doc.text(pub.venue, margin + 4, innerY);
+        innerY += 5;
+
+        if (bylineLines.length > 0) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7);
+          doc.setTextColor(muted[0], muted[1], muted[2]);
+          doc.text(bylineLines, margin + 4, innerY);
+          innerY += bylineLines.length * 4 + 2;
+        }
+
+        if (descLines.length > 0) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(8);
+          doc.setTextColor(muted[0], muted[1], muted[2]);
+          doc.text(descLines, margin + 4, innerY);
+          innerY += descLines.length * 4 + 2;
+        }
+
+        if (tagRows > 0) {
+          innerY = drawTagChips(pub.tags, innerY, accentColor);
+        }
+
+        if (pub.url) {
+          innerY += 2;
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6.5);
+          doc.setTextColor(100, 116, 139);
+          doc.textWithLink(pub.url.replace('https://', ''), margin + 4, innerY, { url: pub.url });
+        }
+
+        y += cardH + 4;
+      });
+
+      // ══════════════════════════════
       // PROJECT PAGES
       // ══════════════════════════════
-      doc.addPage();
-      drawBg();
-      y = margin;
-
-      // Section title
-      doc.setFillColor(accent[0], accent[1], accent[2]);
-      doc.rect(margin, y, 4, 10, 'F');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(18);
-      doc.setTextColor(white[0], white[1], white[2]);
-      doc.text(t.sectionTitle, margin + 8, y + 8);
-      y += 18;
+      startSection(t.sectionTitle);
 
       projects.forEach(function(proj, idx) {
         // Calculate dynamic card height based on description length
@@ -2951,13 +3332,13 @@ function generatePortfolioPDF() {
     }
 
     btn.classList.remove('generating');
-    btn.innerHTML = '<i class="fas fa-file-pdf"></i> Download Portfolio PDF';
+    btn.innerHTML = originalLabel;
   }); // end fetchPromise.then
   }).catch(function(err) {
     console.error(err);
     alert(err.message || 'Could not load PDF library. Please check your internet connection and try again.');
     btn.classList.remove('generating');
-    btn.innerHTML = '<i class="fas fa-file-pdf"></i> Download Portfolio PDF';
+    btn.innerHTML = originalLabel;
   });
 }
 </script>
