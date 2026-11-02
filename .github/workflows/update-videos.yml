@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'scripts/update-videos.mjs'
 
 permissions:
   contents: write

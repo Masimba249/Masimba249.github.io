@@ -54,7 +54,8 @@ function findVideoRef(section) {
 
 function extractProjects(html) {
   const projects = [];
-  const cardRe = /<a href="(https:\/\/github\.com\/[^"]+)" target="_blank" class="project-card"[\s\S]*?<div class="project-name">([^<]+)<\/div>/g;
+  // Demo cards in index.html: <a href="https://github.com/..." data-project="Display Name" ...>
+  const cardRe = /<a href="(https:\/\/github\.com\/[^"]+)" data-project="([^"]+)"/g;
   let m;
   while ((m = cardRe.exec(html))) {
     const url = m[1];
